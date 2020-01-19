@@ -3,23 +3,31 @@ import GraphNode from '../../components/GraphNode';
 import {Button} from 'antd';
 
 function Dijkstra(props) {
-  const [isClick, setIsClick] = useState(false);
-  const [xCoor, setXCoor] = useState(null);
-  const [yCoor, setYCoor] = useState(null);
+  const [nodes, setNodes] = useState([]);
 
   const onClickSet = e => {
-    const x = e.clientX;
-    const y = e.clientY;
-    console.log(x, y);
-    setXCoor(x);
-    setYCoor(y);
-    setIsClick(true);
+    if (e.target.value === 'reset') {
+      return;
+    }
+
+    // IMMUTABILITY
+    const temp = [];
+    for (let i = 0; i < nodes.length; i++) {
+      temp.push(nodes[i]);
+    }
+
+    const newNode = {
+      x: e.clientX,
+      y: e.clientY,
+    };
+
+    console.log(newNode);
+    temp.push(newNode);
+    setNodes(temp);
   };
 
   const onClickReset = e => {
-    setIsClick(false);
-    setXCoor(null);
-    setYCoor(null);
+    setNodes([]);
   };
 
   return (
@@ -32,10 +40,14 @@ function Dijkstra(props) {
         width: '100%',
         textAlign: 'center',
       }}>
-      <Button type="primary" onClick={onClickReset}>
+      <Button type="primary" onClick={onClickReset} value="reset">
         Reset
       </Button>
-      {isClick ? <GraphNode x={xCoor} y={yCoor} /> : <div />}
+      {nodes.length > 0 ? (
+        nodes.map((node, index) => <GraphNode index={index} x={node.x} y={node.y} />)
+      ) : (
+        <div />
+      )}
     </div>
   );
 }

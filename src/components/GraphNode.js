@@ -1,10 +1,16 @@
 import React from 'react';
+import {ReactComponent as Circle} from './circle.svg';
 
 function GraphNode(props) {
   return (
-    <h2 style={{position: 'absolute', left: `${props.x}px`, top: `${props.y}px`}}>
-      This is a graph node!
-    </h2>
+    <Circle
+      key={props.index}
+      style={{
+        position: 'absolute',
+        left: `${props.x}px`,
+        top: `${props.y}px`,
+      }}
+    />
   );
 }
 
