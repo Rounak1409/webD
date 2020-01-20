@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import GraphNode from '../../components/GraphNode';
+import Line from '../../components/Line';
 import {Button} from 'antd';
 
 function Dijkstra(props) {
@@ -43,8 +44,11 @@ function Dijkstra(props) {
       <Button type="primary" onClick={onClickReset} value="reset">
         Reset
       </Button>
+
       {nodes.length > 0 ? (
-        nodes.map((node, index) => <GraphNode index={index} x={node.x} y={node.y} />)
+        nodes.map((node, index) => (
+          <GraphNode index={index} x={node.x} y={node.y} />
+        ))
       ) : (
         <div />
       )}
