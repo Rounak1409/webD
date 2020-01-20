@@ -7,13 +7,22 @@ export default function handleClick(
   e,
   currState,
   nodes,
+  latestNodeId,
+  setLatestNodeId,
   edges,
   setNodes,
   setEdges,
   dispatch,
 ) {
   if (currState.element === NODE && currState.operation === ADD) {
-    return handleAddNode(e, nodes, setNodes, dispatch);
+    return handleAddNode(
+      e,
+      nodes,
+      latestNodeId,
+      setLatestNodeId,
+      setNodes,
+      dispatch,
+    );
   } else if (currState.element === NODE && currState.operation === DEL) {
     return handleDelNode(e, nodes, setNodes, dispatch);
   }
@@ -29,11 +38,17 @@ export default function handleClick(
   return;
 }
 
-const handleAddNode = (e, nodes, setNodes, dispatch) => {
+const handleAddNode = (
+  e,
+  nodes,
+  latestNodeId,
+  setLatestNodeId,
+  setNodes,
+  dispatch,
+) => {
   if (e.target.value) {
     return;
   }
-
 
   // IMMUTABILITY
   const temp = [];
@@ -47,7 +62,8 @@ const handleAddNode = (e, nodes, setNodes, dispatch) => {
     temp.push(nodes[i]);
   }
 
-  const newNode = new Node(e.clientX, e.clientY, nodes.length);
+  const newNode = new Node(e.clientX, e.clientY, latestNodeId);
+  setLatestNodeId(latestNodeId + 1);
   console.log(newNode);
   temp.push(newNode);
   setNodes(temp);
@@ -59,8 +75,6 @@ const handleDelNode = (e, nodes, setNodes, dispatch) => {
   if (e.target.value) {
     return;
   }
-
-    
 };
 
 /*

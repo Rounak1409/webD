@@ -11,6 +11,7 @@ const {NODE, EDGE, ADD, DEL} = constants;
 
 function Dijkstra(props) {
   const [nodes, setNodes] = useState([]);
+  const [latestNodeId, setLatestNodeId] = useState(0);
   const [edges, setEdges] = useState([]);
   const [currState, setCurrState] = useState({
     element: NODE,
@@ -57,7 +58,17 @@ function Dijkstra(props) {
   return (
     <div
       onClick={e =>
-        handleClick(e, currState, nodes, edges, setNodes, setEdges, dispatch)
+        handleClick(
+          e,
+          currState,
+          nodes,
+          latestNodeId,
+          setLatestNodeId,
+          edges,
+          setNodes,
+          setEdges,
+          dispatch,
+        )
       }
       style={{
         borderColor: 'red',
