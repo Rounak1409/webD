@@ -12,6 +12,7 @@ export default function handleClick(
   setEdges,
   dispatch,
 ) {
+  console.log(e.target.value);
   if (currState.element === NODE && currState.operation === ADD) {
     return handleAddNode(e, nodes, setNodes, dispatch);
   }
@@ -34,13 +35,19 @@ const handleAddNode = (e, nodes, setNodes, dispatch) => {
     return;
   }
 
+  const newNode = new Node(e.clientX, e.clientY, nodes.length);
+
   // IMMUTABILITY
   const temp = [];
   for (let i = 0; i < nodes.length; i++) {
+    if (
+      Math.abs(nodes[i].x - e.clientX) < 80 &&
+      Math.abs(nodes[i].y - e.clientY) < 50
+    ) {
+      return;
+    }
     temp.push(nodes[i]);
   }
-
-  const newNode = new Node(e.clientX, e.clientY, nodes.length);
 
   console.log(newNode);
   temp.push(newNode);

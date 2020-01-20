@@ -1,9 +1,10 @@
 import React from 'react';
-import {ReactComponent as Circle} from './circle.svg';
+import {Button} from 'antd';
+import CircleIcon from './CircleIcon';
 
 function GraphNode(props) {
-  const x = props.x - 27.5;
-  const y = props.y - 27.5;
+  const x = props.x - 50;
+  const y = props.y - 50;
   /*
     borderStyle: 'solid',
     borderRadius: '50%',
@@ -15,9 +16,10 @@ function GraphNode(props) {
         position: 'absolute',
         left: `${x}px`,
         top: `${y}px`,
-      }}>
-      <Circle key={props.index} />
-      <h2>{props.index}</h2>
+      }}
+      key={props.index}>
+      <div>{props.index}</div>
+      <CircleIcon />
     </div>
   );
 }
