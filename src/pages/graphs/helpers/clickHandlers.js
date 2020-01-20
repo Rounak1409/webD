@@ -12,15 +12,13 @@ export default function handleClick(
   setEdges,
   dispatch,
 ) {
-  console.log(e.target.value);
   if (currState.element === NODE && currState.operation === ADD) {
     return handleAddNode(e, nodes, setNodes, dispatch);
+  } else if (currState.element === NODE && currState.operation === DEL) {
+    return handleDelNode(e, nodes, setNodes, dispatch);
   }
-  return;
+
   /*
-    case currState.element === NODE && currState.operation === DEL:
-      handleDelNode(e, nodes, setNodes);
-      return;
         case (currState.element === EDGE && currState.operation === ADD):
             handleAddEdge(currState,
         case (currState.element === EDGE && currState.operation === DEL):
@@ -28,6 +26,7 @@ export default function handleClick(
       return;
   }
         */
+  return;
 }
 
 const handleAddNode = (e, nodes, setNodes, dispatch) => {
@@ -35,7 +34,6 @@ const handleAddNode = (e, nodes, setNodes, dispatch) => {
     return;
   }
 
-  const newNode = new Node(e.clientX, e.clientY, nodes.length);
 
   // IMMUTABILITY
   const temp = [];
@@ -49,6 +47,7 @@ const handleAddNode = (e, nodes, setNodes, dispatch) => {
     temp.push(nodes[i]);
   }
 
+  const newNode = new Node(e.clientX, e.clientY, nodes.length);
   console.log(newNode);
   temp.push(newNode);
   setNodes(temp);
@@ -56,18 +55,15 @@ const handleAddNode = (e, nodes, setNodes, dispatch) => {
   return newNode;
 };
 
-/*
-const handleDelNode = () => {
-    if (e.target.value === 'reset') {
-        return;
-    }
+const handleDelNode = (e, nodes, setNodes, dispatch) => {
+  if (e.target.value) {
+    return;
+  }
 
-    const temp = [];
-    for (let i = 0; i < nodes.length; i++) {
-        if (nodes[i] !== 
-    }
+    
 };
 
+/*
 const handleAddNode = () => {};
 
 const handleAddNode = () => {};

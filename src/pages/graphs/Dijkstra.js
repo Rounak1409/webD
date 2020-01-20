@@ -26,18 +26,30 @@ function Dijkstra(props) {
     });
   };
 
-  const onClickAddNode = e => {
+  const onClickAddNodeButton = e => {
     setCurrState({
       element: NODE,
       operation: ADD,
     });
   };
 
-  const onClickDelNode = e => {
+  const onClickDelNodeButton = e => {
     setCurrState({
       element: NODE,
       operation: DEL,
     });
+  };
+
+  const onClickDelNode = (e, node) => {
+    if (currState.operation === DEL) {
+      const temp = [];
+      for (let i = 0; i < nodes.length; i++) {
+        if (nodes[i] !== node) {
+          temp.push(nodes[i]);
+        }
+      }
+      setNodes(temp);
+    }
   };
 
   return (
@@ -55,14 +67,22 @@ function Dijkstra(props) {
       <Button type="primary" onClick={onClickReset} value="reset">
         Reset
       </Button>
-      <Button type="primary" onClick={onClickAddNode} value="addNode">
+      <Button type="primary" onClick={onClickAddNodeButton} value="addNode">
         Add Node
       </Button>
-      <Button type="primary" onClick={onClickDelNode} value="delNode">
+      <Button type="primary" onClick={onClickDelNodeButton} value="delNode">
         Del Node
       </Button>
       {nodes.length > 0 ? (
-        nodes.map(node => <GraphNode index={node.id} x={node.x} y={node.y} />)
+        nodes.map(node => (
+          <GraphNode
+            onClick={e => onClickDelNode(e, node)}
+            delete={currState.operation === DEL}
+            index={node.id}
+            x={node.x}
+            y={node.y}
+          />
+        ))
       ) : (
         <div />
       )}
