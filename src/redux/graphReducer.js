@@ -10,10 +10,11 @@ const graphReducer = (state = {}, action) => {
     case 'DEL_NODE':
       const delNodeId = action.node.id;
       newState = Object.assign({}, state);
-      delete newState.delNodeId;
+      delete newState[delNodeId];
+          console.log(newState, delNodeId);
       for (let node in newState) {
         const newArr = [];
-        for (let i = 0; i < newState.node.length; i++) {
+        for (let i = 0; i < newState[node].length; i++) {
           if (newState.node[i] !== delNodeId) {
             newArr.push(newState.node[i]);
           }

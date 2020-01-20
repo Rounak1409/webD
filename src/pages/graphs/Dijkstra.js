@@ -5,6 +5,7 @@ import {Button} from 'antd';
 import {useDispatch} from 'react-redux';
 import constants from './helpers/constants';
 import handleClick from './helpers/clickHandlers';
+import {addNode, delNode, addEdge, delEdge} from '../../redux/graphActions';
 
 const {NODE, EDGE, ADD, DEL} = constants;
 
@@ -49,6 +50,7 @@ function Dijkstra(props) {
         }
       }
       setNodes(temp);
+      dispatch(delNode(node));
     }
   };
 
