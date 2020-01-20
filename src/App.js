@@ -1,8 +1,7 @@
 import React from 'react';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
-import GraphsPage from './pages/GraphsPage';
 import Dijkstra from './pages/graphs/Dijkstra';
-import logo from './logo.svg';
+import GraphsPage from './pages/GraphsPage';
 
 function App() {
   return (
