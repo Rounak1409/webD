@@ -17,7 +17,6 @@ function Dijkstra(props) {
     element: NODE,
     operation: ADD,
     nodeA: null,
-    nodeB: null,
   });
   const dispatch = useDispatch();
 
@@ -75,6 +74,45 @@ function Dijkstra(props) {
     });
   };
 
+  const printEdgesSelected = () => {
+    if (currState.element === EDGE) {
+      if (currState.nodeA) {
+        return (
+          <h1>
+            First Node: <b>Node {currState.nodeA.id}</b>
+          </h1>
+        );
+      } else {
+        return (
+          <h1>
+            First Node: <b>unselected</b>
+          </h1>
+        );
+      }
+    } else {
+      return <div />;
+    }
+  };
+
+  const onClickSelectNode = node => {
+    if (currState.nodeA) {
+      //draw edge from nodeA to node
+      const temp = [];
+      for (let i = 0; i < edges.length; i++) {
+        temp.push(edges[i]);
+      }
+      temp.push([currState.nodeA, node]);
+      setEdges(temp);
+    } else {
+      //set nodeA to node
+      setCurrState({
+        element: currState.element,
+        operation: currState.operation,
+        nodeA: node,
+      });
+    }
+  };
+
   return (
     <div
       onClick={e =>
@@ -97,7 +135,11 @@ function Dijkstra(props) {
         width: '100%',
         textAlign: 'center',
       }}>
-        <h1>Current State ELEMENT: {currState.element} OPERATION: {currState.operation}</h1>
+      <h1>
+        Current State ELEMENT: {currState.element} OPERATION:{' '}
+        {currState.operation}
+      </h1>
+      {printEdgesSelected()}
       <Button type="primary" onClick={onClickReset} value="reset">
         Reset
       </Button>
@@ -116,13 +158,32 @@ function Dijkstra(props) {
       {nodes.length > 0 ? (
         nodes.map(node => (
           <GraphNode
-            onClick={e => onClickDelNode(e, node)}
+            onClick={e => {
+              if (currState.element === NODE && currState.operation === DEL) {
+                return onClickDelNode(e, node);
+              } else if (currState.element === EDGE) {
+                return onClickSelectNode(node);
+              }
+            }}
             delete={currState.operation === DEL}
             index={node.id}
             x={node.x}
             y={node.y}
           />
         ))
+      ) : (
+        <div />
+      )}
+      {edges.length > 0 ? (
+        edges.map(edge => {
+          const data = {
+            x1: edge[0].x,
+            y1: edge[0].y,
+            x2: edge[1].x,
+            y2: edge[1].y,
+          };
+          return <Line data={data} />;
+        })
       ) : (
         <div />
       )}
