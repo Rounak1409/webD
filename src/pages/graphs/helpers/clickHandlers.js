@@ -1,4 +1,5 @@
 import constants from './constants';
+import {message} from 'antd';
 import Node from '../classes/Node';
 import {addNode, delNode, addEdge, delEdge} from '../../../redux/graphActions';
 const {NODE, EDGE, ADD, DEL} = constants;
@@ -57,6 +58,7 @@ const handleAddNode = (
       Math.abs(nodes[i].x - e.clientX) < 80 &&
       Math.abs(nodes[i].y - e.clientY) < 50
     ) {
+      message.error('Ensure that there is enough space between the nodes');
       return;
     }
     temp.push(nodes[i]);

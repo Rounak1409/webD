@@ -16,6 +16,8 @@ function Dijkstra(props) {
   const [currState, setCurrState] = useState({
     element: NODE,
     operation: ADD,
+    nodeA: null,
+    nodeB: null,
   });
   const dispatch = useDispatch();
 
@@ -55,6 +57,24 @@ function Dijkstra(props) {
     }
   };
 
+  const onClickAddEdgeButton = e => {
+    setCurrState({
+      element: EDGE,
+      operation: ADD,
+      nodeA: null,
+      nodeB: null,
+    });
+  };
+
+  const onClickDelEdgeButton = e => {
+    setCurrState({
+      element: EDGE,
+      operation: DEL,
+      nodeA: null,
+      nodeB: null,
+    });
+  };
+
   return (
     <div
       onClick={e =>
@@ -77,14 +97,21 @@ function Dijkstra(props) {
         width: '100%',
         textAlign: 'center',
       }}>
+        <h1>Current State ELEMENT: {currState.element} OPERATION: {currState.operation}</h1>
       <Button type="primary" onClick={onClickReset} value="reset">
         Reset
       </Button>
       <Button type="primary" onClick={onClickAddNodeButton} value="addNode">
-        Add Node
+        Add Nodes
       </Button>
       <Button type="primary" onClick={onClickDelNodeButton} value="delNode">
-        Del Node
+        Del Nodes
+      </Button>
+      <Button type="primary" onClick={onClickAddEdgeButton} value="addEdge">
+        Add Edges
+      </Button>
+      <Button type="primary" onClick={onClickDelEdgeButton} value="delEdge">
+        Del Edges
       </Button>
       {nodes.length > 0 ? (
         nodes.map(node => (
