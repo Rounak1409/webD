@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
 import GraphNode from './components/GraphNode';
 import Line from './components/Line';
-import {Button} from 'antd';
+import {message, Button} from 'antd';
 import {useDispatch} from 'react-redux';
-import {NODE, EDGE, ADD, DEL} from './helpers/constants';
+import {NODE, EDGE, ADD, DEL, RUN} from './helpers/constants';
 import {
   onClickReset,
   onClickAddNodeButton,
@@ -11,11 +11,11 @@ import {
   onClickDelNode,
   onClickAddEdgeButton,
   onClickDelEdgeButton,
-  printEdgesSelected,
+  onClickRunButton,
+  printStatus,
   onClickSelectNode,
   handleAddNode,
 } from './helpers/clickHandlers';
-
 
 function Dijkstra(props) {
   const [nodes, setNodes] = useState([]);
@@ -25,8 +25,23 @@ function Dijkstra(props) {
     operation: ADD,
     nodeA: null,
   });
+  const [startEndNodePair, setStartEndNodePair] = useState([null, null]);
   const [latestNodeId, setLatestNodeId] = useState(0);
   const dispatch = useDispatch();
+
+  const verifyStartEndNodes = node => {
+    if (startEndNodePair[0] === null) {
+      setStartEndNodePair([node, startEndNodePair[1]]);
+    } else if (startEndNodePair[1] === null) {
+      setStartEndNodePair([startEndNodePair[0], node]);
+    } else {
+      message.error('Already selected both start and end Nodes!');
+    }
+  };
+
+  const dijkstra = () => {
+    console.log('dijkstra-ing...');
+  };
 
   return (
     <div
@@ -49,14 +64,18 @@ function Dijkstra(props) {
         width: '100%',
         textAlign: 'center',
       }}>
-      <h1>
-        Current State ELEMENT: {currState.element} OPERATION:{' '}
-        {currState.operation}
-      </h1>
-      {printEdgesSelected(currState)}
+      {printStatus(currState, startEndNodePair, dijkstra)}
       <Button
         type="primary"
-        onClick={e => onClickReset(setNodes, setEdges, setCurrState, setLatestNodeId, dispatch)}
+        onClick={e =>
+          onClickReset(
+            setNodes,
+            setEdges,
+            setCurrState,
+            setLatestNodeId,
+            dispatch,
+          )
+        }
         value="reset">
         Reset
       </Button>
@@ -84,6 +103,12 @@ function Dijkstra(props) {
         value="delEdge">
         Del Edges
       </Button>
+      <Button
+        type="primary"
+        onClick={e => onClickRunButton(setCurrState)}
+        value="run">
+        Run Dijkstra!
+      </Button>
       {nodes.length > 0 ? (
         nodes.map(node => (
           <GraphNode
@@ -99,6 +124,8 @@ function Dijkstra(props) {
                   setEdges,
                   dispatch,
                 );
+              } else if (currState.operation === RUN) {
+                verifyStartEndNodes(node);
               }
             }}
             index={node.id}

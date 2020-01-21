@@ -1,6 +1,6 @@
 import React from 'react';
-import {NODE, EDGE, ADD, DEL} from './constants';
-import {message} from 'antd';
+import {NODE, EDGE, ADD, DEL, RUN} from './constants';
+import {message, Button} from 'antd';
 import Node from '../classes/Node';
 import Edge from '../classes/Edge';
 import {
@@ -58,23 +58,55 @@ export const onClickDelEdgeButton = setCurrState => {
   });
 };
 
-export const printEdgesSelected = currState => {
+export const onClickRunButton = setCurrState => {
+  setCurrState({
+    element: null,
+    operation: RUN,
+    nodeA: null,
+  });
+};
+
+export const printStatus = (currState, startEndNodePair, dijkstra) => {
+  let statusLine, secondStatusLine, thirdStatusLine;
+  if (currState.operation === RUN) {
+    statusLine = 'RUN DIJKSTRA';
+    if (startEndNodePair[0] === null) {
+      secondStatusLine = `Start Node: ${startEndNodePair[0]}, End Node: ${startEndNodePair[1]}`;
+      thirdStatusLine = 'Please choose a start Node';
+    } else if (startEndNodePair[1] === null) {
+      secondStatusLine = `Start Node: ${startEndNodePair[0].id}, End Node: ${startEndNodePair[1]}`;
+      thirdStatusLine = 'Please choose an end Node';
+    } else {
+      secondStatusLine = `Start Node: ${startEndNodePair[0].id}, End Node: ${startEndNodePair[1].id}`;
+      thirdStatusLine = <Button onClick={dijkstra}>Run Dijkstra!</Button>;
+    }
+    return (
+      <div>
+        <h1>{statusLine}</h1>
+        <h2>{secondStatusLine}</h2>
+        <h2>{thirdStatusLine}</h2>
+      </div>
+    );
+  }
+  statusLine = `${currState.operation} ${currState.element}`;
   if (currState.element === EDGE) {
     if (currState.nodeA) {
       return (
-        <h1>
-          First Node: <b>Node {currState.nodeA.id}</b>
-        </h1>
+        <div>
+          <h1>{statusLine}</h1>
+          <h2>First Node: Node {currState.nodeA.id}</h2>
+        </div>
       );
     } else {
       return (
-        <h1>
-          First Node: <b>unselected</b>
-        </h1>
+        <div>
+          <h1>{statusLine}</h1>
+          <h2>First Node: unselected</h2>
+        </div>
       );
     }
   } else {
-    return <div />;
+    return <h1>{statusLine}</h1>;
   }
 };
 
@@ -137,14 +169,17 @@ export const onClickSelectNode = (
       for (let i = 0; i < edges.length; i++) {
         temp.push(edges[i]);
       }
-        const newEdge = new Edge(currState.nodeA, node);
+      const newEdge = new Edge(currState.nodeA, node);
       //const newEdge = [currState.nodeA, node];
       temp.push(newEdge);
       dispatch(addEdge(newEdge));
     } else {
       const nodePair = [currState.nodeA, node];
       for (let i = 0; i < edges.length; i++) {
-        if (edges[i].containsNode(nodePair[0]) && edges[i].containsNode(nodePair[1])) {
+        if (
+          edges[i].containsNode(nodePair[0]) &&
+          edges[i].containsNode(nodePair[1])
+        ) {
           continue;
         } else {
           temp.push(edges[i]);
