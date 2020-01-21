@@ -11,7 +11,7 @@ const graphReducer = (state = {}, action) => {
       const delNodeId = action.node.id;
       newState = Object.assign({}, state);
       delete newState[delNodeId];
-          console.log(newState, delNodeId);
+      console.log(newState, delNodeId);
       for (let node in newState) {
         const newArr = [];
         for (let i = 0; i < newState[node].length; i++) {
@@ -24,10 +24,11 @@ const graphReducer = (state = {}, action) => {
       return newState;
     //case 'VISITED_NODE':
     case 'ADD_EDGE':
-      const {edgeNodeA, edgeNodeB} = action.nodes;
-      state.nodeA.push(edgeNodeB);
-      state.nodeB.push(edgeNodeA);
-      return;
+      const newEdge = action.edge;
+      newState = Object.assign({}, state);
+      newState[newEdge[0].id].push(newEdge[1].id);
+      newState[newEdge[1].id].push(newEdge[0].id);
+      return newState;
     case 'DEL_EDGE':
       const {nodeA, nodeB} = action.nodes;
       let newArr = state.nodeA.filter(node => node !== nodeB);

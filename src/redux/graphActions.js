@@ -1,3 +1,5 @@
+//change to payload
+//add RESET OPTION
 export const addNode = newNode => {
   return {
     type: 'ADD_NODE',
@@ -12,22 +14,16 @@ export const delNode = delNode => {
   };
 };
 
-export const addEdge = (nodeA, nodeB) => {
+export const addEdge = (newEdge) => {
   return {
     type: 'ADD_EDGE',
-    nodes: {
-      edgeNodeA: nodeA,
-      edgeNodeB: nodeB,
-    },
+    edge: newEdge
   };
 };
 
-export const delEdge = (nodeA, nodeB) => {
+export const delEdge = (delEdge) => {
   return {
     type: 'DEL_EDGE',
-    nodes: {
-      nodeA,
-      nodeB,
-    },
-  };
+    edge: delEdge
+  }
 };

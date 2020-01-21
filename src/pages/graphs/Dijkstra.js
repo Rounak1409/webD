@@ -61,7 +61,6 @@ function Dijkstra(props) {
       element: EDGE,
       operation: ADD,
       nodeA: null,
-      nodeB: null,
     });
   };
 
@@ -70,7 +69,6 @@ function Dijkstra(props) {
       element: EDGE,
       operation: DEL,
       nodeA: null,
-      nodeB: null,
     });
   };
 
@@ -101,8 +99,10 @@ function Dijkstra(props) {
       for (let i = 0; i < edges.length; i++) {
         temp.push(edges[i]);
       }
-      temp.push([currState.nodeA, node]);
+      const newEdge = [currState.nodeA, node];
+      temp.push(newEdge);
       setEdges(temp);
+      dispatch(addEdge(newEdge));
     } else {
       //set nodeA to node
       setCurrState({

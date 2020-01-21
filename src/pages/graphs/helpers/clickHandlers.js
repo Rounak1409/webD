@@ -28,9 +28,10 @@ export default function handleClick(
     return handleDelNode(e, nodes, setNodes, dispatch);
   }
 
-  /*
-        case (currState.element === EDGE && currState.operation === ADD):
-            handleAddEdge(currState,
+    /*
+    else if (currState.element === EDGE && currState.operation === ADD) {
+            return handleAddEdge(currState,
+    }
         case (currState.element === EDGE && currState.operation === DEL):
     default:
       return;
