@@ -60,12 +60,13 @@ export const onClickDelEdgeButton = setCurrState => {
   });
 };
 
-export const onClickRunButton = setCurrState => {
+export const onClickRunButton = (setCurrState, setStartEndNodePair) => {
   setCurrState({
     element: null,
     operation: RUN,
     nodeA: null,
   });
+  setStartEndNodePair([null, null]);
 };
 
 export const printStatus = (currState, startEndNodePair, dijkstra) => {

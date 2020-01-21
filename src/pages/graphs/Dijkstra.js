@@ -186,7 +186,7 @@ function Dijkstra(props) {
       </Button>
       <Button
         type="primary"
-        onClick={e => onClickRunButton(setCurrState)}
+        onClick={e => onClickRunButton(setCurrState, setStartEndNodePair)}
         value="run">
         Run Dijkstra!
       </Button>
