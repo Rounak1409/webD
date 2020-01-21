@@ -14,6 +14,7 @@ import {
   DELNODEINFO,
   ADDEDGEINFO,
   DELEDGEINFO,
+  RUNINFO,
 } from './helpers/constants';
 import {
   onClickReset,
@@ -180,8 +181,8 @@ function Dijkstra(props) {
 
     {
       value: 'run',
-      onClick: e => onClickRunButton(setCurrState, setStartEndNodePair),
-      text: 'Run Dijkstra!',
+      onClick: e => onClickRunButton(setCurrState, setStartEndNodePair, setInfoText),
+      text: 'Run',
       type: 'play-circle',
     },
   ];
@@ -234,6 +235,8 @@ function Dijkstra(props) {
               }}
               index={node.id}
               selected={currState.nodeA === node}
+              isStart={startEndNodePair[0] === node}
+              isEnd={startEndNodePair[1] === node}
               x={node.x}
               y={node.y}
             />
@@ -254,6 +257,7 @@ function Dijkstra(props) {
         ) : (
           <div />
         )}
+          {currState.operation === RUN && startEndNodePair[0] && startEndNodePair[1] ? <Button type='primary' icon='code' onClick={dijkstra}>Run Dijkstra!</Button> : <div />}
       </div>
     </div>
   );

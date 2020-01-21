@@ -1,5 +1,16 @@
 import React from 'react';
-import {NODE, EDGE, ADD, DEL, RUN, ADDNODEINFO, DELNODEINFO, ADDEDGEINFO, DELEDGEINFO} from './constants';
+import {
+  NODE,
+  EDGE,
+  ADD,
+  DEL,
+  RUN,
+  ADDNODEINFO,
+  DELNODEINFO,
+  ADDEDGEINFO,
+  DELEDGEINFO,
+  RUNINFO,
+} from './constants';
 import {message, Button} from 'antd';
 import Node from '../classes/Node';
 import Edge from '../classes/Edge';
@@ -66,13 +77,18 @@ export const onClickDelEdgeButton = (setCurrState, setInfoText) => {
   setInfoText(DELEDGEINFO);
 };
 
-export const onClickRunButton = (setCurrState, setStartEndNodePair) => {
+export const onClickRunButton = (
+  setCurrState,
+  setStartEndNodePair,
+  setInfoText,
+) => {
   setCurrState({
     element: null,
     operation: RUN,
     nodeA: null,
   });
   setStartEndNodePair([null, null]);
+  setInfoText(RUNINFO);
 };
 
 export const printStatus = (currState, startEndNodePair, dijkstra) => {
