@@ -62,6 +62,7 @@ function Dijkstra(props) {
       const newNode = Object.assign({}, nodes[i]);
       if (startEndNodePair[0] === nodes[i]) {
         newNode.costToReach = 0;
+        //newNode.parent = -1; // indicate source node -> no parent
       }
       nodesQueue.push(newNode);
       nodesMap.push(newNode);
@@ -73,6 +74,19 @@ function Dijkstra(props) {
       const nextNode = nodesQueue.shift();
       if (nextNode.id === dest.id) {
         console.log(`cost to reach is ${nextNode.costToReach}`);
+        // construct shortest path
+        const path = [dest.id];
+        let currentNode = nextNode;
+        while (true) {
+          let parentNode = currentNode.parent;
+          path.unshift(parentNode.id);
+          if (parentNode.costToReach === 0) {
+            //means source node already
+            break;
+          }
+          currentNode = parentNode;
+        }
+        console.log(path);
         break;
       } else {
         isVisited.push(nextNode.id);
@@ -100,6 +114,7 @@ function Dijkstra(props) {
             nextNodeNeighbors[i].weight + nextNode.costToReach;
           if (tempCostToReach < curr.costToReach) {
             curr.costToReach = tempCostToReach;
+            curr.parent = nextNode;
           }
         }
       }
