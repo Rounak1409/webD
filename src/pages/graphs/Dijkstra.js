@@ -112,10 +112,10 @@ function Dijkstra(props) {
       {edges.length > 0 ? (
         edges.map(edge => {
           const data = {
-            x1: edge[0].x,
-            y1: edge[0].y,
-            x2: edge[1].x,
-            y2: edge[1].y,
+            x1: edge.nodeA.x,
+            y1: edge.nodeA.y,
+            x2: edge.nodeB.x,
+            y2: edge.nodeB.y,
           };
           return <Line data={data} />;
         })

@@ -2,6 +2,7 @@ import React from 'react';
 import {NODE, EDGE, ADD, DEL} from './constants';
 import {message} from 'antd';
 import Node from '../classes/Node';
+import Edge from '../classes/Edge';
 import {
   reset,
   addNode,
@@ -136,19 +137,20 @@ export const onClickSelectNode = (
       for (let i = 0; i < edges.length; i++) {
         temp.push(edges[i]);
       }
-      const newEdge = [currState.nodeA, node];
+        const newEdge = new Edge(currState.nodeA, node);
+      //const newEdge = [currState.nodeA, node];
       temp.push(newEdge);
       dispatch(addEdge(newEdge));
     } else {
-      const rmEdge = [currState.nodeA, node];
+      const nodePair = [currState.nodeA, node];
       for (let i = 0; i < edges.length; i++) {
-        if (edges[i].includes(rmEdge[0]) && edges[i].includes(rmEdge[1])) {
+        if (edges[i].containsNode(nodePair[0]) && edges[i].containsNode(nodePair[1])) {
           continue;
         } else {
           temp.push(edges[i]);
         }
       }
-      dispatch(delEdge(rmEdge));
+      dispatch(delEdge(nodePair));
     }
     setEdges(temp);
   } else {

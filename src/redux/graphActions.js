@@ -20,6 +20,7 @@ export const delNode = delNode => {
   };
 };
 
+// edge = Object Edge
 export const addEdge = newEdge => {
   return {
     type: 'ADD_EDGE',
@@ -27,9 +28,10 @@ export const addEdge = newEdge => {
   };
 };
 
-export const delEdge = rmEdge => {
+// nodePair = [nodeA, nodeB]
+export const delEdge = nodePair => {
   return {
     type: 'DEL_EDGE',
-    edge: rmEdge,
+    nodePair
   };
 };

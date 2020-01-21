@@ -25,17 +25,25 @@ const graphReducer = (state = {}, action) => {
     //case 'VISITED_NODE':
     case 'ADD_EDGE':
       const newEdge = action.edge;
-      newState[newEdge[0].id].push(newEdge[1].id);
-      newState[newEdge[1].id].push(newEdge[0].id);
+      newState[newEdge.nodeA.id].push({
+        other: newEdge.nodeB.id,
+        weight: newEdge.weight,
+      });
+      newState[newEdge.nodeB.id].push({
+        other: newEdge.nodeA.id,
+        weight: newEdge.weight,
+      });
       return newState;
     case 'DEL_EDGE':
-      const rmEdge = action.edge;
-      let newArr = newState[rmEdge[0].id].filter(
-        nodeId => nodeId !== rmEdge[1].id,
+      const nodePair = action.nodePair;
+      let newArr = newState[nodePair[0].id].filter(
+        otherWtP => otherWtP.other !== nodePair[1].id, //otherWtP = other-weight-pair
       );
-      newState[rmEdge[0].id] = newArr;
-      newArr = newState[rmEdge[1].id].filter(nodeId => nodeId !== rmEdge[0].id);
-      newState[rmEdge[1].id] = newArr;
+      newState[nodePair[0].id] = newArr;
+      newArr = newState[nodePair[1].id].filter(
+        otherWtP => otherWtP.other !== nodePair[0].id,
+      );
+      newState[nodePair[1].id] = newArr;
       return newState;
     default:
       return state;
