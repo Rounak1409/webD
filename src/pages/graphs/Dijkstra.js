@@ -1,9 +1,20 @@
 import React, {useState} from 'react';
 import GraphNode from './components/GraphNode';
 import Line from './components/Line';
-import {message, Button} from 'antd';
+import MenuBar from './components/MenuBar';
+import {Alert, message, Button} from 'antd';
 import {useSelector, useDispatch} from 'react-redux';
-import {NODE, EDGE, ADD, DEL, RUN} from './helpers/constants';
+import {
+  NODE,
+  EDGE,
+  ADD,
+  DEL,
+  RUN,
+  ADDNODEINFO,
+  DELNODEINFO,
+  ADDEDGEINFO,
+  DELEDGEINFO,
+} from './helpers/constants';
 import {
   onClickReset,
   onClickAddNodeButton,
@@ -27,6 +38,7 @@ function Dijkstra(props) {
   });
   const [startEndNodePair, setStartEndNodePair] = useState([null, null]);
   const [latestNodeId, setLatestNodeId] = useState(0);
+  const [infoText, setInfoText] = useState(ADDNODEINFO);
   const dispatch = useDispatch();
   const readOnlyState = useSelector(state => state);
 
@@ -123,113 +135,126 @@ function Dijkstra(props) {
     console.log('finish dijkstra');
   };
 
+  const menuData = [
+    {
+      value: 'reset',
+      onClick: e =>
+        onClickReset(
+          setNodes,
+          setEdges,
+          setCurrState,
+          setLatestNodeId,
+          setStartEndNodePair,
+          setInfoText,
+          dispatch,
+        ),
+      text: 'Reset',
+      type: 'redo',
+    },
+    {
+      value: 'addNode',
+      onClick: e => onClickAddNodeButton(setCurrState, setInfoText),
+      text: 'Add Node',
+      type: 'plus-circle',
+    },
+    {
+      value: 'delNode',
+      onClick: e => onClickDelNodeButton(setCurrState, setInfoText),
+      text: 'Delete Node',
+      type: 'minus-circle',
+    },
+
+    {
+      value: 'addEdge',
+      onClick: e => onClickAddEdgeButton(setCurrState, setInfoText),
+      text: 'Add Edge',
+      type: 'plus',
+    },
+
+    {
+      value: 'delEdge',
+      onClick: e => onClickDelEdgeButton(setCurrState, setInfoText),
+      text: 'Delete Edge',
+      type: 'minus',
+    },
+
+    {
+      value: 'run',
+      onClick: e => onClickRunButton(setCurrState, setStartEndNodePair),
+      text: 'Run Dijkstra!',
+      type: 'play-circle',
+    },
+  ];
+
   return (
-    <div
-      onClick={e => {
-        if (currState.element === NODE && currState.operation === ADD) {
-          handleAddNode(
-            e,
-            nodes,
-            latestNodeId,
-            setLatestNodeId,
-            setNodes,
-            dispatch,
-          );
-        }
-      }}
-      style={{
-        borderColor: 'red',
-        borderStyle: 'solid',
-        height: '500px',
-        width: '100%',
-        textAlign: 'center',
-      }}>
-      {printStatus(currState, startEndNodePair, dijkstra)}
-      <Button
-        type="primary"
-        onClick={e =>
-          onClickReset(
-            setNodes,
-            setEdges,
-            setCurrState,
-            setLatestNodeId,
-            setStartEndNodePair,
-            dispatch,
-          )
-        }
-        value="reset">
-        Reset
-      </Button>
-      <Button
-        type="primary"
-        onClick={e => onClickAddNodeButton(setCurrState)}
-        value="addNode">
-        Add Nodes
-      </Button>
-      <Button
-        type="primary"
-        onClick={e => onClickDelNodeButton(setCurrState)}
-        value="delNode">
-        Del Nodes
-      </Button>
-      <Button
-        type="primary"
-        onClick={e => onClickAddEdgeButton(setCurrState)}
-        value="addEdge">
-        Add Edges
-      </Button>
-      <Button
-        type="primary"
-        onClick={e => onClickDelEdgeButton(setCurrState)}
-        value="delEdge">
-        Del Edges
-      </Button>
-      <Button
-        type="primary"
-        onClick={e => onClickRunButton(setCurrState, setStartEndNodePair)}
-        value="run">
-        Run Dijkstra!
-      </Button>
-      {nodes.length > 0 ? (
-        nodes.map(node => (
-          <GraphNode
-            onClick={e => {
-              if (currState.element === NODE && currState.operation === DEL) {
-                return onClickDelNode(nodes, setNodes, node, dispatch);
-              } else if (currState.element === EDGE) {
-                return onClickSelectNode(
-                  node,
-                  currState,
-                  setCurrState,
-                  edges,
-                  setEdges,
-                  dispatch,
-                );
-              } else if (currState.operation === RUN) {
-                verifyStartEndNodes(node);
-              }
-            }}
-            index={node.id}
-            x={node.x}
-            y={node.y}
-          />
-        ))
-      ) : (
-        <div />
-      )}
-      {edges.length > 0 ? (
-        edges.map(edge => {
-          const data = {
-            x1: edge.nodeA.x,
-            y1: edge.nodeA.y,
-            x2: edge.nodeB.x,
-            y2: edge.nodeB.y,
-          };
-          return <Line data={data} />;
-        })
-      ) : (
-        <div />
-      )}
+    <div>
+      <MenuBar
+        data={menuData}
+        printStatus={() => printStatus(currState, startEndNodePair, dijkstra)}
+      />
+      <Alert showIcon message={infoText} type="info" />
+      <div
+        onClick={e => {
+          if (currState.element === NODE && currState.operation === ADD) {
+            handleAddNode(
+              e,
+              nodes,
+              latestNodeId,
+              setLatestNodeId,
+              setNodes,
+              dispatch,
+            );
+          }
+        }}
+        style={{
+          borderColor: 'red',
+          borderStyle: 'solid',
+          height: '500px',
+          width: '100%',
+          textAlign: 'center',
+        }}>
+        {nodes.length > 0 ? (
+          nodes.map(node => (
+            <GraphNode
+              onClick={e => {
+                if (currState.element === NODE && currState.operation === DEL) {
+                  return onClickDelNode(nodes, setNodes, node, dispatch);
+                } else if (currState.element === EDGE) {
+                  return onClickSelectNode(
+                    node,
+                    currState,
+                    setCurrState,
+                    edges,
+                    setEdges,
+                    dispatch,
+                  );
+                } else if (currState.operation === RUN) {
+                  verifyStartEndNodes(node);
+                }
+              }}
+              index={node.id}
+              selected={currState.nodeA === node}
+              x={node.x}
+              y={node.y}
+            />
+          ))
+        ) : (
+          <div />
+        )}
+        {edges.length > 0 ? (
+          edges.map(edge => {
+            const data = {
+              x1: edge.nodeA.x,
+              y1: edge.nodeA.y,
+              x2: edge.nodeB.x,
+              y2: edge.nodeB.y,
+            };
+            return <Line data={data} />;
+          })
+        ) : (
+          <div />
+        )}
+      </div>
     </div>
   );
 }

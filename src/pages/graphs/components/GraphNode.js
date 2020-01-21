@@ -17,10 +17,10 @@ function GraphNode(props) {
         left: `${x}px`,
         top: `${y}px`,
       }}
-        key={props.index}
-    onClick={props.onClick}>
+      key={props.index}
+      onClick={props.onClick}>
       <div>{props.index}</div>
-      <CircleIcon />
+      <CircleIcon selected={props.selected} />
     </div>
   );
 }

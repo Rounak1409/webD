@@ -11,7 +11,11 @@ function CircleIcon(props) {
   return (
     <Icon
       component={Circle}
-      style={{fontSize: '100px'}}
+      style={
+        props.selected
+          ? {fontSize: '110px', border: '5px solid yellowgreen', borderRadius: '50%'}
+          : {fontSize: '100px'}
+      }
     />
   );
 }

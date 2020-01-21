@@ -1,5 +1,5 @@
 import React from 'react';
-import {NODE, EDGE, ADD, DEL, RUN} from './constants';
+import {NODE, EDGE, ADD, DEL, RUN, ADDNODEINFO, DELNODEINFO, ADDEDGEINFO, DELEDGEINFO} from './constants';
 import {message, Button} from 'antd';
 import Node from '../classes/Node';
 import Edge from '../classes/Edge';
@@ -17,6 +17,7 @@ export const onClickReset = (
   setCurrState,
   setLatestNodeId,
   setStartEndNodePair,
+  setInfoText,
   dispatch,
 ) => {
   setNodes([]);
@@ -27,37 +28,42 @@ export const onClickReset = (
   });
   setLatestNodeId(0);
   setStartEndNodePair([null, null]);
+  setInfoText(ADDNODEINFO);
   dispatch(reset());
 };
 
-export const onClickAddNodeButton = setCurrState => {
+export const onClickAddNodeButton = (setCurrState, setInfoText) => {
   setCurrState({
     element: NODE,
     operation: ADD,
   });
+  setInfoText(ADDNODEINFO);
 };
 
-export const onClickDelNodeButton = setCurrState => {
+export const onClickDelNodeButton = (setCurrState, setInfoText) => {
   setCurrState({
     element: NODE,
     operation: DEL,
   });
+  setInfoText(DELNODEINFO);
 };
 
-export const onClickAddEdgeButton = setCurrState => {
+export const onClickAddEdgeButton = (setCurrState, setInfoText) => {
   setCurrState({
     element: EDGE,
     operation: ADD,
     nodeA: null,
   });
+  setInfoText(ADDEDGEINFO);
 };
 
-export const onClickDelEdgeButton = setCurrState => {
+export const onClickDelEdgeButton = (setCurrState, setInfoText) => {
   setCurrState({
     element: EDGE,
     operation: DEL,
     nodeA: null,
   });
+  setInfoText(DELEDGEINFO);
 };
 
 export const onClickRunButton = (setCurrState, setStartEndNodePair) => {
@@ -85,31 +91,36 @@ export const printStatus = (currState, startEndNodePair, dijkstra) => {
     }
     return (
       <div>
-        <h1>{statusLine}</h1>
-        <h2>{secondStatusLine}</h2>
-        <h2>{thirdStatusLine}</h2>
+        {statusLine}
+        {secondStatusLine}
+        {thirdStatusLine}
       </div>
     );
   }
-  statusLine = `${currState.operation} ${currState.element}`;
+  const capitalize = string => {
+    return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+  };
+  statusLine = `Status: ${capitalize(currState.operation)} ${capitalize(
+    currState.element,
+  )}`;
   if (currState.element === EDGE) {
     if (currState.nodeA) {
       return (
         <div>
-          <h1>{statusLine}</h1>
-          <h2>First Node: Node {currState.nodeA.id}</h2>
+          {statusLine}
+          First Node: Node {currState.nodeA.id}
         </div>
       );
     } else {
       return (
         <div>
-          <h1>{statusLine}</h1>
-          <h2>First Node: unselected</h2>
+          {statusLine}
+          First Node: unselected
         </div>
       );
     }
   } else {
-    return <h1>{statusLine}</h1>;
+    return <div>{statusLine}</div>;
   }
 };
 
@@ -198,5 +209,6 @@ export const onClickSelectNode = (
       operation: currState.operation,
       nodeA: node,
     });
+    message.info('Please select the second node');
   }
 };

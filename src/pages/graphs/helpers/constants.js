@@ -3,3 +3,7 @@ export const EDGE = 'EDGE';
 export const ADD = 'ADD';
 export const DEL = 'DEL';
 export const RUN = 'RUN';
+export const ADDNODEINFO = 'Click anywhere on the area highlighted below to add new Nodes.';
+export const DELNODEINFO = 'Click anywhere on the area highlighted below to delete new Nodes.';
+export const ADDEDGEINFO = 'To add an Edge, click on the first Node of the new Edge, then click on the second Node'; 
+export const DELEDGEINFO = 'To delete an Edge, click on the first Node of the Edge to be deleted, then click on the second Node'; 
