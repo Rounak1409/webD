@@ -1,18 +1,15 @@
 // STATE: OBJ / HASHMAP OF Repr_NODE where Repr_NODE === Array of adj nodes
 const graphReducer = (state = {}, action) => {
-  let newState;
+  const newState = Object.assign({}, state);
   switch (action.type) {
     case 'RESET':
-      newState = {};
-      return newState;
+      return {};
     case 'ADD_NODE':
       const newNodeId = action.node.id;
-      newState = Object.assign({}, state);
       newState[newNodeId] = [];
       return newState;
     case 'DEL_NODE':
       const delNodeId = action.node.id;
-      newState = Object.assign({}, state);
       delete newState[delNodeId];
       console.log(newState, delNodeId);
       for (let node in newState) {
@@ -28,17 +25,18 @@ const graphReducer = (state = {}, action) => {
     //case 'VISITED_NODE':
     case 'ADD_EDGE':
       const newEdge = action.edge;
-      newState = Object.assign({}, state);
       newState[newEdge[0].id].push(newEdge[1].id);
       newState[newEdge[1].id].push(newEdge[0].id);
       return newState;
     case 'DEL_EDGE':
-      const {nodeA, nodeB} = action.nodes;
-      let newArr = state.nodeA.filter(node => node !== nodeB);
-      state.nodeA = newArr;
-      newArr = state.nodeB.filter(node => node !== nodeA);
-      state.nodeB = newArr;
-      return;
+      const rmEdge = action.edge;
+      let newArr = newState[rmEdge[0].id].filter(
+        nodeId => nodeId !== rmEdge[1].id,
+      );
+      newState[rmEdge[0].id] = newArr;
+      newArr = newState[rmEdge[1].id].filter(nodeId => nodeId !== rmEdge[0].id);
+      newState[rmEdge[1].id] = newArr;
+      return newState;
     default:
       return state;
   }

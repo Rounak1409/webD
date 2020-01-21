@@ -27,9 +27,9 @@ export const addEdge = newEdge => {
   };
 };
 
-export const delEdge = delEdge => {
+export const delEdge = rmEdge => {
   return {
     type: 'DEL_EDGE',
-    edge: delEdge,
+    edge: rmEdge,
   };
 };

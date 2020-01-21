@@ -2,7 +2,13 @@ import React from 'react';
 import {NODE, EDGE, ADD, DEL} from './constants';
 import {message} from 'antd';
 import Node from '../classes/Node';
-import {reset, addNode, delNode, addEdge, delEdge} from '../../../redux/graphActions';
+import {
+  reset,
+  addNode,
+  delNode,
+  addEdge,
+  delEdge,
+} from '../../../redux/graphActions';
 
 export const onClickReset = (setNodes, setEdges, setCurrState, dispatch) => {
   setNodes([]);
@@ -117,15 +123,27 @@ export const onClickSelectNode = (
   dispatch,
 ) => {
   if (currState.nodeA) {
-    //draw edge from nodeA to node
+    //add or del edge from nodeA to node
     const temp = [];
-    for (let i = 0; i < edges.length; i++) {
-      temp.push(edges[i]);
+    if (currState.operation === ADD) {
+      for (let i = 0; i < edges.length; i++) {
+        temp.push(edges[i]);
+      }
+      const newEdge = [currState.nodeA, node];
+      temp.push(newEdge);
+      dispatch(addEdge(newEdge));
+    } else {
+      const rmEdge = [currState.nodeA, node];
+      for (let i = 0; i < edges.length; i++) {
+        if (edges[i].includes(rmEdge[0]) && edges[i].includes(rmEdge[1])) {
+          continue;
+        } else {
+          temp.push(edges[i]);
+        }
+      }
+      dispatch(delEdge(rmEdge));
     }
-    const newEdge = [currState.nodeA, node];
-    temp.push(newEdge);
     setEdges(temp);
-    dispatch(addEdge(newEdge));
   } else {
     //set nodeA to node
     setCurrState({
