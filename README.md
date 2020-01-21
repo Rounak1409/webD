@@ -1,5 +1,7 @@
 # Issues:
 ## 1. Delete Node does not delete all its edges (expected: deleting a node will delete all of its edges)
+## 2. Functionality to undo edge creation
+## 3. Functionality to prevent edge duplicates 
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
