@@ -10,13 +10,20 @@ import {
   delEdge,
 } from '../../../redux/graphActions';
 
-export const onClickReset = (setNodes, setEdges, setCurrState, dispatch) => {
+export const onClickReset = (
+  setNodes,
+  setEdges,
+  setCurrState,
+  setLatestNodeId,
+  dispatch,
+) => {
   setNodes([]);
   setEdges([]);
   setCurrState({
     element: NODE,
     operation: ADD,
   });
+  setLatestNodeId(0);
   dispatch(reset());
 };
 

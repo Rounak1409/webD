@@ -19,13 +19,13 @@ import {
 
 function Dijkstra(props) {
   const [nodes, setNodes] = useState([]);
-  const [latestNodeId, setLatestNodeId] = useState(0);
   const [edges, setEdges] = useState([]);
   const [currState, setCurrState] = useState({
     element: NODE,
     operation: ADD,
     nodeA: null,
   });
+  const [latestNodeId, setLatestNodeId] = useState(0);
   const dispatch = useDispatch();
 
   return (
@@ -56,7 +56,7 @@ function Dijkstra(props) {
       {printEdgesSelected(currState)}
       <Button
         type="primary"
-        onClick={e => onClickReset(setNodes, setEdges, setCurrState, dispatch)}
+        onClick={e => onClickReset(setNodes, setEdges, setCurrState, setLatestNodeId, dispatch)}
         value="reset">
         Reset
       </Button>
