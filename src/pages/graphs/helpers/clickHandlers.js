@@ -97,55 +97,6 @@ export const onClickRunButton = (
   setInfoText(RUNINFO);
 };
 
-export const printStatus = (currState, startEndNodePair, dijkstra) => {
-  let statusLine, secondStatusLine, thirdStatusLine;
-  if (currState.operation === RUN) {
-    statusLine = 'RUN DIJKSTRA';
-    if (startEndNodePair[0] === null) {
-      secondStatusLine = `Start Node: ${startEndNodePair[0]}, End Node: ${startEndNodePair[1]}`;
-      thirdStatusLine = 'Please choose a start Node';
-    } else if (startEndNodePair[1] === null) {
-      secondStatusLine = `Start Node: ${startEndNodePair[0].id}, End Node: ${startEndNodePair[1]}`;
-      thirdStatusLine = 'Please choose an end Node';
-    } else {
-      secondStatusLine = `Start Node: ${startEndNodePair[0].id}, End Node: ${startEndNodePair[1].id}`;
-      thirdStatusLine = <Button onClick={dijkstra}>Run Dijkstra!</Button>;
-    }
-    return (
-      <div>
-        {statusLine}
-        {secondStatusLine}
-        {thirdStatusLine}
-      </div>
-    );
-  }
-  const capitalize = string => {
-    return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
-  };
-  statusLine = `Status: ${capitalize(currState.operation)} ${capitalize(
-    currState.element,
-  )}`;
-  if (currState.element === EDGE) {
-    if (currState.nodeA) {
-      return (
-        <div>
-          {statusLine}
-          First Node: Node {currState.nodeA.id}
-        </div>
-      );
-    } else {
-      return (
-        <div>
-          {statusLine}
-          First Node: unselected
-        </div>
-      );
-    }
-  } else {
-    return <div>{statusLine}</div>;
-  }
-};
-
 export const handleAddNode = (
   e,
   nodes,

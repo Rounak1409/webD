@@ -23,9 +23,6 @@ function MenuBar(props) {
   return (
     <Menu onClick={handleClick} selectedKeys={[current]} mode="horizontal">
       {props.data.map(data => renderData(data))}
-      <Menu.Item key="status" disabled>
-        {props.printStatus()}
-      </Menu.Item>
     </Menu>
   );
 }

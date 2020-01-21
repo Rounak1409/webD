@@ -225,7 +225,6 @@ function Dijkstra(props) {
     <div>
       <MenuBar
         data={menuData}
-        printStatus={() => printStatus(currState, startEndNodePair, dijkstra)}
       />
       <Alert showIcon message={infoText} type="info" />
       <div

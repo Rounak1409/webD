@@ -3,6 +3,7 @@
 ## 2. Delete Node does not delete all its edges (expected: deleting a node will delete all of its edges)
 ## 3. Functionality to undo edge creation
 ## 4. Functionality to prevent edge duplicates 
+## 5. User input validation (eg run dijkstra when nodes dont have edges)
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
