@@ -16,6 +16,7 @@ export const onClickReset = (
   setEdges,
   setCurrState,
   setLatestNodeId,
+  setStartEndNodePair,
   dispatch,
 ) => {
   setNodes([]);
@@ -25,6 +26,7 @@ export const onClickReset = (
     operation: ADD,
   });
   setLatestNodeId(0);
+  setStartEndNodePair([null, null]);
   dispatch(reset());
 };
 

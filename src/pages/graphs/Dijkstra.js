@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import GraphNode from './components/GraphNode';
 import Line from './components/Line';
 import {message, Button} from 'antd';
-import {useDispatch} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import {NODE, EDGE, ADD, DEL, RUN} from './helpers/constants';
 import {
   onClickReset,
@@ -28,6 +28,7 @@ function Dijkstra(props) {
   const [startEndNodePair, setStartEndNodePair] = useState([null, null]);
   const [latestNodeId, setLatestNodeId] = useState(0);
   const dispatch = useDispatch();
+  const readOnlyState = useSelector(state => state);
 
   const verifyStartEndNodes = node => {
     if (startEndNodePair[0] === null) {
@@ -40,7 +41,71 @@ function Dijkstra(props) {
   };
 
   const dijkstra = () => {
+    const helperSort = () => {
+      // 'PRIORITY QUEUE'
+      nodesQueue.sort((nodeA, nodeB) => {
+        if (nodeA.costToReach > nodeB.costToReach) {
+          return 1;
+        } else {
+          return -1;
+        }
+      });
+    };
+
     console.log('dijkstra-ing...');
+    // Make copy of all nodes, set source node cost as 0, rest of node
+    // by default has cost of infinity
+    const nodesMap = [];
+    const nodesQueue = [];
+    const isVisited = [];
+    for (let i = 0; i < nodes.length; i++) {
+      const newNode = Object.assign({}, nodes[i]);
+      if (startEndNodePair[0] === nodes[i]) {
+        newNode.costToReach = 0;
+      }
+      nodesQueue.push(newNode);
+      nodesMap.push(newNode);
+    }
+
+    const dest = startEndNodePair[1];
+    while (true) {
+      helperSort();
+      const nextNode = nodesQueue.shift();
+      if (nextNode.id === dest.id) {
+        console.log(`cost to reach is ${nextNode.costToReach}`);
+        break;
+      } else {
+        isVisited.push(nextNode.id);
+      }
+
+      // get neighbors from Redux store
+      const nextNodeNeighbors = readOnlyState[nextNode.id];
+      for (let i = 0; i < nextNodeNeighbors.length; i++) {
+        let curr;
+        const neighborId = nextNodeNeighbors[i].other;
+
+        // find the actual Node object in nodesMap
+        for (let j = 0; j < nodesMap.length; j++) {
+          if (nodesMap[j].id === neighborId) {
+            curr = nodesMap[j];
+            break;
+          }
+        }
+
+        //relaxx
+        if (isVisited.includes(curr.id)) {
+          continue;
+        } else {
+          const tempCostToReach =
+            nextNodeNeighbors[i].weight + nextNode.costToReach;
+          if (tempCostToReach < curr.costToReach) {
+            curr.costToReach = tempCostToReach;
+          }
+        }
+      }
+    }
+
+    console.log('finish dijkstra');
   };
 
   return (
@@ -73,6 +138,7 @@ function Dijkstra(props) {
             setEdges,
             setCurrState,
             setLatestNodeId,
+            setStartEndNodePair,
             dispatch,
           )
         }
