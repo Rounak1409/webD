@@ -2,6 +2,9 @@
 const graphReducer = (state = {}, action) => {
   let newState;
   switch (action.type) {
+    case 'RESET':
+      newState = {};
+      return newState;
     case 'ADD_NODE':
       const newNodeId = action.node.id;
       newState = Object.assign({}, state);

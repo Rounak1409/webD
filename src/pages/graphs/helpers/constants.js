@@ -1,8 +1,4 @@
-const constants = {
-  NODE: 'NODE',
-  EDGE: 'EDGE',
-  ADD: 'ADD',
-  DEL: 'DEL',
-};
-
-export default constants;
+export const NODE = 'NODE';
+export const EDGE = 'EDGE';
+export const ADD = 'ADD';
+export const DEL = 'DEL';

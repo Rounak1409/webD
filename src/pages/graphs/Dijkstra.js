@@ -3,11 +3,19 @@ import GraphNode from './components/GraphNode';
 import Line from './components/Line';
 import {Button} from 'antd';
 import {useDispatch} from 'react-redux';
-import constants from './helpers/constants';
-import handleClick from './helpers/clickHandlers';
-import {addNode, delNode, addEdge, delEdge} from '../../redux/graphActions';
+import {NODE, EDGE, ADD, DEL} from './helpers/constants';
+import {
+  onClickReset,
+  onClickAddNodeButton,
+  onClickDelNodeButton,
+  onClickDelNode,
+  onClickAddEdgeButton,
+  onClickDelEdgeButton,
+  printEdgesSelected,
+  onClickSelectNode,
+  handleAddNode,
+} from './helpers/clickHandlers';
 
-const {NODE, EDGE, ADD, DEL} = constants;
 
 function Dijkstra(props) {
   const [nodes, setNodes] = useState([]);
@@ -20,114 +28,20 @@ function Dijkstra(props) {
   });
   const dispatch = useDispatch();
 
-  const onClickReset = e => {
-    setNodes([]);
-    setEdges([]);
-    setCurrState({
-      element: NODE,
-      operation: ADD,
-    });
-  };
-
-  const onClickAddNodeButton = e => {
-    setCurrState({
-      element: NODE,
-      operation: ADD,
-    });
-  };
-
-  const onClickDelNodeButton = e => {
-    setCurrState({
-      element: NODE,
-      operation: DEL,
-    });
-  };
-
-  const onClickDelNode = (e, node) => {
-    if (currState.operation === DEL) {
-      const temp = [];
-      for (let i = 0; i < nodes.length; i++) {
-        if (nodes[i] !== node) {
-          temp.push(nodes[i]);
-        }
-      }
-      setNodes(temp);
-      dispatch(delNode(node));
-    }
-  };
-
-  const onClickAddEdgeButton = e => {
-    setCurrState({
-      element: EDGE,
-      operation: ADD,
-      nodeA: null,
-    });
-  };
-
-  const onClickDelEdgeButton = e => {
-    setCurrState({
-      element: EDGE,
-      operation: DEL,
-      nodeA: null,
-    });
-  };
-
-  const printEdgesSelected = () => {
-    if (currState.element === EDGE) {
-      if (currState.nodeA) {
-        return (
-          <h1>
-            First Node: <b>Node {currState.nodeA.id}</b>
-          </h1>
-        );
-      } else {
-        return (
-          <h1>
-            First Node: <b>unselected</b>
-          </h1>
-        );
-      }
-    } else {
-      return <div />;
-    }
-  };
-
-  const onClickSelectNode = node => {
-    if (currState.nodeA) {
-      //draw edge from nodeA to node
-      const temp = [];
-      for (let i = 0; i < edges.length; i++) {
-        temp.push(edges[i]);
-      }
-      const newEdge = [currState.nodeA, node];
-      temp.push(newEdge);
-      setEdges(temp);
-      dispatch(addEdge(newEdge));
-    } else {
-      //set nodeA to node
-      setCurrState({
-        element: currState.element,
-        operation: currState.operation,
-        nodeA: node,
-      });
-    }
-  };
-
   return (
     <div
-      onClick={e =>
-        handleClick(
-          e,
-          currState,
-          nodes,
-          latestNodeId,
-          setLatestNodeId,
-          edges,
-          setNodes,
-          setEdges,
-          dispatch,
-        )
-      }
+      onClick={e => {
+        if (currState.element === NODE && currState.operation === ADD) {
+          handleAddNode(
+            e,
+            nodes,
+            latestNodeId,
+            setLatestNodeId,
+            setNodes,
+            dispatch,
+          );
+        }
+      }}
       style={{
         borderColor: 'red',
         borderStyle: 'solid',
@@ -139,20 +53,35 @@ function Dijkstra(props) {
         Current State ELEMENT: {currState.element} OPERATION:{' '}
         {currState.operation}
       </h1>
-      {printEdgesSelected()}
-      <Button type="primary" onClick={onClickReset} value="reset">
+      {printEdgesSelected(currState)}
+      <Button
+        type="primary"
+        onClick={e => onClickReset(setNodes, setEdges, setCurrState, dispatch)}
+        value="reset">
         Reset
       </Button>
-      <Button type="primary" onClick={onClickAddNodeButton} value="addNode">
+      <Button
+        type="primary"
+        onClick={e => onClickAddNodeButton(setCurrState)}
+        value="addNode">
         Add Nodes
       </Button>
-      <Button type="primary" onClick={onClickDelNodeButton} value="delNode">
+      <Button
+        type="primary"
+        onClick={e => onClickDelNodeButton(setCurrState)}
+        value="delNode">
         Del Nodes
       </Button>
-      <Button type="primary" onClick={onClickAddEdgeButton} value="addEdge">
+      <Button
+        type="primary"
+        onClick={e => onClickAddEdgeButton(setCurrState)}
+        value="addEdge">
         Add Edges
       </Button>
-      <Button type="primary" onClick={onClickDelEdgeButton} value="delEdge">
+      <Button
+        type="primary"
+        onClick={e => onClickDelEdgeButton(setCurrState)}
+        value="delEdge">
         Del Edges
       </Button>
       {nodes.length > 0 ? (
@@ -160,12 +89,18 @@ function Dijkstra(props) {
           <GraphNode
             onClick={e => {
               if (currState.element === NODE && currState.operation === DEL) {
-                return onClickDelNode(e, node);
+                return onClickDelNode(nodes, setNodes, node, dispatch);
               } else if (currState.element === EDGE) {
-                return onClickSelectNode(node);
+                return onClickSelectNode(
+                  node,
+                  currState,
+                  setCurrState,
+                  edges,
+                  setEdges,
+                  dispatch,
+                );
               }
             }}
-            delete={currState.operation === DEL}
             index={node.id}
             x={node.x}
             y={node.y}
