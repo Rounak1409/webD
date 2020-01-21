@@ -20,7 +20,7 @@ function GraphNode(props) {
       key={props.index}
       onClick={props.onClick}>
       <div>{props.index}</div>
-      <CircleIcon isStart={props.isStart} isEnd={props.isEnd} selected={props.selected} />
+      <CircleIcon isNeighbor={props.isNeighbor} isStart={props.isStart} isEnd={props.isEnd} selected={props.selected} />
     </div>
   );
 }

@@ -30,9 +30,17 @@ function CircleIcon(props) {
     borderRadius: '50%',
   };
 
+  const neighborNodeStyle = {
+    fontSize: '110px',
+    border: '5px solid yellow',
+    borderRadius: '50%',
+  };
+
   const determineStyle = () => {
     if (props.selected) {
       return selectedStyle;
+    } else if (props.isNeighbor) {
+      return neighborNodeStyle;
     } else if (props.isStart) {
       return startingNodeStyle;
     } else if (props.isEnd) {

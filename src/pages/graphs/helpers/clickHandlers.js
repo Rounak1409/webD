@@ -29,6 +29,9 @@ export const onClickReset = (
   setLatestNodeId,
   setStartEndNodePair,
   setInfoText,
+  setCurrentNode,
+  setNeighborNode,
+  setShortestPath,
   dispatch,
 ) => {
   setNodes([]);
@@ -40,6 +43,9 @@ export const onClickReset = (
   setLatestNodeId(0);
   setStartEndNodePair([null, null]);
   setInfoText(ADDNODEINFO);
+  setCurrentNode(null);
+  setNeighborNode(null);
+  setShortestPath([]);
   dispatch(reset());
 };
 

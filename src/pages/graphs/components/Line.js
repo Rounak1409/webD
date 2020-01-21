@@ -17,10 +17,17 @@ function Line(props) {
         x2={x2}
         y1={y1}
         y2={y2}
-        style={{
-          strokeWidth: '2px',
-          stroke: 'black',
-        }}
+        style={
+          props.isShortest
+            ? {
+                strokeWidth: '5px',
+                stroke: 'green',
+              }
+            : {
+                strokeWidth: '2px',
+                stroke: 'black',
+              }
+        }
       />
     </svg>
   );

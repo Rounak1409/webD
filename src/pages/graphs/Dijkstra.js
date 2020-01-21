@@ -38,6 +38,9 @@ function Dijkstra(props) {
     nodeA: null,
   });
   const [startEndNodePair, setStartEndNodePair] = useState([null, null]);
+  const [currentNode, setCurrentNode] = useState(null); //for dijkstra to indicate the node taken out from prio queue
+  const [neighborNode, setNeighborNode] = useState(null);
+  const [shortestPath, setShortestPath] = useState([]);
   const [latestNodeId, setLatestNodeId] = useState(0);
   const [infoText, setInfoText] = useState(ADDNODEINFO);
   const dispatch = useDispatch();
@@ -52,8 +55,9 @@ function Dijkstra(props) {
       message.error('Already selected both start and end Nodes!');
     }
   };
+  const helperDelay = ms => new Promise(res => setTimeout(res, ms));
 
-  const dijkstra = () => {
+  const dijkstra = async () => {
     const helperSort = () => {
       // 'PRIORITY QUEUE'
       nodesQueue.sort((nodeA, nodeB) => {
@@ -85,12 +89,14 @@ function Dijkstra(props) {
     while (true) {
       helperSort();
       const nextNode = nodesQueue.shift();
+      await helperDelay(1000);
       if (nextNode.id === dest.id) {
         console.log(`cost to reach is ${nextNode.costToReach}`);
         // construct shortest path
         const path = [dest.id];
         let currentNode = nextNode;
         while (true) {
+          console.log(currentNode);
           let parentNode = currentNode.parent;
           path.unshift(parentNode.id);
           if (parentNode.costToReach === 0) {
@@ -100,16 +106,40 @@ function Dijkstra(props) {
           currentNode = parentNode;
         }
         console.log(path);
+        setShortestPath(path);
+        setCurrentNode(null);
+        setNeighborNode(null);
         break;
       } else {
         isVisited.push(nextNode.id);
       }
 
+      //mark nextNode as current node (styling purposes)
+      for (let i = 0; i < nodes.length; i++) {
+        if (nodes[i].id === nextNode.id) {
+          console.log(`set current node as ${nodes[i].id}`);
+          console.log('reset neighbor node');
+          setCurrentNode(nodes[i]);
+          setNeighborNode(null);
+          break;
+        }
+      }
+
       // get neighbors from Redux store
       const nextNodeNeighbors = readOnlyState[nextNode.id];
       for (let i = 0; i < nextNodeNeighbors.length; i++) {
+        await helperDelay(1000);
         let curr;
         const neighborId = nextNodeNeighbors[i].other;
+
+        // mark neighborNode
+        for (let j = 0; j < nodes.length; j++) {
+          if (nodes[j].id === neighborId) {
+            console.log(`set ${nodes[j].id} as neighbor node`);
+            setNeighborNode(nodes[j]);
+            break;
+          }
+        }
 
         // find the actual Node object in nodesMap
         for (let j = 0; j < nodesMap.length; j++) {
@@ -147,6 +177,9 @@ function Dijkstra(props) {
           setLatestNodeId,
           setStartEndNodePair,
           setInfoText,
+          setCurrentNode,
+          setNeighborNode,
+          setShortestPath,
           dispatch,
         ),
       text: 'Reset',
@@ -181,7 +214,8 @@ function Dijkstra(props) {
 
     {
       value: 'run',
-      onClick: e => onClickRunButton(setCurrState, setStartEndNodePair, setInfoText),
+      onClick: e =>
+        onClickRunButton(setCurrState, setStartEndNodePair, setInfoText),
       text: 'Run',
       type: 'play-circle',
     },
@@ -234,7 +268,8 @@ function Dijkstra(props) {
                 }
               }}
               index={node.id}
-              selected={currState.nodeA === node}
+              selected={currState.nodeA === node || currentNode === node}
+              isNeighbor={neighborNode === node}
               isStart={startEndNodePair[0] === node}
               isEnd={startEndNodePair[1] === node}
               x={node.x}
@@ -252,12 +287,31 @@ function Dijkstra(props) {
               x2: edge.nodeB.x,
               y2: edge.nodeB.y,
             };
-            return <Line data={data} />;
+            for (let i = 0; i < shortestPath.length - 1; i++) {
+              const first = shortestPath[i];
+              const second = shortestPath[i + 1];
+              if (
+                (edge.nodeA.id === first && edge.nodeB.id === second) ||
+                (edge.nodeA.id === second && edge.nodeB.id === first)
+              ) {
+                // edge is shortest path
+                return <Line isShortest={true} data={data} />;
+              }
+            }
+            return <Line isShortest={false} data={data} />;
           })
         ) : (
           <div />
         )}
-          {currState.operation === RUN && startEndNodePair[0] && startEndNodePair[1] ? <Button type='primary' icon='code' onClick={dijkstra}>Run Dijkstra!</Button> : <div />}
+        {currState.operation === RUN &&
+        startEndNodePair[0] &&
+        startEndNodePair[1] ? (
+          <Button type="primary" icon="code" onClick={dijkstra}>
+            Run Dijkstra!
+          </Button>
+        ) : (
+          <div />
+        )}
       </div>
     </div>
   );
