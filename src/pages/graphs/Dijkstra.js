@@ -93,7 +93,7 @@ function Dijkstra(props) {
       if (nextNode.id === dest.id) {
         console.log(`cost to reach is ${nextNode.costToReach}`);
         // construct shortest path
-        let pair; 
+        let pair;
         const path = [];
         let currentNode = nextNode;
         while (true) {
@@ -222,7 +222,28 @@ function Dijkstra(props) {
   return (
     <div>
       <MenuBar data={menuData} />
-      <Alert showIcon message={infoText} type="info" />
+      <Alert
+        showIcon
+        message={infoText}
+        type="info"
+        style={{marginBottom: '2em'}}
+      />
+      <h1 style={{textAlign: 'center'}}>
+        Draw Your Graph and Visualize Dijkstra!
+      </h1>
+      {currState.operation === RUN &&
+      startEndNodePair[0] &&
+      startEndNodePair[1] ? (
+        <Button
+          type="primary"
+          icon="code"
+          onClick={dijkstra}
+          style={{display: 'block', margin: 'auto', marginBottom: '1em'}}>
+          Run Dijkstra!
+        </Button>
+      ) : (
+        <div />
+      )}
       <div
         onClick={e => {
           if (currState.element === NODE && currState.operation === ADD) {
@@ -237,11 +258,11 @@ function Dijkstra(props) {
           }
         }}
         style={{
-          borderColor: 'red',
-          borderStyle: 'solid',
-          height: '500px',
-          width: '100%',
-          textAlign: 'center',
+          border: '0.5em double darkolivegreen',
+          margin: 'auto',
+          height: '40em',
+          borderRadius: '5%',
+          width: '90%',
         }}>
         {nodes.length > 0 ? (
           nodes.map(node => (
@@ -287,7 +308,7 @@ function Dijkstra(props) {
         ) : (
           <div />
         )}
-        {shortestPath.map((pair,index) => {
+        {shortestPath.map((pair, index) => {
           const parent = pair[0];
           const child = pair[1];
           const data = {
@@ -297,17 +318,8 @@ function Dijkstra(props) {
             y2: parent.y,
           };
           // edge is shortest path
-          return <Line wait={index*2} isShortest={true} data={data} />;
+          return <Line wait={index * 3} isShortest={true} data={data} />;
         })}
-        {currState.operation === RUN &&
-        startEndNodePair[0] &&
-        startEndNodePair[1] ? (
-          <Button type="primary" icon="code" onClick={dijkstra}>
-            Run Dijkstra!
-          </Button>
-        ) : (
-          <div />
-        )}
       </div>
     </div>
   );

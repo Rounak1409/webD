@@ -19,7 +19,7 @@ function GraphNode(props) {
       }}
       key={props.index}
       onClick={props.onClick}>
-      <div>{props.index}</div>
+        <div style={{textAlign:'center'}}>{props.index}</div>
       <CircleIcon isNeighbor={props.isNeighbor} isStart={props.isStart} isEnd={props.isEnd} selected={props.selected} />
     </div>
   );
