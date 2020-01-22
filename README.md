@@ -4,6 +4,7 @@
 ## 3. Functionality to undo edge creation
 ## 4. Functionality to prevent edge duplicates 
 ## 5. User input validation (eg run dijkstra when nodes dont have edges)
+## 6. Bug with the line animation when nodes are spaced out too far apart (at the corners)
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
