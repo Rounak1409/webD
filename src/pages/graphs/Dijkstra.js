@@ -89,20 +89,21 @@ function Dijkstra(props) {
     while (true) {
       helperSort();
       const nextNode = nodesQueue.shift();
-      await helperDelay(1000);
+      await helperDelay(500);
       if (nextNode.id === dest.id) {
         console.log(`cost to reach is ${nextNode.costToReach}`);
         // construct shortest path
-        const path = [dest.id];
+        let pair; 
+        const path = [];
         let currentNode = nextNode;
         while (true) {
-          console.log(currentNode);
-          let parentNode = currentNode.parent;
-          path.unshift(parentNode.id);
-          if (parentNode.costToReach === 0) {
+          if (currentNode.parent === null) {
             //means source node already
             break;
           }
+          let parentNode = currentNode.parent;
+          pair = [parentNode, currentNode];
+          path.push(pair);
           currentNode = parentNode;
         }
         console.log(path);
@@ -117,8 +118,6 @@ function Dijkstra(props) {
       //mark nextNode as current node (styling purposes)
       for (let i = 0; i < nodes.length; i++) {
         if (nodes[i].id === nextNode.id) {
-          console.log(`set current node as ${nodes[i].id}`);
-          console.log('reset neighbor node');
           setCurrentNode(nodes[i]);
           setNeighborNode(null);
           break;
@@ -128,14 +127,13 @@ function Dijkstra(props) {
       // get neighbors from Redux store
       const nextNodeNeighbors = readOnlyState[nextNode.id];
       for (let i = 0; i < nextNodeNeighbors.length; i++) {
-        await helperDelay(1000);
+        await helperDelay(500);
         let curr;
         const neighborId = nextNodeNeighbors[i].other;
 
         // mark neighborNode
         for (let j = 0; j < nodes.length; j++) {
           if (nodes[j].id === neighborId) {
-            console.log(`set ${nodes[j].id} as neighbor node`);
             setNeighborNode(nodes[j]);
             break;
           }
@@ -223,9 +221,7 @@ function Dijkstra(props) {
 
   return (
     <div>
-      <MenuBar
-        data={menuData}
-      />
+      <MenuBar data={menuData} />
       <Alert showIcon message={infoText} type="info" />
       <div
         onClick={e => {
@@ -286,22 +282,23 @@ function Dijkstra(props) {
               x2: edge.nodeB.x,
               y2: edge.nodeB.y,
             };
-            for (let i = 0; i < shortestPath.length - 1; i++) {
-              const first = shortestPath[i];
-              const second = shortestPath[i + 1];
-              if (
-                (edge.nodeA.id === first && edge.nodeB.id === second) ||
-                (edge.nodeA.id === second && edge.nodeB.id === first)
-              ) {
-                // edge is shortest path
-                return <Line isShortest={true} data={data} />;
-              }
-            }
             return <Line isShortest={false} data={data} />;
           })
         ) : (
           <div />
         )}
+        {shortestPath.map((pair,index) => {
+          const parent = pair[0];
+          const child = pair[1];
+          const data = {
+            x1: child.x,
+            y1: child.y,
+            x2: parent.x,
+            y2: parent.y,
+          };
+          // edge is shortest path
+          return <Line wait={index*2} isShortest={true} data={data} />;
+        })}
         {currState.operation === RUN &&
         startEndNodePair[0] &&
         startEndNodePair[1] ? (

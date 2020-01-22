@@ -1,7 +1,15 @@
 import React from 'react';
+import './animation.css';
 
 function Line(props) {
   const {x1, x2, y1, y2} = props.data;
+  let className;
+  if (props.isShortest) {
+    className = 'path';
+  } else {
+    className = '';
+  }
+    console.log(props.wait)
   return (
     <svg
       style={{
@@ -17,11 +25,13 @@ function Line(props) {
         x2={x2}
         y1={y1}
         y2={y2}
+        className={className}
         style={
           props.isShortest
             ? {
                 strokeWidth: '5px',
                 stroke: 'green',
+                animationDelay: `${props.wait}s`,
               }
             : {
                 strokeWidth: '2px',
