@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 import {Row, Col, Carousel} from 'antd';
 import MenuBar from './graphs/components/MenuBar';
 import './HomePage.css';
@@ -47,7 +48,7 @@ function HomePage(props) {
         <Row type="flex" align="middle" style={{textAlign: 'center'}}>
           <Col span={12}>
             <Carousel autoplay style={{margin: '0 2.5em'}}>
-              <a href="/graphs">
+              <Link to="/graphs">
                 <div className="display graph">
                   <h1
                     style={{
@@ -58,7 +59,7 @@ function HomePage(props) {
                     Graph Algorithms Visualizer
                   </h1>
                 </div>
-              </a>
+              </Link>
               <div className="display search">
                 <h1
                   style={{
