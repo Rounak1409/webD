@@ -11,6 +11,27 @@ function HomePage(props) {
       type: 'radar-chart',
       text: 'Graph Algorithms',
     },
+    {
+      value: 'searching',
+      //onClick: e => props.history.push('/graphs'),
+      type: 'file-search',
+      text: 'Searching Algorithms',
+      disabled: true,
+    },
+    {
+      value: 'sorting',
+      //onClick: e => props.history.push('/graphs'),
+      type: 'sort-ascending',
+      text: 'Sorting Algorithms',
+      disabled: true,
+    },
+    {
+      value: 'dataStructures',
+      //onClick: e => props.history.push('/graphs'),
+      type: 'database',
+      text: 'Data Structures',
+      disabled: true,
+    },
   ];
 
   return (
@@ -26,10 +47,51 @@ function HomePage(props) {
         <Row type="flex" align="middle" style={{textAlign: 'center'}}>
           <Col span={12}>
             <Carousel autoplay style={{margin: '0 2.5em'}}>
-              <div>1</div>
-              <div>2</div>
-              <div>3</div>
-              <div>4</div>
+              <a href="/graphs">
+                <div className="display graph">
+                  <h1
+                    style={{
+                      fontSize: '3em',
+                      opacity: '1.0',
+                      fontWeight: 'bold',
+                    }}>
+                    Graph Algorithms Visualizer
+                  </h1>
+                </div>
+              </a>
+              <div className="display search">
+                <h1
+                  style={{
+                    background: 'rgba(115, 111, 104, 0.1)',
+                    fontSize: '3em',
+                    opacity: '1.0',
+                    fontWeight: 'bold',
+                  }}>
+                  Search Algorithms Visualizer
+                </h1>
+              </div>
+              <div className="display sort">
+                <h1
+                  style={{
+                    background: 'rgba(115, 111, 104, 0.1)',
+                    fontSize: '3em',
+                    opacity: '1.0',
+                    fontWeight: 'bold',
+                  }}>
+                  Sort Algorithms Visualizer
+                </h1>
+              </div>
+              <div className="display dataStructures">
+                <h1
+                  style={{
+                    background: 'rgba(115, 111, 104, 0.1)',
+                    fontSize: '3em',
+                    opacity: '1.0',
+                    fontWeight: 'bold',
+                  }}>
+                  Data Structures Visualizer
+                </h1>
+              </div>
             </Carousel>
           </Col>
           <Col span={12} style={{alignSelf: 'flex-start'}}>

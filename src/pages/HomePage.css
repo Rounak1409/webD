@@ -2,11 +2,37 @@
   text-align: center;
   height: 30em;
   line-height: 160px;
-  background: #364d79;
+  background: grey;
+
   overflow: hidden;
   vertical-align: 'center';
 }
 
 .ant-carousel .slick-slide h3 {
   color: #fff;
+}
+
+.display {
+  background: rgba(255, 255, 255, 1);
+  height: 30em;
+  width: 100%;
+  background-position: center;
+  background-size: cover;
+  opacity: 0.8;
+}
+
+.graph {
+  background-image: url('./images/homepage-graph.png');
+}
+
+.search {
+  background-image: url('./images/homepage-searching.svg');
+}
+
+.sort {
+  background-image: url('./images/homepage-sorting.svg');
+}
+
+.dataStructures {
+  background-image: url('./images/homepage-dataStructures.png');
 }

@@ -12,7 +12,12 @@ function MenuBar(props) {
   };
 
   const renderData = data => {
-    return (
+    return data.disabled ? (
+      <Menu.Item disabled key={data.value} onClick={data.onClick}>
+        <Icon type={data.type} />
+        {data.text}
+      </Menu.Item>
+    ) : (
       <Menu.Item key={data.value} onClick={data.onClick}>
         <Icon type={data.type} />
         {data.text}
@@ -21,7 +26,11 @@ function MenuBar(props) {
   };
 
   return (
-      <Menu style={{position: 'sticky'}} onClick={handleClick} selectedKeys={[current]} mode="horizontal">
+    <Menu
+      style={{position: 'sticky'}}
+      onClick={handleClick}
+      selectedKeys={[current]}
+      mode="horizontal">
       {props.data.map(data => renderData(data))}
     </Menu>
   );
