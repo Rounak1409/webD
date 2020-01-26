@@ -1,6 +1,6 @@
 # Issues:
 ## 1. Functionality to change edge weights
-## 2. Delete Node does not delete all its edges (expected: deleting a node will delete all of its edges)
+## 2. Delete Node does not delete all its edges (expected: deleting a node will delete all of its edges) (DONE)
 ## 3. Functionality to undo edge creation
 ## 4. Functionality to prevent edge duplicates (DONE)
 ## 5. User input validation (eg run dijkstra when nodes dont have edges)

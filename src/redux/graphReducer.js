@@ -15,8 +15,9 @@ const graphReducer = (state = {}, action) => {
       for (let node in newState) {
         const newArr = [];
         for (let i = 0; i < newState[node].length; i++) {
-          if (newState.node[i] !== delNodeId) {
-            newArr.push(newState.node[i]);
+          if (newState[node][i].other !== delNodeId) {
+            //delete all edges associated with this node
+            newArr.push(newState[node][i]);
           }
         }
         newState[node] = newArr;

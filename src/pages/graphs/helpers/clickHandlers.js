@@ -112,7 +112,7 @@ export const handleAddNode = (
   const temp = [];
   for (let i = 0; i < nodes.length; i++) {
     if (
-      Math.abs(nodes[i].x - e.clientX) < 80 &&
+      Math.abs(nodes[i].x - e.clientX) < 80 && // very hacky hardcoding
       Math.abs(nodes[i].y - e.clientY) < 50
     ) {
       message.error('Ensure that there is enough space between the nodes');
@@ -129,14 +129,30 @@ export const handleAddNode = (
   return newNode;
 };
 
-export const onClickDelNode = (nodes, setNodes, node, dispatch) => {
-  const temp = [];
+export const onClickDelNode = (
+  nodes,
+  setNodes,
+  node,
+  edges,
+  setEdges,
+  dispatch,
+) => {
+  const tempNodes = [];
   for (let i = 0; i < nodes.length; i++) {
     if (nodes[i] !== node) {
-      temp.push(nodes[i]);
+      tempNodes.push(nodes[i]);
     }
   }
-  setNodes(temp);
+  const tempEdges = [];
+  for (let i = 0; i < edges.length; i++) {
+    if (edges[i].nodeA === node || edges[i].nodeB === node) {
+      continue;
+    } else {
+      tempEdges.push(edges[i]);
+    }
+  }
+  setNodes(tempNodes);
+  setEdges(tempEdges);
   dispatch(delNode(node));
 };
 

@@ -275,7 +275,14 @@ function Dijkstra(props) {
             <GraphNode
               onClick={e => {
                 if (currState.element === NODE && currState.operation === DEL) {
-                  return onClickDelNode(nodes, setNodes, node, dispatch);
+                  return onClickDelNode(
+                    nodes,
+                    setNodes,
+                    node,
+                    edges,
+                    setEdges,
+                    dispatch,
+                  );
                 } else if (currState.element === EDGE) {
                   return onClickSelectNode(
                     node,
