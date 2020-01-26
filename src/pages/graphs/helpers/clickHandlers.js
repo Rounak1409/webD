@@ -140,6 +140,14 @@ export const onClickDelNode = (nodes, setNodes, node, dispatch) => {
   dispatch(delNode(node));
 };
 
+const resetSelectedNode = (currState, setCurrState) => {
+  setCurrState({
+    element: currState.element,
+    operation: currState.operation,
+    nodeA: null,
+  });
+};
+
 // select nodeA for ADD/DEL EDGE
 export const onClickSelectNode = (
   node,
@@ -154,17 +162,21 @@ export const onClickSelectNode = (
     const temp = [];
     if (currState.operation === ADD) {
       for (let i = 0; i < edges.length; i++) {
+        if (
+          (edges[i].nodeA === currState.nodeA && edges[i].nodeB === node) ||
+          (edges[i].nodeA === node && edges[i].nodeB === currState.nodeA)
+        ) {
+          //means edge already exists (duplicate)
+          resetSelectedNode(currState, setCurrState);
+          return message.error('Edge already exists!');
+        }
         temp.push(edges[i]);
       }
       const newEdge = new Edge(currState.nodeA, node);
       //const newEdge = [currState.nodeA, node];
       temp.push(newEdge);
       dispatch(addEdge(newEdge));
-      setCurrState({
-        element: currState.element,
-        operation: currState.operation,
-        nodeA: null,
-      });
+      resetSelectedNode(currState, setCurrState);
     } else {
       const nodePair = [currState.nodeA, node];
       for (let i = 0; i < edges.length; i++) {
@@ -180,6 +192,7 @@ export const onClickSelectNode = (
       dispatch(delEdge(nodePair));
     }
     setEdges(temp);
+    resetSelectedNode(currState, setCurrState);
   } else {
     //set nodeA to node
     setCurrState({
