@@ -160,6 +160,11 @@ export const onClickSelectNode = (
       //const newEdge = [currState.nodeA, node];
       temp.push(newEdge);
       dispatch(addEdge(newEdge));
+      setCurrState({
+        element: currState.element,
+        operation: currState.operation,
+        nodeA: null,
+      });
     } else {
       const nodePair = [currState.nodeA, node];
       for (let i = 0; i < edges.length; i++) {
@@ -182,6 +187,6 @@ export const onClickSelectNode = (
       operation: currState.operation,
       nodeA: node,
     });
-    message.info('Please select the second node');
+    //message.info('Please select the second node');
   }
 };

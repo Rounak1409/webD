@@ -242,7 +242,13 @@ function Dijkstra(props) {
           Run Dijkstra!
         </Button>
       ) : (
-        <div />
+        <Button
+          type="primary"
+          icon="code"
+          disabled
+          style={{display: 'block', margin: 'auto', marginBottom: '1em'}}>
+          Run Dijkstra!
+        </Button>
       )}
       <div
         onClick={e => {
