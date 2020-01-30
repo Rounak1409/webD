@@ -1,4 +1,5 @@
 import React from 'react';
+import {Button, InputNumber} from 'antd';
 import Bar from './Bar';
 import './SearchArray.css';
 
@@ -27,7 +28,16 @@ function SearchArray(props) {
     range.push(i + 1);
   }
 
-  return <div className="SearchArray">{range.map(i => renderBar(i))}</div>;
+  return (
+    <div style={{textAlign: 'center'}}>
+      <h2>
+        Search Number from 2 to 75:{' '}
+        <InputNumber size="large" min={2} max={75} defaultValue={38} />
+      </h2>
+      <Button type="primary" icon='search' >Search!</Button>
+      <div className="SearchArray">{range.map(i => renderBar(i))}</div>
+    </div>
+  );
 }
 
 export default SearchArray;
