@@ -14,10 +14,9 @@ function HomePage(props) {
     },
     {
       value: 'searching',
-      //onClick: e => props.history.push('/graphs'),
+      onClick: e => props.history.push('/search'),
       type: 'file-search',
       text: 'Searching Algorithms',
-      disabled: true,
     },
     {
       value: 'sorting',
@@ -60,17 +59,19 @@ function HomePage(props) {
                   </h1>
                 </div>
               </Link>
-              <div className="display search">
-                <h1
-                  style={{
-                    background: 'rgba(115, 111, 104, 0.1)',
-                    fontSize: '3em',
-                    opacity: '1.0',
-                    fontWeight: 'bold',
-                  }}>
-                  Search Algorithms Visualizer
-                </h1>
-              </div>
+              <Link to="/search">
+                <div className="display search">
+                  <h1
+                    style={{
+                      background: 'rgba(115, 111, 104, 0.1)',
+                      fontSize: '3em',
+                      opacity: '1.0',
+                      fontWeight: 'bold',
+                    }}>
+                    Search Algorithms Visualizer
+                  </h1>
+                </div>
+              </Link>
               <div className="display sort">
                 <h1
                   style={{
