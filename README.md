@@ -1,11 +1,19 @@
 # Issues:
-## 1. Functionality to change edge weights
-## 2. Delete Node does not delete all its edges (expected: deleting a node will delete all of its edges) (DONE)
-## 3. Functionality to undo edge creation
-## 4. Functionality to prevent edge duplicates (DONE)
-## 5. User input validation (eg run dijkstra when nodes dont have edges)
-## 6. Bug with the line animation when nodes are spaced out too far apart (at the corners) (DONE)
-## 7. Add landing page (DONE)
+
+## Graphs Page:
+### 1. Functionality to change edge weights
+### 2. Delete Node does not delete all its edges (expected: deleting a node will delete all of its edges) (DONE)
+### 3. Functionality to undo edge creation
+### 4. Functionality to prevent edge duplicates (DONE)
+### 5. User input validation (eg run dijkstra when nodes dont have edges)
+### 6. Bug with the line animation when nodes are spaced out too far apart (at the corners) (DONE)
+### 7. Add landing page (DONE)
+
+## Search Page:
+### 1. Prevent user from searching again after data set is search OR functionality to 'undo'
+### 2. Make "window" look nicer
+### 3. UI: some helpful texts on how to run the search
+
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
