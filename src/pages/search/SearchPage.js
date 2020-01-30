@@ -4,7 +4,7 @@ import SearchArray from './components/SearchArray';
 import './style.css';
 
 function SearchPage(props) {
-  const [numTotalBars, setNumTotalBars] = useState(20);
+  const [numTotalBars, setNumTotalBars] = useState(10);
   const sliderOnChange = e => {
     setNumTotalBars(e);
   };

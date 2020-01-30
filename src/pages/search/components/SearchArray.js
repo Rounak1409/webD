@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Button, InputNumber} from 'antd';
 import Bar from './Bar';
 import './SearchArray.css';
@@ -8,6 +8,7 @@ function SearchArray(props) {
   // default width of 1 bar is 1.5em
   // height 0 - 50em;
 
+  const [searchVal, setSearchVal] = useState(5);
   const numTotalBars = props.numTotalBars;
   const leftInterval = 120 / (numTotalBars - 1);
   const heightInterval = 50 / numTotalBars;
@@ -28,13 +29,44 @@ function SearchArray(props) {
     range.push(i + 1);
   }
 
+  const binarySearch = num => {
+    let low = 1;
+    let high = numTotalBars;
+    while (low <= high) {
+      console.log(`low: ${low} high: ${high}`);
+      let mid = Math.floor((low + high) / 2);
+      if (mid === num) {
+        console.log(`Found ${num}!`);
+        break;
+      } else if (mid > num) {
+        // recurse on left
+        high = mid - 1;
+      } else {
+        // mid < num
+        // recurse on right
+        low = mid + 1;
+      }
+    }
+  };
+
   return (
     <div style={{textAlign: 'center'}}>
       <h2>
-        Search Number from 2 to 75:{' '}
-        <InputNumber size="large" min={2} max={75} defaultValue={38} />
+        Search Number from 1 to {numTotalBars}:{' '}
+        <InputNumber
+          onChange={e => setSearchVal(e)}
+          size="large"
+          min={1}
+          max={numTotalBars}
+          defaultValue={searchVal}
+        />
       </h2>
-      <Button type="primary" icon='search' >Search!</Button>
+      <Button
+        onClick={e => binarySearch(searchVal)}
+        type="primary"
+        icon="search">
+        Search!
+      </Button>
       <div className="SearchArray">{range.map(i => renderBar(i))}</div>
     </div>
   );
