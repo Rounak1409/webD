@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Button, InputNumber} from 'antd';
+import {Slider, Button, InputNumber} from 'antd';
 import Bar from './Bar';
 import './SearchArray.css';
 
@@ -9,7 +9,7 @@ function SearchArray(props) {
   // height 0 - 50em;
 
   const [searchVal, setSearchVal] = useState(5);
-  const numTotalBars = props.numTotalBars;
+  const [numTotalBars, setNumTotalBars] = useState(10);
   const leftInterval = 120 / (numTotalBars - 1);
   const heightInterval = 50 / numTotalBars;
 
@@ -52,6 +52,13 @@ function SearchArray(props) {
   return (
     <div style={{textAlign: 'center'}}>
       <h2>
+        Adjust total number of bars:
+        <Slider
+          onChange={e => setNumTotalBars(e)}
+          defaultValue={numTotalBars}
+          min={2}
+          max={75}
+        />
         Search Number from 1 to {numTotalBars}:{' '}
         <InputNumber
           onChange={e => setSearchVal(e)}
@@ -64,7 +71,8 @@ function SearchArray(props) {
       <Button
         onClick={e => binarySearch(searchVal)}
         type="primary"
-        icon="search">
+        icon="search"
+        style={{marginBottom: '1em'}}>
         Search!
       </Button>
       <div className="SearchArray">{range.map(i => renderBar(i))}</div>
