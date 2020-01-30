@@ -9,6 +9,7 @@
 ### 6. Bug with the line animation when nodes are spaced out too far apart (at the corners) (DONE)
 ### 7. Add landing page (DONE)
 ### 8. Add Legend for color codes
+### 9. Bug in the color highlighting during dijkstra
 
 ## Search Page:
 ### 1. Prevent user from searching again after data set is search OR functionality to 'undo'
