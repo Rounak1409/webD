@@ -44,7 +44,7 @@ function Dijkstra(props) {
   const [latestNodeId, setLatestNodeId] = useState(0);
   const [infoText, setInfoText] = useState(ADDNODEINFO);
   const dispatch = useDispatch();
-  const readOnlyState = useSelector(state => state);
+  const readOnlyState = useSelector(state => state.graph);
 
   const verifyStartEndNodes = node => {
     if (startEndNodePair[0] === null) {
