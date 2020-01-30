@@ -1,8 +1,8 @@
 .wrapper {
   position: absolute;
-  top: 75%;
+  top: 20%;
   left: 50%;
-  width: 80%;
+  width: 120em;
   transform: translateX(-50%);
   text-align: 'center';
 }

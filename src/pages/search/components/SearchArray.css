@@ -1,0 +1,7 @@
+.SearchArray {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    border: 5px solid black;
+    height: 50em;
+}

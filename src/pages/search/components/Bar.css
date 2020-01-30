@@ -1,6 +1,14 @@
 .Bar {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  height: 50em;
+  width: 1.5em;
+  position: absolute;
+}
+
+.BarColor {
+  border: 1px dashed black;
+  border-radius: 10px 10px 0 0;
   background-color: blue;
-  height: 20px;
-  width: 10px;
-  position: relative;
 }
