@@ -8,12 +8,15 @@
 ### 5. User input validation (eg run dijkstra when nodes dont have edges)
 ### 6. Bug with the line animation when nodes are spaced out too far apart (at the corners) (DONE)
 ### 7. Add landing page (DONE)
+### 8. Add Legend for color codes
 
 ## Search Page:
 ### 1. Prevent user from searching again after data set is search OR functionality to 'undo'
 ### 2. Make "window" look nicer
 ### 3. UI: some helpful texts on how to run the search
 ### 4. Refactor code (make it cleaner)
+### 5. Add Legend for color codes
+
 
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
