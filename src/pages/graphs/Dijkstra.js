@@ -331,7 +331,7 @@ function Dijkstra(props) {
             y2: parent.y,
           };
           // edge is shortest path
-          return <Line wait={index * 3} isShortest={true} data={data} />;
+          return <Line wait={index * 1.5} isShortest={true} data={data} />;
         })}
       </div>
     </div>

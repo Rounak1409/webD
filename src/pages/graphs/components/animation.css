@@ -1,7 +1,7 @@
 .path {
-  stroke-dasharray: 1000;
-  stroke-dashoffset: 1000;
-  animation: dash 5s linear forwards;
+  stroke-dasharray: 1500;
+  stroke-dashoffset: 1500;
+  animation: dash 3s forwards;
   /*animation-delay: 2s;*/
 }
 
