@@ -13,6 +13,7 @@
 ### 1. Prevent user from searching again after data set is search OR functionality to 'undo'
 ### 2. Make "window" look nicer
 ### 3. UI: some helpful texts on how to run the search
+### 4. Refactor code (make it cleaner)
 
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
