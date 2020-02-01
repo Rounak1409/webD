@@ -6,7 +6,7 @@ import './SearchArray.css';
 function SearchArray(props) {
   // 0 - 120em width to divide all the Bars
   // default width of 1 bar is 1.5em
-  // height 0 - 50em;
+  // height 0 - 45em;
 
   const [searchVal, setSearchVal] = useState(5);
   const initialRange = [];
@@ -28,7 +28,7 @@ function SearchArray(props) {
   const renderBar = bar => {
     const numTotalBars = range.length;
     const leftInterval = 120 / (numTotalBars - 1);
-    const heightInterval = 50 / numTotalBars;
+    const heightInterval = 45 / numTotalBars;
 
     let width;
     if (numTotalBars <= 20) {
