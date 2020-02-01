@@ -28,6 +28,7 @@ import {
   onClickSelectNode,
   handleAddNode,
 } from './helpers/clickHandlers';
+import './Dijkstra.css';
 
 function Dijkstra(props) {
   const [nodes, setNodes] = useState([]);
@@ -220,36 +221,27 @@ function Dijkstra(props) {
   ];
 
   return (
-    <div>
-      <MenuBar data={menuData} />
-      <Alert
-        showIcon
-        message={infoText}
-        type="info"
-        style={{marginBottom: '2em'}}
-      />
-      <h1 style={{textAlign: 'center'}}>
-        Draw Your Graph and Visualize Dijkstra!
-      </h1>
-      {currState.operation === RUN &&
-      startEndNodePair[0] &&
-      startEndNodePair[1] ? (
-        <Button
-          type="primary"
-          icon="code"
-          onClick={dijkstra}
-          style={{display: 'block', margin: 'auto', marginBottom: '1em'}}>
-          Run Dijkstra!
-        </Button>
-      ) : (
-        <Button
-          type="primary"
-          icon="code"
-          disabled
-          style={{display: 'block', margin: 'auto', marginBottom: '1em'}}>
-          Run Dijkstra!
-        </Button>
-      )}
+    <div className="Custom-Parent">
+      <MenuBar className="Custom-MenuBar" data={menuData} />
+      <Alert showIcon message={infoText} type="info" className="Custom-Alert" />
+      <div className="Custom-Block">
+        <h1 className="Custom-Text">Draw Your Graph and Visualize Dijkstra!</h1>
+        {currState.operation === RUN &&
+        startEndNodePair[0] &&
+        startEndNodePair[1] ? (
+          <Button
+            type="primary"
+            icon="code"
+            className="Custom-Button"
+            onClick={dijkstra}>
+            Run Dijkstra!
+          </Button>
+        ) : (
+          <Button type="primary" icon="code" className="Custom-Button" disabled>
+            Run Dijkstra!
+          </Button>
+        )}
+      </div>
       <div
         onClick={e => {
           if (currState.element === NODE && currState.operation === ADD) {
@@ -263,13 +255,7 @@ function Dijkstra(props) {
             );
           }
         }}
-        style={{
-          border: '0.5em double darkolivegreen',
-          margin: 'auto',
-          height: '40em',
-          borderRadius: '5%',
-          width: '90%',
-        }}>
+        className="Window">
         {nodes.length > 0 ? (
           nodes.map(node => (
             <GraphNode

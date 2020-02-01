@@ -1,0 +1,52 @@
+.Custom-Parent {
+  height: 100vh;
+}
+
+.Custom-MenuBar {
+  /*height: 100%;*/
+}
+
+.Custom-Alert {
+  margin-bottom: 2em;
+  /*height: 100%;*/
+}
+
+.Custom-Block {
+  text-align: center;
+  height: 15%;
+}
+
+.Custom-Text {
+}
+
+.Custom-Button {
+  display: block;
+  margin: auto;
+  margin-bottom: 1em;
+}
+
+.Window {
+  border: 0.5em double darkolivegreen;
+  margin: auto;
+  height: 60%;
+  border-radius: 5%;
+  width: 90%;
+}
+
+@media screen and (max-height: 600px) {
+  .Custom-Text {
+    font-size: 1em;
+  }
+}
+
+@media screen and (max-height: 480px) {
+  .Window {
+    height: 40%;
+  }
+}
+
+@media screen and (max-height: 270px) {
+  .Window {
+    height: 20%;
+  }
+}
