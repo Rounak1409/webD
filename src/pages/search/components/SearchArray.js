@@ -4,9 +4,9 @@ import Bar from './Bar';
 import './SearchArray.css';
 
 function SearchArray(props) {
-  // 0 - 120em width to divide all the Bars
-  // default width of 1 bar is 1.5em
-  // height 0 - 45em;
+  // 0% - (100% - WIDTH%) width to divide bars
+  // default width of 1 bar is 1.5%
+  // height 0 - 65%
 
   const [searchVal, setSearchVal] = useState(5);
   const initialRange = [];
@@ -27,8 +27,6 @@ function SearchArray(props) {
 
   const renderBar = bar => {
     const numTotalBars = range.length;
-    const leftInterval = 120 / (numTotalBars - 1);
-    const heightInterval = 45 / numTotalBars;
 
     let width;
     if (numTotalBars <= 20) {
@@ -37,17 +35,19 @@ function SearchArray(props) {
       width = 1.25;
     } else if (numTotalBars <= 60) {
       width = 1;
-    } else {
+    } else if (numTotalBars <= 80) {
       width = 0.75;
+    } else {
+      width = 0.5;
     }
 
-    let left;
-    if (bar.val === 1) {
-      left = 0;
-    } else {
-      left = (bar.val - 1) * leftInterval - width;
-    }
+    const tolWidth = 100 - width;
+    const leftInterval = tolWidth / (numTotalBars - 1);
+    const heightInterval = 100 / numTotalBars;
+
+    const left = (bar.val - 1) * leftInterval;
     const height = bar.val * heightInterval;
+
     return (
       <Bar
         outOfRange={bar.isOutOfRange}
@@ -105,7 +105,7 @@ function SearchArray(props) {
   };
 
   return (
-    <div style={{textAlign: 'center'}}>
+    <div style={{textAlign: 'center', height: '100%'}}>
       <h2>
         Adjust total number of bars:
         <Slider
@@ -122,7 +122,7 @@ function SearchArray(props) {
           }}
           value={range.length}
           min={2}
-          max={75}
+          max={100}
         />
         Search Number from 1 to {range.length}:{' '}
         <InputNumber

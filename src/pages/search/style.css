@@ -2,7 +2,8 @@
   position: absolute;
   top: 5%;
   left: 50%;
-  width: 120em;
+  width: 80%;
+  height: 100%;
   transform: translateX(-50%);
   text-align: 'center';
 }

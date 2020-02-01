@@ -2,9 +2,9 @@ import React from 'react';
 import './Bar.css';
 
 function Bar(props) {
-  const left = `${props.left}em`;
-  const height = `${props.height}em`;
-  const width = `${props.width}em`;
+  const left = `${props.left}%`;
+  const height = `${props.height}%`;
+  const width = `${props.width}%`;
 
   let className = 'BarColor';
   if (props.mid) {
