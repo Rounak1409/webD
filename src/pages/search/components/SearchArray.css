@@ -2,6 +2,6 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    border: 5px solid black;
+    border: 5px double black;
     height: 65%;
 }
