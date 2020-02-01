@@ -12,7 +12,7 @@
 ### 9. Bug in the color highlighting during dijkstra
 
 ## Search Page:
-### 1. Prevent user from searching again after data set is search OR functionality to 'undo'
+### 1. Prevent user from searching again after data set is search OR functionality to 'undo' (DONE)
 ### 2. Make "window" look nicer
 ### 3. UI: some helpful texts on how to run the search
 ### 4. Refactor code (make it cleaner)
