@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Button, InputNumber} from 'antd';
+import {Slider, Button} from 'antd';
 import Bar from './Bar';
 import './SortArray.css';
 import knuthShuffle from '../helpers/knuthShuffle';
@@ -18,29 +18,25 @@ function SortArray(props) {
     });
   }
   knuthShuffle(initialRange);
+
   const [range, setRange] = useState(initialRange);
-  const [numMaxBars, setNumMaxBars] = useState(10);
-  const [inProgress, setInProgress] = useState(false); // for disabling buttons after clicking (eg while shuffling is being done)
   const helperDelay = ms => new Promise(res => setTimeout(res, ms));
 
   const reset = () => {
-    setNumMaxBars(10);
     knuthShuffle(initialRange);
     setRange(initialRange);
   };
 
-  const randomize = async () => {
+  const randomize = () => {
     const newRange = [];
     for (let i = 0; i < range.length; i++) {
       newRange.push(range[i]);
     }
     knuthShuffle(newRange);
     setRange(newRange);
-    helperDelay(1000);
   };
 
   const renderBar = (bar, index) => {
-    console.log(bar);
     const numTotalBars = range.length;
 
     let width;
@@ -77,18 +73,11 @@ function SortArray(props) {
   return (
     <div style={{textAlign: 'center', height: '100%'}}>
       <h2>
-        Input total number of bars from 2 to 100:
-        <InputNumber
-          onChange={e => setNumMaxBars(e)}
-          size="large"
-          min={1}
-          max={100}
-          value={numMaxBars}
-        />
-        <Button
-          onClick={e => {
+        Select total number of bars from 2 to 100:
+        <Slider
+          onChange={e => {
             let temp = [];
-            for (let i = 0; i < numMaxBars; i++) {
+            for (let i = 0; i < e; i++) {
               temp.push({
                 val: i + 1,
                 isMid: false,
@@ -97,9 +86,11 @@ function SortArray(props) {
             }
             knuthShuffle(temp);
             setRange(temp);
-          }}>
-          Submit
-        </Button>
+          }}
+          value={range.length}
+          min={2}
+          max={100}
+        />
         <br />
         Sort Number from 1 to {range.length}!
       </h2>
@@ -117,11 +108,14 @@ function SortArray(props) {
         style={{marginRight: '1em'}}>
         Randomize
       </Button>
-      <Button type="primary" icon="redo" onClick={e => reset()}>
+      <Button
+        type="primary"
+        icon="redo"
+        onClick={e => reset()}>
         Reset
       </Button>
       <div className="SortArray">
-        {range.map((bar, index) => renderBar(bar, index))}
+        {range.map((bar, index) => (bar ? renderBar(bar, index) : 0))}
       </div>
     </div>
   );
