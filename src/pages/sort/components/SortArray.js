@@ -1,8 +1,11 @@
 import React, {useState} from 'react';
-import {Slider, Button} from 'antd';
+import {Slider, Button, Select} from 'antd';
 import Bar from './Bar';
 import './SortArray.css';
 import knuthShuffle from '../helpers/knuthShuffle';
+import insertionSort from '../helpers/insertionSort';
+
+const {Option} = Select;
 
 function SortArray(props) {
   // 0% - (100% - WIDTH%) width to divide bars
@@ -19,9 +22,11 @@ function SortArray(props) {
   knuthShuffle(initialRange);
 
   const [range, setRange] = useState(initialRange);
+  const [sortingAlgo, setSortingAlgo] = useState('insertionSort'); //insertion sort by default
   const helperDelay = ms => new Promise(res => setTimeout(res, ms));
 
   const reset = () => {
+    setSortingAlgo('insertionSort');
     knuthShuffle(initialRange);
     setRange(initialRange);
   };
@@ -69,50 +74,6 @@ function SortArray(props) {
     );
   };
 
-  const insertionSort = async () => {
-    let sortedArr = [];
-    for (let i = 0; i < range.length; i++) {
-      if (i === 0) {
-        sortedArr.push({
-          val: range[i].val,
-          isSorted: true,
-        });
-      } else {
-        sortedArr.push(range[i]);
-      }
-    }
-
-    for (let i = 1; i < sortedArr.length; i++) {
-      await helperDelay(50);
-
-      const key = sortedArr[i].val;
-      for (let j = i - 1; j >= -1; j--) {
-        const sortedTempArr = [];
-        for (let k = 0; k < sortedArr.length; k++) {
-          sortedTempArr.push(sortedArr[k]);
-        }
-
-        if (j === -1 || sortedTempArr[j].val <= key) {
-          sortedTempArr[i].isSorted = true;
-          sortedTempArr[j + 1].isSorted = true;
-          setRange(sortedTempArr);
-          sortedArr = sortedTempArr;
-          await helperDelay(50);
-          break;
-        } else {
-          const temp = sortedTempArr[j + 1];
-          sortedTempArr[j + 1] = sortedTempArr[j];
-          sortedTempArr[j] = temp;
-          setRange(sortedTempArr);
-          sortedArr = sortedTempArr;
-          await helperDelay(50);
-        }
-      }
-    }
-
-    console.log(sortedArr);
-  };
-
   return (
     <div style={{textAlign: 'center', height: '100%'}}>
       <h2>
@@ -135,10 +96,18 @@ function SortArray(props) {
           max={100}
         />
         <br />
-        Sort Number from 1 to {range.length}!
+        Sort Number from 1 to {range.length} using
+        <Select
+          style={{marginLeft: '1em', width: '10%'}}
+          value={sortingAlgo}
+          onChange={e => setSortingAlgo(e)}>
+          <Option value="insertionSort">Insertion Sort</Option>
+          <Option value="bubbleSort">Bubble Sort</Option>
+          <Option value="selectionSort">Selection Sort</Option>
+        </Select>
       </h2>
       <Button
-        onClick={e => insertionSort()}
+        onClick={e => insertionSort(range, setRange, helperDelay)}
         type="primary"
         icon="play-circle"
         style={{marginBottom: '1em', marginRight: '1em'}}>
