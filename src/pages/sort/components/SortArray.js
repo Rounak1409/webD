@@ -70,19 +70,29 @@ function SortArray(props) {
     );
   };
 
-  const insertionSort = () => {
-    const sortedArr = [];
+  const insertionSort = async () => {
+    let sortedArr = [];
     for (let i = 0; i < range.length; i++) {
       sortedArr.push(range[i]);
     }
 
     for (let i = 1; i < sortedArr.length; i++) {
+      await helperDelay(1000);
+
       const key = sortedArr[i].val;
       for (let j = i - 1; j >= 0; j--) {
-        if (sortedArr[j].val > key) {
-          const temp = sortedArr[j + 1];
-          sortedArr[j + 1] = sortedArr[j];
-          sortedArr[j] = temp;
+        const sortedTempArr = [];
+        for (let i = 0; i < sortedArr.length; i++) {
+          sortedTempArr.push(sortedArr[i]);
+        }
+
+        if (sortedTempArr[j].val > key) {
+          const temp = sortedTempArr[j + 1];
+          sortedTempArr[j + 1] = sortedTempArr[j];
+          sortedTempArr[j] = temp;
+          setRange(sortedTempArr);
+          sortedArr = sortedTempArr;
+          await helperDelay(1000);
         } else {
           break;
         }
