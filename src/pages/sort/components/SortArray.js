@@ -70,6 +70,28 @@ function SortArray(props) {
     );
   };
 
+  const insertionSort = () => {
+    const sortedArr = [];
+    for (let i = 0; i < range.length; i++) {
+      sortedArr.push(range[i]);
+    }
+
+    for (let i = 1; i < sortedArr.length; i++) {
+      const key = sortedArr[i].val;
+      for (let j = i - 1; j >= 0; j--) {
+        if (sortedArr[j].val > key) {
+          const temp = sortedArr[j + 1];
+          sortedArr[j + 1] = sortedArr[j];
+          sortedArr[j] = temp;
+        } else {
+          break;
+        }
+      }
+    }
+
+    console.log(sortedArr);
+  };
+
   return (
     <div style={{textAlign: 'center', height: '100%'}}>
       <h2>
@@ -95,7 +117,7 @@ function SortArray(props) {
         Sort Number from 1 to {range.length}!
       </h2>
       <Button
-        onClick={e => e}
+        onClick={e => insertionSort()}
         type="primary"
         icon="play-circle"
         style={{marginBottom: '1em', marginRight: '1em'}}>
@@ -108,10 +130,7 @@ function SortArray(props) {
         style={{marginRight: '1em'}}>
         Randomize
       </Button>
-      <Button
-        type="primary"
-        icon="redo"
-        onClick={e => reset()}>
+      <Button type="primary" icon="redo" onClick={e => reset()}>
         Reset
       </Button>
       <div className="SortArray">
