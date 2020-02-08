@@ -7,8 +7,8 @@ function Bar(props) {
   const width = `${props.width}%`;
 
   let className = 'BarColor';
-  if (props.mid) {
-    className = className + ' mid';
+  if (props.isSorted) {
+    className = className + ' sorted';
   } else if (props.outOfRange) {
     className = className + ' outOfRange';
   }
