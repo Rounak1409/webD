@@ -20,10 +20,9 @@ function HomePage(props) {
     },
     {
       value: 'sorting',
-      //onClick: e => props.history.push('/graphs'),
+      onClick: e => props.history.push('/sort'),
       type: 'sort-ascending',
       text: 'Sorting Algorithms',
-      disabled: true,
     },
     {
       value: 'dataStructures',
@@ -72,17 +71,19 @@ function HomePage(props) {
                   </h1>
                 </div>
               </Link>
-              <div className="display sort">
-                <h1
-                  style={{
-                    background: 'rgba(115, 111, 104, 0.1)',
-                    fontSize: '3em',
-                    opacity: '1.0',
-                    fontWeight: 'bold',
-                  }}>
-                  Sort Algorithms Visualizer
-                </h1>
-              </div>
+              <Link to="/sort">
+                <div className="display sort">
+                  <h1
+                    style={{
+                      background: 'rgba(115, 111, 104, 0.1)',
+                      fontSize: '3em',
+                      opacity: '1.0',
+                      fontWeight: 'bold',
+                    }}>
+                    Sort Algorithms Visualizer
+                  </h1>
+                </div>
+              </Link>
               <div className="display dataStructures">
                 <h1
                   style={{

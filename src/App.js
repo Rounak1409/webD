@@ -3,6 +3,7 @@ import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import Dijkstra from './pages/graphs/Dijkstra';
 import HomePage from './pages/HomePage';
 import SearchPage from './pages/search/SearchPage';
+import SortPage from './pages/sort/SortPage';
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
               <Route exact path='/' component={HomePage} />
               <Route exact path='/graphs' component={Dijkstra} />
               <Route exact path='/search' component={SearchPage} />
+              <Route exact path='/sort' component={SortPage} />
           </Switch>
       </BrowserRouter>
   );

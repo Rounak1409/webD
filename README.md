@@ -17,6 +17,7 @@
 ### 3. UI: some helpful texts on how to run the search
 ### 4. Refactor code (make it cleaner)
 ### 5. Add Legend for color codes
+### 6. Implement QUICK-SELECT (Order statistic)
 
 
 

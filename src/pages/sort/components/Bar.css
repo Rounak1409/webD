@@ -1,0 +1,21 @@
+.Bar {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  height: 65%;
+  position: absolute;
+}
+
+.BarColor {
+  border: 1px dashed black;
+  border-radius: 10px 10px 0 0;
+  background-color: blue;
+}
+
+.mid {
+  background-color: green;
+}
+
+.outOfRange {
+  background-color: grey;
+}
