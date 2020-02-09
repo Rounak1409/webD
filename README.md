@@ -19,6 +19,10 @@
 ### 5. Add Legend for color codes
 ### 6. Implement QUICK-SELECT (Order statistic)
 
+## Sort Page:
+### 1. Implement Merge-Sort and Quick-Sort
+### 2. Prevent user from sorting after the array is already sorted
+### 3. Add functionality to change run speed
 
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
