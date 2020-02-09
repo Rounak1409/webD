@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {Slider, Button, Select} from 'antd';
-import Bar from './Bar';
+import BarSort from './BarSort';
 import './SortArray.css';
 import knuthShuffle from '../helpers/knuthShuffle';
 import insertionSort from '../helpers/insertionSort';
@@ -85,7 +85,7 @@ function SortArray(props) {
     const height = bar.val * heightInterval;
 
     return (
-      <Bar
+      <BarSort
         isMin={bar.isMin}
         isSorted={bar.isSorted}
         left={left}

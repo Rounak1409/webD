@@ -1,12 +1,12 @@
 import React from 'react';
-import './Bar.css';
+import './BarSearch.css';
 
-function Bar(props) {
+function BarSearch(props) {
   const left = `${props.left}%`;
   const height = `${props.height}%`;
   const width = `${props.width}%`;
 
-  let className = 'BarColor';
+  let className = 'BarColorSearch';
   if (props.mid) {
     className = className + ' mid';
   } else if (props.outOfRange) {
@@ -14,10 +14,10 @@ function Bar(props) {
   }
 
   return (
-    <div className="Bar" style={{left: left, width: width}}>
+    <div className="BarSearch" style={{left: left, width: width}}>
       <div className={className} style={{height: height}} />
     </div>
   );
 }
 
-export default Bar;
+export default BarSearch;

@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {Slider, Button, InputNumber} from 'antd';
-import Bar from './Bar';
+import BarSearch from './BarSearch';
 import './SearchArray.css';
 
 function SearchArray(props) {
@@ -49,7 +49,7 @@ function SearchArray(props) {
     const height = bar.val * heightInterval;
 
     return (
-      <Bar
+      <BarSearch
         outOfRange={bar.isOutOfRange}
         mid={bar.isMid}
         left={left}

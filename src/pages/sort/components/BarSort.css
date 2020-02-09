@@ -1,4 +1,4 @@
-.Bar {
+.BarSort {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -6,7 +6,7 @@
   position: absolute;
 }
 
-.BarColor {
+.BarColorSort {
   border: 1px dashed black;
   border-radius: 10px 10px 0 0;
   background-color: blue;

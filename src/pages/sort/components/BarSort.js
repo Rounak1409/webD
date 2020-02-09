@@ -1,12 +1,12 @@
 import React from 'react';
-import './Bar.css';
+import './BarSort.css';
 
-function Bar(props) {
+function BarSort(props) {
   const left = `${props.left}%`;
   const height = `${props.height}%`;
   const width = `${props.width}%`;
 
-  let className = 'BarColor';
+  let className = 'BarColorSort';
   if (props.isSorted) {
     className = className + ' sorted';
   } else if (props.isMin) {
@@ -14,10 +14,10 @@ function Bar(props) {
   }
 
   return (
-    <div className="Bar" style={{left: left, width: width}}>
+    <div className="BarSort" style={{left: left, width: width}}>
       <div className={className} style={{height: height}} />
     </div>
   );
 }
 
-export default Bar;
+export default BarSort;
