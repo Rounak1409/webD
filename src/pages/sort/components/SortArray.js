@@ -24,6 +24,7 @@ function SortArray(props) {
 
   const [range, setRange] = useState(initialRange);
   const [sortingAlgo, setSortingAlgo] = useState('insertionSort'); //insertion sort by default
+  const [sortingInProgress, setSortingInProgress] = useState(false); //to disable buttons when sorting is ongoing
   const helperDelay = ms => new Promise(res => setTimeout(res, ms));
 
   const reset = () => {
@@ -41,19 +42,21 @@ function SortArray(props) {
     setRange(newRange);
   };
 
-  const handleSort = () => {
+  const handleSort = async () => {
+    setSortingInProgress(true);
     switch (sortingAlgo) {
       case 'insertionSort':
-        insertionSort(range, setRange, helperDelay);
+        await insertionSort(range, setRange, helperDelay);
         break;
       case 'bubbleSort':
-        bubbleSort(range, setRange, helperDelay);
+        await bubbleSort(range, setRange, helperDelay);
         break;
       case 'selectionSort':
         break;
       default:
         return;
     }
+    setSortingInProgress(false);
   };
 
   const renderBar = (bar, index) => {
@@ -123,6 +126,7 @@ function SortArray(props) {
         </Select>
       </h2>
       <Button
+        disabled={sortingInProgress}
         onClick={handleSort}
         type="primary"
         icon="play-circle"
@@ -131,12 +135,17 @@ function SortArray(props) {
       </Button>
       <Button
         type="primary"
+        disabled={sortingInProgress}
         icon="redo"
         onClick={e => randomize()}
         style={{marginRight: '1em'}}>
         Randomize
       </Button>
-      <Button type="primary" icon="redo" onClick={e => reset()}>
+      <Button
+        disabled={sortingInProgress}
+        type="primary"
+        icon="redo"
+        onClick={e => reset()}>
         Reset
       </Button>
       <div className="SortArray">
