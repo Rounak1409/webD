@@ -4,6 +4,7 @@ import Bar from './Bar';
 import './SortArray.css';
 import knuthShuffle from '../helpers/knuthShuffle';
 import insertionSort from '../helpers/insertionSort';
+import bubbleSort from '../helpers/bubbleSort';
 
 const {Option} = Select;
 
@@ -38,6 +39,21 @@ function SortArray(props) {
     }
     knuthShuffle(newRange);
     setRange(newRange);
+  };
+
+  const handleSort = () => {
+    switch (sortingAlgo) {
+      case 'insertionSort':
+        insertionSort(range, setRange, helperDelay);
+        break;
+      case 'bubbleSort':
+        bubbleSort(range, setRange, helperDelay);
+        break;
+      case 'selectionSort':
+        break;
+      default:
+        return;
+    }
   };
 
   const renderBar = (bar, index) => {
@@ -107,7 +123,7 @@ function SortArray(props) {
         </Select>
       </h2>
       <Button
-        onClick={e => insertionSort(range, setRange, helperDelay)}
+        onClick={handleSort}
         type="primary"
         icon="play-circle"
         style={{marginBottom: '1em', marginRight: '1em'}}>
