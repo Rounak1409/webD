@@ -5,6 +5,7 @@ import './SortArray.css';
 import knuthShuffle from '../helpers/knuthShuffle';
 import insertionSort from '../helpers/insertionSort';
 import bubbleSort from '../helpers/bubbleSort';
+import selectionSort from '../helpers/selectionSort';
 
 const {Option} = Select;
 
@@ -52,6 +53,7 @@ function SortArray(props) {
         await bubbleSort(range, setRange, helperDelay);
         break;
       case 'selectionSort':
+        await selectionSort(range, setRange, helperDelay);
         break;
       default:
         return;
@@ -84,7 +86,7 @@ function SortArray(props) {
 
     return (
       <Bar
-        outOfRange={bar.isOutOfRange}
+        isMin={bar.isMin}
         isSorted={bar.isSorted}
         left={left}
         height={height}

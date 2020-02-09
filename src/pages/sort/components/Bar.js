@@ -9,8 +9,8 @@ function Bar(props) {
   let className = 'BarColor';
   if (props.isSorted) {
     className = className + ' sorted';
-  } else if (props.outOfRange) {
-    className = className + ' outOfRange';
+  } else if (props.isMin) {
+    className = className + ' currMin';
   }
 
   return (

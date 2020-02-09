@@ -16,6 +16,6 @@
   background-color: green;
 }
 
-.outOfRange {
-  background-color: grey;
+.currMin {
+  background-color: orange;
 }
