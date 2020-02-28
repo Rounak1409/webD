@@ -12,6 +12,10 @@ const mergeSort = async (range, setRange, helperDelay) => {
   while (subSize < range.length) {
     console.log(`subSize is ${subSize}`);
 
+    const sortedTempArr = [];
+    for (let i = 0; i < sortedArr.length; i++) {
+      sortedTempArr.push(sortedArr[i]);
+    }
     // iterate from start to end of arr for every (subSize * 2) array slice
     while (currIndex < range.length) {
       console.log(`currIndex is ${currIndex}`);
@@ -25,7 +29,7 @@ const mergeSort = async (range, setRange, helperDelay) => {
         if (currIndex === range.length) {
           break;
         }
-        firstArr.push(sortedArr[currIndex]);
+        firstArr.push(sortedTempArr[currIndex]);
         currIndex++;
       }
 
@@ -33,7 +37,7 @@ const mergeSort = async (range, setRange, helperDelay) => {
         if (currIndex === range.length) {
           break;
         }
-        secondArr.push(sortedArr[currIndex]);
+        secondArr.push(sortedTempArr[currIndex]);
         currIndex++;
       }
       console.log('first', firstArr);
@@ -46,29 +50,32 @@ const mergeSort = async (range, setRange, helperDelay) => {
 
         if (firstEle.val > secondEle.val) {
           console.log(`position at ${currPtr} is ${secondEle.val}`);
-          sortedArr[currPtr] = secondEle;
+          sortedTempArr[currPtr] = secondEle;
           secondPtr++;
         } else {
           console.log(`position at ${currPtr} is ${firstEle.val}`);
-          sortedArr[currPtr] = firstEle;
+          sortedTempArr[currPtr] = firstEle;
           firstPtr++;
         }
         currPtr++;
       }
 
       while (firstPtr < firstArr.length) {
-        sortedArr[currPtr] = firstArr[firstPtr];
+        sortedTempArr[currPtr] = firstArr[firstPtr];
         console.log(`position at ${currPtr} is ${firstArr[firstPtr].val}`);
         firstPtr++;
         currPtr++;
       }
 
       while (secondPtr < secondArr.length) {
-        sortedArr[currPtr] = secondArr[secondPtr];
+        sortedTempArr[currPtr] = secondArr[secondPtr];
         console.log(`position at ${currPtr} is ${secondArr[secondPtr].val}`);
         secondPtr++;
         currPtr++;
       }
+      setRange(sortedTempArr);
+      await helperDelay(200);
+      sortedArr = sortedTempArr;
     }
     subSize *= 2;
     currIndex = 0;
