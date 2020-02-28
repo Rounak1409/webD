@@ -6,6 +6,7 @@ import knuthShuffle from '../helpers/knuthShuffle';
 import insertionSort from '../helpers/insertionSort';
 import bubbleSort from '../helpers/bubbleSort';
 import selectionSort from '../helpers/selectionSort';
+import mergeSort from '../helpers/mergeSort';
 
 const {Option} = Select;
 
@@ -54,6 +55,9 @@ function SortArray(props) {
         break;
       case 'selectionSort':
         await selectionSort(range, setRange, helperDelay);
+        break;
+      case 'mergeSort':
+        await mergeSort(range, setRange, helperDelay);
         break;
       default:
         return;
@@ -125,6 +129,7 @@ function SortArray(props) {
           <Option value="insertionSort">Insertion Sort</Option>
           <Option value="bubbleSort">Bubble Sort</Option>
           <Option value="selectionSort">Selection Sort</Option>
+          <Option value="mergeSort">Merge Sort</Option>
         </Select>
       </h2>
       <Button
