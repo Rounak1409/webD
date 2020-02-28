@@ -119,7 +119,7 @@ function SortArray(props) {
         <br />
         Sort Number from 1 to {range.length} using
         <Select
-          style={{marginLeft: '1em', width: '10%'}}
+          style={{marginLeft: '1em', width: '9em'}}
           value={sortingAlgo}
           onChange={e => setSortingAlgo(e)}>
           <Option value="insertionSort">Insertion Sort</Option>
