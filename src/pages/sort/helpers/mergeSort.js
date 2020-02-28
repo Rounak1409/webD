@@ -1,7 +1,5 @@
 // implements bottom-up merge sort for easier visualization
 const mergeSort = async (range, setRange, helperDelay) => {
-  console.log('started');
-  console.log(range);
   let sortedArr = [];
   for (let i = 0; i < range.length; i++) {
     sortedArr.push(range[i]);
@@ -10,11 +8,8 @@ const mergeSort = async (range, setRange, helperDelay) => {
   let subSize = 1; // size of subsize arr for merge operation (i.e. [ sorted arr of size subSize ] [ sorted arr of size subSize ])
   let currIndex = 0; // keeps track of the current index
   while (subSize < range.length) {
-    console.log(`subSize is ${subSize}`);
-
     // iterate from start to end of arr for every consecutive (subSize * 2) array slice
     while (currIndex < sortedArr.length) {
-      console.log(`currIndex is ${currIndex}`);
       const firstArr = [];
       const secondArr = [];
       let currPtr = currIndex;
@@ -25,7 +20,10 @@ const mergeSort = async (range, setRange, helperDelay) => {
         if (currIndex === range.length) {
           break;
         }
-        firstArr.push(sortedArr[currIndex]);
+        firstArr.push({
+          val: sortedArr[currIndex].val,
+          isSorted: sortedArr[currIndex].isSorted,
+        });
         currIndex++;
       }
 
@@ -33,23 +31,20 @@ const mergeSort = async (range, setRange, helperDelay) => {
         if (currIndex === range.length) {
           break;
         }
-        secondArr.push(sortedArr[currIndex]);
+        secondArr.push({
+          val: sortedArr[currIndex].val,
+          isSorted: sortedArr[currIndex].isSorted,
+        });
         currIndex++;
       }
 
       const lowerIndex = currPtr;
       const highIndex = currIndex - 1;
-      let temp = deepCopy(sortedArr);
-      temp[lowerIndex].underConsideration = true;
-      temp[highIndex].underConsideration = true;
-      console.log(
-        `lower bound is at ${currPtr}, higher bound is at ${currIndex - 1}`,
-      );
+      sortedArr[lowerIndex].underConsideration = true;
+      sortedArr[highIndex].underConsideration = true;
+      let temp = deepCopyValAndIsSorted(sortedArr);
       setRange(temp);
-      await helperDelay(250);
-
-      console.log('first', firstArr);
-      console.log('second', secondArr);
+      await helperDelay(50);
 
       // merge firstArr and secondArr
       while (firstPtr < firstArr.length && secondPtr < secondArr.length) {
@@ -58,54 +53,57 @@ const mergeSort = async (range, setRange, helperDelay) => {
 
         if (firstEle.val > secondEle.val) {
           sortedArr[currPtr] = secondEle;
-          //sortedArr[currPtr].isSorted = true;
           secondPtr++;
         } else {
           sortedArr[currPtr] = firstEle;
-          //sortedArr[currPtr].isSorted = true;
           firstPtr++;
         }
 
-        //setRange(sortedArr);
-        //await helperDelay(200);
+        sortedArr[currPtr].isSorted = true;
+        temp = deepCopyValAndIsSorted(sortedArr);
+        setRange(temp);
+        await helperDelay(50);
         currPtr++;
       }
 
       while (firstPtr < firstArr.length) {
         sortedArr[currPtr] = firstArr[firstPtr];
-        //sortedTempArr[currPtr].isSorted = true;
-        //setRange(sortedTempArr);
-        //await helperDelay(200);
+        sortedArr[currPtr].isSorted = true;
+        temp = deepCopyValAndIsSorted(sortedArr);
+        setRange(temp);
+        await helperDelay(50);
         firstPtr++;
         currPtr++;
       }
 
       while (secondPtr < secondArr.length) {
         sortedArr[currPtr] = secondArr[secondPtr];
-        //sortedTempArr[currPtr].isSorted = true;
-        //setRange(sortedTempArr);
-        //await helperDelay(200);
+        sortedArr[currPtr].isSorted = true;
+        temp = deepCopyValAndIsSorted(sortedArr);
+        setRange(temp);
+        await helperDelay(50);
         secondPtr++;
         currPtr++;
       }
 
-      temp = deepCopy(sortedArr);
-      temp[lowerIndex].underConsideration = false;
-      temp[highIndex].underConsideration = false;
+      sortedArr[lowerIndex].underConsideration = false;
+      sortedArr[highIndex].underConsideration = false;
+      temp = deepCopyValAndIsSorted(sortedArr);
 
       setRange(temp);
-      await helperDelay(250);
+      await helperDelay(50);
     }
 
+    sortedArr = deepCopyOnlyVal(sortedArr);
     subSize *= 2;
     currIndex = 0;
   }
+
   console.log(sortedArr);
 };
 
-export default mergeSort;
-
-const deepCopy = arr => {
+// utility function to deepcopy array containing SortBars
+const deepCopyOnlyVal = arr => {
   const temp = [];
   for (let i = 0; i < arr.length; i++) {
     temp.push({
@@ -114,32 +112,17 @@ const deepCopy = arr => {
   }
   return temp;
 };
-/*
-  for (let i = 0; i < sortedArr.length; i++) {
-    await helperDelay(50);
 
-    for (let j = 0; j < sortedArr.length; j++) {
-      const sortedTempArr = [];
-      for (let k = 0; k < sortedArr.length; k++) {
-        sortedTempArr.push(sortedArr[k]);
-      }
-
-      if (j === sortedArr.length - 1) {
-        sortedTempArr[sortedArr.length - i - 1].isSorted = true;
-        setRange(sortedTempArr);
-        sortedArr = sortedTempArr;
-        await helperDelay(50);
-      } else if (sortedTempArr[j].val > sortedTempArr[j + 1].val) {
-        const temp = sortedTempArr[j + 1];
-        sortedTempArr[j + 1] = sortedTempArr[j];
-        sortedTempArr[j] = temp;
-        setRange(sortedTempArr);
-        sortedArr = sortedTempArr;
-        console.log('swap');
-        await helperDelay(50);
-      }
-    }
+const deepCopyValAndIsSorted = arr => {
+  const temp = [];
+  for (let i = 0; i < arr.length; i++) {
+    temp.push({
+      val: arr[i].val,
+      isSorted: arr[i].isSorted,
+      underConsideration: arr[i].underConsideration,
+    });
   }
+  return temp;
+};
 
-  console.log(sortedArr);
-*/
+export default mergeSort;
