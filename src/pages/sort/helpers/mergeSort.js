@@ -12,12 +12,8 @@ const mergeSort = async (range, setRange, helperDelay) => {
   while (subSize < range.length) {
     console.log(`subSize is ${subSize}`);
 
-    const sortedTempArr = [];
-    for (let i = 0; i < sortedArr.length; i++) {
-      sortedTempArr.push(sortedArr[i]);
-    }
-    // iterate from start to end of arr for every (subSize * 2) array slice
-    while (currIndex < range.length) {
+    // iterate from start to end of arr for every consecutive (subSize * 2) array slice
+    while (currIndex < sortedArr.length) {
       console.log(`currIndex is ${currIndex}`);
       const firstArr = [];
       const secondArr = [];
@@ -29,7 +25,7 @@ const mergeSort = async (range, setRange, helperDelay) => {
         if (currIndex === range.length) {
           break;
         }
-        firstArr.push(sortedTempArr[currIndex]);
+        firstArr.push(sortedArr[currIndex]);
         currIndex++;
       }
 
@@ -37,9 +33,21 @@ const mergeSort = async (range, setRange, helperDelay) => {
         if (currIndex === range.length) {
           break;
         }
-        secondArr.push(sortedTempArr[currIndex]);
+        secondArr.push(sortedArr[currIndex]);
         currIndex++;
       }
+
+      const lowerIndex = currPtr;
+      const highIndex = currIndex - 1;
+      let temp = deepCopy(sortedArr);
+      temp[lowerIndex].underConsideration = true;
+      temp[highIndex].underConsideration = true;
+      console.log(
+        `lower bound is at ${currPtr}, higher bound is at ${currIndex - 1}`,
+      );
+      setRange(temp);
+      await helperDelay(250);
+
       console.log('first', firstArr);
       console.log('second', secondArr);
 
@@ -49,34 +57,46 @@ const mergeSort = async (range, setRange, helperDelay) => {
         const secondEle = secondArr[secondPtr];
 
         if (firstEle.val > secondEle.val) {
-          console.log(`position at ${currPtr} is ${secondEle.val}`);
-          sortedTempArr[currPtr] = secondEle;
+          sortedArr[currPtr] = secondEle;
+          //sortedArr[currPtr].isSorted = true;
           secondPtr++;
         } else {
-          console.log(`position at ${currPtr} is ${firstEle.val}`);
-          sortedTempArr[currPtr] = firstEle;
+          sortedArr[currPtr] = firstEle;
+          //sortedArr[currPtr].isSorted = true;
           firstPtr++;
         }
+
+        //setRange(sortedArr);
+        //await helperDelay(200);
         currPtr++;
       }
 
       while (firstPtr < firstArr.length) {
-        sortedTempArr[currPtr] = firstArr[firstPtr];
-        console.log(`position at ${currPtr} is ${firstArr[firstPtr].val}`);
+        sortedArr[currPtr] = firstArr[firstPtr];
+        //sortedTempArr[currPtr].isSorted = true;
+        //setRange(sortedTempArr);
+        //await helperDelay(200);
         firstPtr++;
         currPtr++;
       }
 
       while (secondPtr < secondArr.length) {
-        sortedTempArr[currPtr] = secondArr[secondPtr];
-        console.log(`position at ${currPtr} is ${secondArr[secondPtr].val}`);
+        sortedArr[currPtr] = secondArr[secondPtr];
+        //sortedTempArr[currPtr].isSorted = true;
+        //setRange(sortedTempArr);
+        //await helperDelay(200);
         secondPtr++;
         currPtr++;
       }
-      setRange(sortedTempArr);
-      await helperDelay(200);
-      sortedArr = sortedTempArr;
+
+      temp = deepCopy(sortedArr);
+      temp[lowerIndex].underConsideration = false;
+      temp[highIndex].underConsideration = false;
+
+      setRange(temp);
+      await helperDelay(250);
     }
+
     subSize *= 2;
     currIndex = 0;
   }
@@ -84,6 +104,16 @@ const mergeSort = async (range, setRange, helperDelay) => {
 };
 
 export default mergeSort;
+
+const deepCopy = arr => {
+  const temp = [];
+  for (let i = 0; i < arr.length; i++) {
+    temp.push({
+      val: arr[i].val,
+    });
+  }
+  return temp;
+};
 /*
   for (let i = 0; i < sortedArr.length; i++) {
     await helperDelay(50);

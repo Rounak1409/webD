@@ -11,6 +11,8 @@ function BarSort(props) {
     className = className + ' sorted';
   } else if (props.isMin) {
     className = className + ' currMin';
+  } else if (props.underConsideration) {
+    className = className + ' underConsideration';
   }
 
   return (

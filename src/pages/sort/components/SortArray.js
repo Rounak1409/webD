@@ -92,6 +92,7 @@ function SortArray(props) {
       <BarSort
         isMin={bar.isMin}
         isSorted={bar.isSorted}
+        underConsideration={bar.underConsideration}
         left={left}
         height={height}
         width={width}
@@ -109,8 +110,6 @@ function SortArray(props) {
             for (let i = 0; i < e; i++) {
               temp.push({
                 val: i + 1,
-                isMid: false,
-                isOutOfRange: false,
               });
             }
             knuthShuffle(temp);
