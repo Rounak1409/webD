@@ -26,10 +26,9 @@ function HomePage(props) {
     },
     {
       value: 'dataStructures',
-      //onClick: e => props.history.push('/graphs'),
+      onClick: e => props.history.push('/ds'),
       type: 'database',
       text: 'Data Structures',
-      disabled: true,
     },
   ];
 
@@ -84,17 +83,19 @@ function HomePage(props) {
                   </h1>
                 </div>
               </Link>
-              <div className="display dataStructures">
-                <h1
-                  style={{
-                    background: 'rgba(115, 111, 104, 0.1)',
-                    fontSize: '3em',
-                    opacity: '1.0',
-                    fontWeight: 'bold',
-                  }}>
-                  Data Structures Visualizer
-                </h1>
-              </div>
+              <Link to="/ds">
+                <div className="display dataStructures">
+                  <h1
+                    style={{
+                      background: 'rgba(115, 111, 104, 0.1)',
+                      fontSize: '3em',
+                      opacity: '1.0',
+                      fontWeight: 'bold',
+                    }}>
+                    Data Structures Visualizer
+                  </h1>
+                </div>
+              </Link>
             </Carousel>
           </Col>
           <Col span={12} style={{alignSelf: 'flex-start'}}>
