@@ -1,21 +1,29 @@
 import BSTNode from './BSTNode';
 
+// BSTNode wrapper class (immutable)
 class TreeData {
-  constructor() {
-    const rootNode = new BSTNode(10, 5);
-    this.data = [rootNode.getData()];
+  constructor(rootNode) {
+    if (rootNode === null) {
+      this.rootNode = new BSTNode(10, 5, null, null);
+    } else {
+      this.rootNode = rootNode;
+    }
   }
 
-  search(key) {}
+  search(key) {
+    this.rootNode.search(key);
+  }
 
   add(key, val) {
-    const newNode = new BSTNode(key, val);
+    const newNode = new BSTNode(key, val, null, null);
+    const newRootNode = this.rootNode.add(newNode);
+    return new TreeData(newRootNode);
   }
 
   delete(key) {}
 
   getData() {
-    return this.data;
+    return this.rootNode.getData();
   }
 }
 
