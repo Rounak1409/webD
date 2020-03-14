@@ -51,6 +51,9 @@ function BinarySearchTree(props) {
       </Button>
       <br />
       <Button onClick={e => treeData.search(key)}>testSearch</Button>
+      <br />
+      <Button onClick={e => treeData.findMin()}>testFindMin</Button>{' '}
+      <Button onClick={e => treeData.findMax()}>testFindMax</Button>
     </div>
   );
 }
