@@ -42,6 +42,9 @@ class TreeData {
   // assuming key exists in tree
   delete(key) {
     const delNode = this.search(key);
+    if (delNode.key !== key) {
+      return this;
+    }
     this.rootNode = this.rootNode.delete(delNode);
     console.log(this.rootNode.checkPtrs());
     return new TreeData(this.rootNode);
