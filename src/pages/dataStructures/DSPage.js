@@ -3,9 +3,11 @@ import BinarySearchTree from './components/BinarySearchTree';
 
 function DSPage(props) {
   return (
-    <div>
-      <div>THIS IS DS PAGE!ewfoeofowefowfowefwofewfo</div>
-        <div style={{margin: '1em', border: '1px solid black'}}>
+    <div style={{textAlign: 'center', margin: '2em'}}>
+      <h1 style={{fontWeight: 'bold', textDecoration: 'underline'}}>
+        Visualize Binary Search Trees!
+      </h1>
+      <div>
         <BinarySearchTree />
       </div>
     </div>

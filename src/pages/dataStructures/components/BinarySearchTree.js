@@ -27,6 +27,8 @@ function BinarySearchTree(props) {
       <div
         style={{
           height: '75vh',
+          border: '0.5em double cornflowerblue',
+          borderRadius: '2em',
         }}
         ref={tc => setTreeContainer(tc)}>
         <Tree
@@ -36,20 +38,68 @@ function BinarySearchTree(props) {
           transitionDuration={0}
         />
       </div>
-      Key: <InputNumber min={0} defaultValue={key} onChange={e => setKey(e)} />{' '}
-      <br />
-      <Button onClick={e => setTreeData(treeData.add(key))}>testAdd</Button>
-      <Button onClick={e => setTreeData(treeData.delete(key))}>
-        testDelete
-      </Button>
-      <br />
-      <Button onClick={e => treeData.search(key)}>testSearch</Button>
-      <br />
-      <Button onClick={e => treeData.findMin()}>testFindMin</Button>{' '}
-      <Button onClick={e => treeData.findMax()}>testFindMax</Button>
-      <br />
-      <Button onClick={e => treeData.succ(key)}>testSucc</Button>
-      <Button onClick={e => treeData.pred(key)}>testPred</Button>
+      <div style={{textAlign: 'left', marginTop: '1em'}}>
+        <h2>
+          Key:{' '}
+          <InputNumber min={0} defaultValue={key} onChange={e => setKey(e)} />{' '}
+        </h2>
+        <h2>Operations</h2>
+        <Button
+          style={{marginRight: '1em'}}
+          shape="round"
+          type="primary"
+          icon="plus"
+          onClick={e => setTreeData(treeData.add(key))}>
+          Insert
+        </Button>
+        <Button
+          style={{marginRight: '1em'}}
+          shape="round"
+          type="primary"
+          icon="cross"
+          onClick={e => setTreeData(treeData.delete(key))}>
+          Delete
+        </Button>
+        <Button
+          style={{marginRight: '1em'}}
+          shape="round"
+          type="primary"
+          icon="search"
+          onClick={e => treeData.search(key)}>
+          Find
+        </Button>
+        <Button
+          style={{marginRight: '1em'}}
+          shape="round"
+          type="primary"
+          icon="fall"
+          onClick={e => treeData.findMin()}>
+          FindMin
+        </Button>{' '}
+        <Button
+          style={{marginRight: '1em'}}
+          shape="round"
+          type="primary"
+          icon="rise"
+          onClick={e => treeData.findMax()}>
+          FindMax
+        </Button>
+        <Button
+          style={{marginRight: '1em'}}
+          shape="round"
+          type="primary"
+          icon="right"
+          onClick={e => treeData.succ(key)}>
+          Successor
+        </Button>
+        <Button
+          onClick={e => treeData.pred(key)}
+          shape="round"
+          type="primary"
+          icon="left">
+          Predecessor
+        </Button>
+      </div>
     </div>
   );
 }
