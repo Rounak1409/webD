@@ -1,6 +1,6 @@
 import BSTNode from './BSTNode';
 
-// BSTNode wrapper class (immutable)
+// BSTNode wrapper class (immutable) -- pointers are broken in javascript
 class TreeData {
   constructor(rootNode) {
     if (rootNode === null) {
@@ -11,13 +11,13 @@ class TreeData {
   }
 
   search(key) {
-    this.rootNode.search(key);
+    console.log(this.rootNode.search(key).key);
   }
 
   add(key, val) {
     const newNode = new BSTNode(key, val, null, null);
-    const newRootNode = this.rootNode.add(newNode);
-    return new TreeData(newRootNode);
+    this.rootNode.add(newNode);
+    return new TreeData(this.rootNode);
   }
 
   findMin() {
@@ -26,6 +26,14 @@ class TreeData {
 
   findMax() {
     this.rootNode.findMax();
+  }
+
+  succ(key) {
+    this.rootNode.successor(key);
+  }
+
+  pred(key) {
+    this.rootNode.predeccesor(key);
   }
 
   delete(key) {}

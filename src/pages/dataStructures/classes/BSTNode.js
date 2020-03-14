@@ -1,4 +1,4 @@
-// immutable BSTNode
+// mutable BSTNode
 class BSTNode {
   constructor(key, val, left, right, parent) {
     this.key = key;
@@ -9,15 +9,15 @@ class BSTNode {
   }
 
   setLeft(leftChild) {
-    return new BSTNode(this.key, this.val, leftChild, this.right, this.parent);
+    this.left = leftChild;
   }
 
   setRight(rightChild) {
-    return new BSTNode(this.key, this.val, this.left, rightChild, this.parent);
+    this.right = rightChild;
   }
 
   setParent(parent) {
-    return new BSTNode(this.key, this.val, this.left, this.right, parent);
+    this.parent = parent;
   }
 
   search(key) {
@@ -39,36 +39,25 @@ class BSTNode {
   add(newNode) {
     if (newNode.key < this.key) {
       if (this.left === null) {
-        return this.setLeft(newNode.setParent(this));
+        newNode.setParent(this);
+        this.setLeft(newNode);
+        return;
       } else {
-        const newLeftChild = this.left.add(newNode);
-        return new BSTNode(
-          this.key,
-          this.val,
-          newLeftChild,
-          this.right,
-          this.parent,
-        );
+        this.left.add(newNode);
       }
     } else {
       if (this.right === null) {
-        return this.setRight(newNode.setParent(this));
+        newNode.setParent(this);
+        this.setRight(newNode);
       } else {
-        const newRightChild = this.right.add(newNode);
-        return new BSTNode(
-          this.key,
-          this.val,
-          this.left,
-          newRightChild,
-          this.parent,
-        );
+        this.right.add(newNode);
       }
     }
   }
 
   findMin() {
     if (this.left !== null) {
-        console.log(this.left.getData());
+      console.log(this.left.getData());
       this.left.findMin();
     } else {
       console.log(`min is ${this.key}`);
@@ -83,12 +72,64 @@ class BSTNode {
     }
   }
 
-  /*
   successor(key) {
-    const nearestNode = this.search(key);
+    let nearestNode = this.search(key);
 
+    if (nearestNode.key > key) {
+      console.log(`search: successor of ${key} is ${nearestNode.key}`);
+      return;
+    }
+
+    // else, find successor of nearestNode
+    if (nearestNode.right !== null) {
+      nearestNode.right.findMin();
+    } else {
+      // no right child, travel up parent pointer until it branches to right
+
+      let nearestNodeParent = nearestNode.parent;
+      console.log(nearestNodeParent.left.key);
+      while (nearestNodeParent !== null) {
+        if (nearestNodeParent.left === nearestNode) {
+          console.log(`successor of ${key} is ${nearestNodeParent.key}`);
+          return;
+        }
+
+        nearestNode = nearestNodeParent;
+        nearestNodeParent = nearestNode.parent;
+      }
+      console.log(`no successor found for ${key}`);
+    }
   }
 
+  predeccesor(key) {
+    let nearestNode = this.search(key);
+
+    if (nearestNode.key < key) {
+      console.log(`search: predeccesor of ${key} is ${nearestNode.key}`);
+      return;
+    }
+
+    // else, find successor of nearestNode
+    if (nearestNode.left !== null) {
+      nearestNode.left.findMax();
+    } else {
+      // no left child, travel up parent pointer until it branches to left
+
+      let nearestNodeParent = nearestNode.parent;
+      while (nearestNodeParent !== null) {
+        if (nearestNodeParent.right === nearestNode) {
+          console.log(`predeccesor of ${key} is ${nearestNodeParent.key}`);
+          return;
+        }
+
+        nearestNode = nearestNodeParent;
+        nearestNodeParent = nearestNode.parent;
+      }
+      console.log(`no predeccesor found for ${key}`);
+    }
+  }
+
+  /*
     delete(key) {
         if (this.key === key) {
             // delete this node
