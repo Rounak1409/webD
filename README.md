@@ -24,6 +24,10 @@
 ### 2. Prevent user from sorting after the array is already sorted
 ### 3. Add functionality to change run speed
 
+## Data Structures Page:
+### 1. Implement AVL Trees (rotations)
+### 2. Implement HashMaps
+### 3. Implement Skiplists
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
