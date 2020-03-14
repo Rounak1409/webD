@@ -4,19 +4,22 @@ import BSTNode from './BSTNode';
 class TreeData {
   constructor(rootNode) {
     if (rootNode === null) {
-      this.rootNode = new BSTNode(10, 5, null, null, null);
+      this.rootNode = new BSTNode(10, null, null, null);
     } else {
       this.rootNode = rootNode;
     }
   }
 
   search(key) {
-    console.log(this.rootNode.search(key).key);
+    const searchedNode = this.rootNode.search(key);
+    console.log(searchedNode.key);
+    return searchedNode;
   }
 
-  add(key, val) {
-    const newNode = new BSTNode(key, val, null, null);
+  add(key) {
+    const newNode = new BSTNode(key, null, null, null);
     this.rootNode.add(newNode);
+    console.log(this.rootNode.checkPtrs());
     return new TreeData(this.rootNode);
   }
 
@@ -36,7 +39,13 @@ class TreeData {
     this.rootNode.predeccesor(key);
   }
 
-  delete(key) {}
+  // assuming key exists in tree
+  delete(key) {
+    const delNode = this.search(key);
+    this.rootNode = this.rootNode.delete(delNode);
+    console.log(this.rootNode.checkPtrs());
+    return new TreeData(this.rootNode);
+  }
 
   getData() {
     return this.rootNode.getData();

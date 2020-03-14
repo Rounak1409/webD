@@ -11,7 +11,6 @@ function BinarySearchTree(props) {
   });
   const [treeData, setTreeData] = useState(new TreeData(null));
   const [key, setKey] = useState(5);
-  const [val, setVal] = useState(5);
 
   useEffect(() => {
     if (treeContainer != null) {
@@ -38,16 +37,10 @@ function BinarySearchTree(props) {
         />
       </div>
       Key: <InputNumber min={0} defaultValue={key} onChange={e => setKey(e)} />{' '}
-      Val(if adding):{' '}
-      <InputNumber min={0} defaultValue={val} onChange={e => setVal(e)} />
       <br />
-      <Button
-        onClick={e => {
-          const addKey = key;
-          const addVal = val;
-          setTreeData(treeData.add(addKey, addVal));
-        }}>
-        testAdd
+      <Button onClick={e => setTreeData(treeData.add(key))}>testAdd</Button>
+      <Button onClick={e => setTreeData(treeData.delete(key))}>
+        testDelete
       </Button>
       <br />
       <Button onClick={e => treeData.search(key)}>testSearch</Button>

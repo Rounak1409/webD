@@ -1,11 +1,27 @@
 // mutable BSTNode
 class BSTNode {
-  constructor(key, val, left, right, parent) {
+  constructor(key, left, right, parent) {
     this.key = key;
-    this.val = val;
     this.left = left;
     this.right = right;
     this.parent = parent;
+  }
+
+  // make sure parent pointers of child and child pointers are set correctly
+  // i.e. parent <-> child
+  checkPtrs() {
+    let checkLeft = true;
+    let checkRight = true;
+
+    if (this.left !== null) {
+      checkLeft = this.left.parent === this;
+      checkLeft = checkLeft && this.left.checkPtrs();
+    } else if (this.right !== null) {
+      checkRight = this.right.parent === this;
+      checkRight = checkRight && this.right.checkPtrs();
+    }
+
+    return checkLeft && checkRight;
   }
 
   setLeft(leftChild) {
@@ -57,18 +73,19 @@ class BSTNode {
 
   findMin() {
     if (this.left !== null) {
-      console.log(this.left.getData());
-      this.left.findMin();
+      return this.left.findMin();
     } else {
       console.log(`min is ${this.key}`);
+      return this;
     }
   }
 
   findMax() {
     if (this.right !== null) {
-      this.right.findMax();
+      return this.right.findMax();
     } else {
       console.log(`max is ${this.key}`);
+      return this;
     }
   }
 
@@ -77,21 +94,20 @@ class BSTNode {
 
     if (nearestNode.key > key) {
       console.log(`search: successor of ${key} is ${nearestNode.key}`);
-      return;
+      return nearestNode;
     }
 
     // else, find successor of nearestNode
     if (nearestNode.right !== null) {
-      nearestNode.right.findMin();
+      return nearestNode.right.findMin();
     } else {
       // no right child, travel up parent pointer until it branches to right
 
       let nearestNodeParent = nearestNode.parent;
-      console.log(nearestNodeParent.left.key);
       while (nearestNodeParent !== null) {
         if (nearestNodeParent.left === nearestNode) {
           console.log(`successor of ${key} is ${nearestNodeParent.key}`);
-          return;
+          return nearestNodeParent;
         }
 
         nearestNode = nearestNodeParent;
@@ -106,12 +122,12 @@ class BSTNode {
 
     if (nearestNode.key < key) {
       console.log(`search: predeccesor of ${key} is ${nearestNode.key}`);
-      return;
+      return nearestNode;
     }
 
     // else, find successor of nearestNode
     if (nearestNode.left !== null) {
-      nearestNode.left.findMax();
+      return nearestNode.left.findMax();
     } else {
       // no left child, travel up parent pointer until it branches to left
 
@@ -119,7 +135,7 @@ class BSTNode {
       while (nearestNodeParent !== null) {
         if (nearestNodeParent.right === nearestNode) {
           console.log(`predeccesor of ${key} is ${nearestNodeParent.key}`);
-          return;
+          return nearestNodeParent;
         }
 
         nearestNode = nearestNodeParent;
@@ -129,14 +145,102 @@ class BSTNode {
     }
   }
 
-  /*
-    delete(key) {
-        if (this.key === key) {
-            // delete this node
-            
+  // this == root, assume not deleting root node
+  delete(delNode) {
+    console.log(delNode);
+    const rootNode = this;
+    const parentNode = delNode.parent;
+
+    if (delNode.isLeaf()) {
+      // no children, just delete from parent
+      if (parentNode.left === delNode) {
+        parentNode.setLeft(null);
+      } else {
+        // right child
+        parentNode.setRight(null);
+      }
+      return this;
+    } else if (delNode.left === null && delNode.right) {
+      // 1 child, just link the searchedNode child and searchedNode parent
+      delNode.right.setParent(parentNode);
+      if (parentNode !== null) {
+        if (parentNode.left === delNode) {
+          parentNode.setLeft(delNode.right);
+        } else {
+          // right child
+          parentNode.setRight(delNode.right);
         }
+        return this;
+      } else {
+        // deleting root
+        return delNode.right;
+      }
+    } else if (delNode.left && delNode.right === null) {
+      delNode.left.setParent(parentNode);
+      if (parentNode !== null) {
+        if (parentNode.left === delNode) {
+          parentNode.setLeft(delNode.left);
+        } else {
+          // right child
+          parentNode.setRight(delNode.left);
+        }
+        return this;
+      } else {
+        // deleting root
+        return delNode.left;
+      }
+    } else {
+      // 2 children
+      const successorNode = delNode.right.findMin();
+      const succRightChild = successorNode.right;
+      const succParent = successorNode.parent;
+      const succIsRightChild = succParent.right === successorNode;
+
+      delNode.left.setParent(successorNode);
+      delNode.right.setParent(successorNode);
+      successorNode.left = delNode.left;
+      successorNode.right = delNode.right;
+
+      successorNode.setParent(delNode.parent);
+      if (delNode.parent !== null) {
+        if (delNode.parent.left === delNode) {
+          delNode.parent.setLeft(successorNode);
+        } else {
+          // delNode is right child
+          delNode.parent.setRight(successorNode);
+        }
+      }
+
+      if (delNode.key === succParent.key) {
+        delNode.setParent(successorNode);
+        if (succIsRightChild) {
+          successorNode.setRight(delNode);
+        } else {
+          successorNode.setLeft(delNode);
+        }
+      } else {
+        delNode.setParent(succParent);
+        if (succIsRightChild) {
+          succParent.setRight(delNode);
+        } else {
+          succParent.setLeft(delNode);
+        }
+      }
+
+      delNode.setLeft(null);
+      if (succRightChild !== null) {
+        succRightChild.setParent(delNode);
+      }
+      delNode.setRight(succRightChild);
+
+      this.delete(delNode);
+      if (delNode.key === rootNode.key) {
+        return successorNode;
+      } else {
+        return this;
+      }
     }
-    */
+  }
 
   isLeaf() {
     return this.left === null && this.right === null;
@@ -155,9 +259,6 @@ class BSTNode {
 
     return {
       name: this.key,
-      attributes: {
-        Val: this.val,
-      },
       children,
     };
   }
