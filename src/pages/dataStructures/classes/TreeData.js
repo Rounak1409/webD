@@ -24,19 +24,19 @@ class TreeData {
   }
 
   findMin() {
-    this.rootNode.findMin();
+    return this.rootNode.findMin();
   }
 
   findMax() {
-    this.rootNode.findMax();
+    return this.rootNode.findMax();
   }
 
   succ(key) {
-    this.rootNode.successor(key);
+    return this.rootNode.successor(key);
   }
 
   pred(key) {
-    this.rootNode.predeccesor(key);
+    return this.rootNode.predeccesor(key);
   }
 
   // assuming key exists in tree

@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import Tree from 'react-d3-tree';
-import {Button, InputNumber} from 'antd';
+import {Button, InputNumber, message} from 'antd';
 import TreeData from '../classes/TreeData';
 
 function BinarySearchTree(props) {
@@ -43,7 +43,7 @@ function BinarySearchTree(props) {
           Key:{' '}
           <InputNumber min={0} defaultValue={key} onChange={e => setKey(e)} />{' '}
         </h2>
-        <h2>Operations</h2>
+        <h2>BST Operations:</h2>
         <Button
           style={{marginRight: '1em'}}
           shape="round"
@@ -65,7 +65,14 @@ function BinarySearchTree(props) {
           shape="round"
           type="primary"
           icon="search"
-          onClick={e => treeData.search(key)}>
+          onClick={e => {
+            const searchedNode = treeData.search(key);
+            if (searchedNode.key !== key) {
+              message.error(`Did not find ${key} in the BST`);
+            } else {
+              message.success(`Found ${key}!`);
+            }
+          }}>
           Find
         </Button>
         <Button
@@ -73,7 +80,9 @@ function BinarySearchTree(props) {
           shape="round"
           type="primary"
           icon="fall"
-          onClick={e => treeData.findMin()}>
+          onClick={e =>
+            message.success(`Minimum is ${treeData.findMin().key}!`)
+          }>
           FindMin
         </Button>{' '}
         <Button
@@ -81,7 +90,9 @@ function BinarySearchTree(props) {
           shape="round"
           type="primary"
           icon="rise"
-          onClick={e => treeData.findMax()}>
+          onClick={e =>
+            message.success(`Maximum is ${treeData.findMax().key}!`)
+          }>
           FindMax
         </Button>
         <Button
@@ -89,11 +100,25 @@ function BinarySearchTree(props) {
           shape="round"
           type="primary"
           icon="right"
-          onClick={e => treeData.succ(key)}>
+          onClick={e => {
+            const succ = treeData.succ(key);
+            if (succ === null) {
+              message.error(`There is no successor of ${key}`);
+            } else {
+              message.success(`Successor of ${key} is ${succ.key}!`);
+            }
+          }}>
           Successor
         </Button>
         <Button
-          onClick={e => treeData.pred(key)}
+          onClick={e => {
+            const pred = treeData.pred(key);
+            if (pred === null) {
+              message.error(`There is no predeccesor of ${key}`);
+            } else {
+              message.success(`Predecessor of ${key} is ${pred.key}!`);
+            }
+          }}
           shape="round"
           type="primary"
           icon="left">

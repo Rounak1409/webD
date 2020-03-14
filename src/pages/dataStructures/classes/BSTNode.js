@@ -114,6 +114,7 @@ class BSTNode {
         nearestNodeParent = nearestNode.parent;
       }
       console.log(`no successor found for ${key}`);
+      return null;
     }
   }
 
@@ -142,6 +143,7 @@ class BSTNode {
         nearestNodeParent = nearestNode.parent;
       }
       console.log(`no predeccesor found for ${key}`);
+      return null;
     }
   }
 
