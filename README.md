@@ -7,7 +7,6 @@
 ## Search Page:
 ### 1. Make "window" look nicer
 ### 2. UI: some helpful texts on how to run the search
-### 3. Add Legend for color codes
 
 ## Sort Page:
 ### 1. Prevent user from sorting after the array is already sorted

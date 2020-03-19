@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
 import {Slider, Button, InputNumber} from 'antd';
 import BarSearch from './BarSearch';
+import BinSearchDescription from '../components/BinSearchDescription';
+import Legend from '../components/Legend';
 import './SearchArray.css';
 
 function SearchArray(props) {
@@ -144,6 +146,10 @@ function SearchArray(props) {
         Reset
       </Button>
       <div className="SearchArray">{range.map(bar => renderBar(bar))}</div>
+      <br />
+      <BinSearchDescription />
+      <br />
+      <Legend />
     </div>
   );
 }

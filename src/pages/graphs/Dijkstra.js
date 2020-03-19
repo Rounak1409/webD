@@ -3,8 +3,8 @@ import GraphNode from './components/GraphNode';
 import Line from './components/Line';
 import MenuBar from './components/MenuBar';
 import {Alert, message, Button} from 'antd';
-import DijkstraDescription from './helpers/DijkstraDescription';
-import Legend from './helpers/Legend';
+import DijkstraDescription from './components/DijkstraDescription';
+import Legend from './components/Legend';
 import {useSelector, useDispatch} from 'react-redux';
 import {
   NODE,
