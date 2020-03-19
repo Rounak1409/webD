@@ -107,6 +107,18 @@ function HomePage(props) {
             <h2>
               This project is still under development. Stay tuned for updates!
             </h2>
+            <br />
+            <h2>
+              Implemented Algorithms & Data-Structures:
+              <li>Dijkstra</li>
+              <li>Binary Search</li>
+              <li>Knuth Shuffle</li>
+              <li>Insertion Sort</li>
+              <li>Bubble Sort</li>
+              <li>Selection Sort</li>
+              <li>Merge Sort</li>
+              <li>Binary Search Tree</li>
+            </h2>
           </Col>
         </Row>
       </div>
