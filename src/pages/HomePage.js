@@ -105,10 +105,6 @@ function HomePage(props) {
               CS2040S.
             </h2>
             <h2>
-              This project is still under development. Stay tuned for updates!
-            </h2>
-            <br />
-            <h2>
               Implemented Algorithms & Data-Structures:
               <li>Dijkstra</li>
               <li>Binary Search</li>
