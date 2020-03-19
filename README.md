@@ -4,10 +4,6 @@
 ### 1. Functionality to change edge weights
 ### 2. User input validation (eg run dijkstra when nodes dont have edges)
 
-## Search Page:
-### 1. Make "window" look nicer
-### 2. UI: some helpful texts on how to run the search
-
 ## Sort Page:
 ### 1. Prevent user from sorting after the array is already sorted
 ### 2. Add functionality to change run speed

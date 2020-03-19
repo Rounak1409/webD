@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {Slider, Button, Select} from 'antd';
 import BarSort from './BarSort';
+import Legend from './Legend';
 import './SortArray.css';
 import knuthShuffle from '../helpers/knuthShuffle';
 import insertionSort from '../helpers/insertionSort';
@@ -157,6 +158,8 @@ function SortArray(props) {
       <div className="SortArray">
         {range.map((bar, index) => (bar ? renderBar(bar, index) : 0))}
       </div>
+      <br />
+      <Legend />
     </div>
   );
 }
