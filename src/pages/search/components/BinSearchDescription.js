@@ -4,7 +4,7 @@ import {Modal, Button} from 'antd';
 const BinSearchDescription = props => {
   const [visible, setVisible] = useState(false);
   return (
-    <div style={{textAlign: 'center'}}>
+    <span style={{textAlign: 'center'}}>
       <Button type="primary" onClick={e => setVisible(true)}>
         Binary Search Description
       </Button>
@@ -35,7 +35,7 @@ const BinSearchDescription = props => {
           <i>If recurse right, set low = mid and high = high</i>
         </p>
       </Modal>
-    </div>
+    </span>
   );
 };
 

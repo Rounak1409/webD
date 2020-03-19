@@ -148,7 +148,6 @@ function SearchArray(props) {
       <div className="SearchArray">{range.map(bar => renderBar(bar))}</div>
       <br />
       <BinSearchDescription />
-      <br />
       <Legend />
     </div>
   );
