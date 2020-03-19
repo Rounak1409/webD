@@ -3,6 +3,8 @@ import GraphNode from './components/GraphNode';
 import Line from './components/Line';
 import MenuBar from './components/MenuBar';
 import {Alert, message, Button} from 'antd';
+import DijkstraDescription from './helpers/DijkstraDescription';
+import Legend from './helpers/Legend';
 import {useSelector, useDispatch} from 'react-redux';
 import {
   NODE,
@@ -320,6 +322,10 @@ function Dijkstra(props) {
           return <Line wait={index * 1.5} isShortest={true} data={data} />;
         })}
       </div>
+      <br />
+      <DijkstraDescription />
+      <br />
+      <Legend />
     </div>
   );
 }

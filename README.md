@@ -3,7 +3,6 @@
 ## Graphs Page:
 ### 1. Functionality to change edge weights
 ### 2. User input validation (eg run dijkstra when nodes dont have edges)
-### 3. Add Legend for color codes
 
 ## Search Page:
 ### 1. Make "window" look nicer
