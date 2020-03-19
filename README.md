@@ -2,27 +2,18 @@
 
 ## Graphs Page:
 ### 1. Functionality to change edge weights
-### 2. Delete Node does not delete all its edges (expected: deleting a node will delete all of its edges) (DONE)
-### 3. Functionality to undo edge creation
-### 4. Functionality to prevent edge duplicates (DONE)
-### 5. User input validation (eg run dijkstra when nodes dont have edges)
-### 6. Bug with the line animation when nodes are spaced out too far apart (at the corners) (DONE)
-### 7. Add landing page (DONE)
-### 8. Add Legend for color codes
-### 9. Bug in the color highlighting during dijkstra
+### 2. User input validation (eg run dijkstra when nodes dont have edges)
+### 3. Add Legend for color codes
 
 ## Search Page:
-### 1. Prevent user from searching again after data set is search OR functionality to 'undo' (DONE)
-### 2. Make "window" look nicer
-### 3. UI: some helpful texts on how to run the search
-### 4. Refactor code (make it cleaner)
-### 5. Add Legend for color codes
-### 6. Implement QUICK-SELECT (Order statistic)
+### 1. Make "window" look nicer
+### 2. UI: some helpful texts on how to run the search
+### 3. Add Legend for color codes
 
 ## Sort Page:
-### 1. Implement Merge-Sort(DONE) and Quick-Sort
-### 2. Prevent user from sorting after the array is already sorted
-### 3. Add functionality to change run speed
+### 1. Prevent user from sorting after the array is already sorted
+### 2. Add functionality to change run speed
+### 3. Implement QUICK-SELECT (Order statistic)
 
 ## Data Structures Page:
 ### 1. Functionality to prevent user from inserting duplicate keys
