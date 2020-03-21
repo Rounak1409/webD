@@ -11,9 +11,8 @@
 ### 3. Implement QUICK-SELECT (Order statistic)
 
 ## Data Structures Page:
-### 1. Functionality to prevent user from deleting the rootNode (if it is the only node in the tree)
-### 2. Implement HashMaps**
-### 3. Implement Skiplists
+### 1. Implement HashMaps**
+### 2. Implement Skiplists
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 

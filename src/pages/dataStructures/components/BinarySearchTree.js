@@ -64,7 +64,23 @@ function BinarySearchTree(props) {
           shape="round"
           type="primary"
           icon="cross"
-          onClick={e => setTreeData(treeData.delete(key))}>
+          onClick={e => {
+            const searchedNode = treeData.search(key);
+            if (searchedNode.key !== key) {
+              message.error(`Did not find ${key} in the BST`);
+            } else {
+              const min = treeData.findMin();
+              const max = treeData.findMax();
+              if (min.key === max.key) {
+                // only 1 node in tree, cannot delete
+                message.error(
+                  `Cannot delete ${key} as it is the only node in the BST!`,
+                );
+              } else {
+                setTreeData(treeData.delete(key));
+              }
+            }
+          }}>
           Delete
         </Button>
         <Button

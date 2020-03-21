@@ -64,7 +64,23 @@ function AVLTree(props) {
           shape="round"
           type="primary"
           icon="cross"
-          onClick={e => setTreeData(treeData.delete(key))}>
+          onClick={e => {
+            const searchedNode = treeData.search(key);
+            if (searchedNode.key !== key) {
+              message.error(`Did not find ${key} in the AVL Tree`);
+            } else {
+              const min = treeData.findMin();
+              const max = treeData.findMax();
+              if (min.key === max.key) {
+                // only 1 node in tree, cannot delete
+                message.error(
+                  `Cannot delete ${key} as it is the only node in the AVL Tree!`,
+                );
+              } else {
+                setTreeData(treeData.delete(key));
+              }
+            }
+          }}>
           Delete
         </Button>
         <Button
@@ -75,7 +91,7 @@ function AVLTree(props) {
           onClick={e => {
             const searchedNode = treeData.search(key);
             if (searchedNode.key !== key) {
-              message.error(`Did not find ${key} in the BST`);
+              message.error(`Did not find ${key} in the AVL Tree`);
             } else {
               message.success(`Found ${key}!`);
             }
