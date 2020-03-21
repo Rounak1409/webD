@@ -128,7 +128,7 @@ function AVLTree(props) {
           right rotate
         </Button>
         <Button onClick={e => setTreeData(treeData.leftRotate(key))}>
-          right rotate
+          left rotate
         </Button>
       </div>
     </div>

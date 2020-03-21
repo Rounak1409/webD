@@ -11,31 +11,18 @@ class AVLNode {
   // check rep invariant that diff in heght of childs is < 2
   // and height of parent = max(left.height, right.height) + 1
   checkRI() {
-    if (this.left && this.right) {
-      if (Math.abs(this.left.height - this.right.height) >= 2) {
-        console.log(`RI INVALID! ${this.key}`);
-        return;
-      } else if (
-        this.height !==
-        Math.max(this.left.height, this.right.height) + 1
-      ) {
-        console.log(`HEIGHT INVALID! ${this.key}`);
-        return;
-      } else {
-        this.left.checkRI();
-        this.right.checkRI();
-      }
-    } else if (this.left) {
-      if (this.height !== this.left.height + 1) {
-        console.log(`HEIGHT INVALI! ${this.key}`);
-        return;
-      }
+    const leftChildHeight = this.left === null ? -1 : this.left.height;
+    const rightChildHeight = this.right === null ? -1 : this.right.height;
+    if (Math.abs(leftChildHeight - rightChildHeight) >= 2) {
+      console.log(`RI INVALID! ${this.key}`);
+    }
+    if (Math.max(leftChildHeight, rightChildHeight) + 1 !== this.height) {
+      console.log(`HEIGHT INVALID! ${this.key}`);
+    }
+    if (this.left) {
       this.left.checkRI();
-    } else if (this.right) {
-      if (this.height !== this.right.height + 1) {
-        console.log(`HEIGHT INVALI! ${this.key}`);
-        return;
-      }
+    }
+    if (this.right) {
       this.right.checkRI();
     }
   }
@@ -85,7 +72,9 @@ class AVLNode {
     let grandparent = parent.parent;
 
     parent.setLeft(this.right);
-    parent.left.setParent(parent);
+    if (this.parent.left) {
+      parent.left.setParent(parent);
+    }
 
     parent.setParent(this);
     this.setRight(parent);
@@ -111,11 +100,13 @@ class AVLNode {
     let parent = this.parent;
     let grandparent = parent.parent;
 
-    parent.setLeft(this.right);
-    parent.left.setParent(parent);
+    parent.setRight(this.left);
+    if (this.parent.right) {
+      parent.right.setParent(parent);
+    }
 
     parent.setParent(this);
-    this.setRight(parent);
+    this.setLeft(parent);
 
     this.setParent(grandparent);
     if (grandparent.right === parent) {
