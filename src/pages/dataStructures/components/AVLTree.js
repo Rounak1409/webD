@@ -1,15 +1,15 @@
 import React, {useState, useEffect} from 'react';
 import Tree from 'react-d3-tree';
 import {Button, InputNumber, message} from 'antd';
-import BSTTreeData from '../classes/BSTTreeData';
+import AVLTreeData from '../classes/AVLTreeData';
 
-function BinarySearchTree(props) {
+function AVLTree(props) {
   const [treeContainer, setTreeContainer] = useState(null);
   const [translate, setTranslate] = useState({
     x: 0,
     y: 0,
   });
-  const [treeData, setTreeData] = useState(new BSTTreeData(null));
+  const [treeData, setTreeData] = useState(new AVLTreeData(null));
   const [key, setKey] = useState(5);
 
   useEffect(() => {
@@ -43,7 +43,7 @@ function BinarySearchTree(props) {
           Key:{' '}
           <InputNumber min={0} defaultValue={key} onChange={e => setKey(e)} />{' '}
         </h2>
-        <h2>BST Operations:</h2>
+        <h2>AVL Tree Operations:</h2>
         <Button
           style={{marginRight: '1em'}}
           shape="round"
@@ -129,4 +129,4 @@ function BinarySearchTree(props) {
   );
 }
 
-export default BinarySearchTree;
+export default AVLTree;

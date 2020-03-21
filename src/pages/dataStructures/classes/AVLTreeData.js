@@ -1,10 +1,10 @@
-import BSTNode from './BSTNode';
+import AVLNode from './AVLNode';
 
 // BSTNode wrapper class (immutable) -- pointers are broken in javascript
-class TreeData {
+class AVLTreeData {
   constructor(rootNode) {
     if (rootNode === null) {
-      this.rootNode = new BSTNode(10, null, null, null);
+      this.rootNode = new AVLNode(10, null, null, null, 0);
     } else {
       this.rootNode = rootNode;
     }
@@ -17,10 +17,11 @@ class TreeData {
   }
 
   add(key) {
-    const newNode = new BSTNode(key, null, null, null);
+    const newNode = new AVLNode(key, null, null, null, 0);
     this.rootNode.add(newNode);
     console.log(this.rootNode.checkPtrs());
-    return new TreeData(this.rootNode);
+    this.rootNode.checkRI();
+    return new AVLTreeData(this.rootNode);
   }
 
   findMin() {
@@ -47,7 +48,8 @@ class TreeData {
     }
     this.rootNode = this.rootNode.delete(delNode);
     console.log(this.rootNode.checkPtrs());
-    return new TreeData(this.rootNode);
+    this.rootNode.checkRI();
+    return new AVLTreeData(this.rootNode);
   }
 
   getData() {
@@ -55,4 +57,4 @@ class TreeData {
   }
 }
 
-export default TreeData;
+export default AVLTreeData;

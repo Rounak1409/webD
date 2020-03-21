@@ -1,14 +1,21 @@
-import React from 'react';
+import React, {useState} from 'react';
+import {Button} from 'antd';
 import BinarySearchTree from './components/BinarySearchTree';
+import AVLTree from './components/AVLTree';
 
 function DSPage(props) {
+  const [ds, setDs] = useState('BST');
   return (
-    <div style={{textAlign: 'center', margin: '2em'}}>
+    <div style={{textAlign: 'center', margin: '1em'}}>
+        <Button onClick={e => setDs('BST')}>BST</Button>
+        <Button onClick={e => setDs('AVL')}>AVL</Button>
       <h1 style={{fontWeight: 'bold', textDecoration: 'underline'}}>
-        Visualize Binary Search Trees!
+        {ds === 'BST' && 'Visualize Binary Search Trees!'}
+        {ds === 'AVL' && 'Visualize AVL Trees!'}
       </h1>
       <div>
-        <BinarySearchTree />
+        {ds === 'BST' && <BinarySearchTree />}
+        {ds === 'AVL' && <AVLTree />}
       </div>
     </div>
   );
