@@ -4,7 +4,7 @@ import BinarySearchTree from './components/BinarySearchTree';
 import AVLTree from './components/AVLTree';
 
 function DSPage(props) {
-  const [ds, setDs] = useState('BST');
+  const [ds, setDs] = useState('AVL');
   return (
     <div style={{textAlign: 'center', margin: '1em'}}>
         <Button onClick={e => setDs('BST')}>BST</Button>

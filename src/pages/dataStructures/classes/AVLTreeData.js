@@ -16,6 +16,22 @@ class AVLTreeData {
     return searchedNode;
   }
 
+  rightRotate(key) {
+    const searchedNode = this.search(key);
+    searchedNode.rightRotate();
+    console.log(this.rootNode.checkPtrs());
+    this.rootNode.checkRI();
+    return new AVLTreeData(this.rootNode);
+  }
+
+  leftRotate(key) {
+    const searchedNode = this.search(key);
+    searchedNode.leftRotate();
+    console.log(this.rootNode.checkPtrs());
+    this.rootNode.checkRI();
+    return new AVLTreeData(this.rootNode);
+  }
+
   add(key) {
     const newNode = new AVLNode(key, null, null, null, 0);
     this.rootNode.add(newNode);

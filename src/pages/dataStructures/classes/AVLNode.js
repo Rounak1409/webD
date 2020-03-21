@@ -73,6 +73,67 @@ class AVLNode {
     this.height = height;
   }
 
+  // recomputes its height based on child height
+  maintainHeight() {
+    const leftChildHeight = this.left === null ? -1 : this.left.height;
+    const rightChildHeight = this.right === null ? -1 : this.right.height;
+    this.setHeight(Math.max(leftChildHeight, rightChildHeight) + 1);
+  }
+
+  rightRotate() {
+    let parent = this.parent;
+    let grandparent = parent.parent;
+
+    parent.setLeft(this.right);
+    parent.left.setParent(parent);
+
+    parent.setParent(this);
+    this.setRight(parent);
+
+    this.setParent(grandparent);
+    if (grandparent.right === parent) {
+      grandparent.setRight(this);
+    } else {
+      //parent is left child
+      grandparent.setLeft(this);
+    }
+    parent.maintainHeight();
+    this.maintainHeight();
+
+    parent = this.parent;
+    while (parent !== null) {
+      parent.maintainHeight();
+      parent = parent.parent;
+    }
+  }
+
+  leftRotate() {
+    let parent = this.parent;
+    let grandparent = parent.parent;
+
+    parent.setLeft(this.right);
+    parent.left.setParent(parent);
+
+    parent.setParent(this);
+    this.setRight(parent);
+
+    this.setParent(grandparent);
+    if (grandparent.right === parent) {
+      grandparent.setRight(this);
+    } else {
+      //parent is left child
+      grandparent.setLeft(this);
+    }
+    parent.maintainHeight();
+    this.maintainHeight();
+
+    parent = this.parent;
+    while (parent !== null) {
+      parent.maintainHeight();
+      parent = parent.parent;
+    }
+  }
+
   search(key) {
     if (this.key === key) {
       return this;
@@ -105,9 +166,7 @@ class AVLNode {
         this.right.add(newNode);
       }
     }
-    const leftHeight = this.left === null ? 0 : this.left.height;
-    const rightHeight = this.right === null ? 0 : this.right.height;
-    this.height = Math.max(leftHeight, rightHeight) + 1;
+    this.maintainHeight();
   }
 
   findMin() {
