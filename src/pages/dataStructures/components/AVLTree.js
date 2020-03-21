@@ -49,7 +49,14 @@ function AVLTree(props) {
           shape="round"
           type="primary"
           icon="plus"
-          onClick={e => setTreeData(treeData.add(key))}>
+          onClick={e => {
+            const searchedNode = treeData.search(key);
+            if (searchedNode.key === key) {
+              message.error(`Key ${key} is already in the AVL Tree!`);
+            } else {
+              setTreeData(treeData.add(key));
+            }
+          }}>
           Insert
         </Button>
         <Button
