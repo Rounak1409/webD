@@ -114,6 +114,7 @@ function HomePage(props) {
               <li>Selection Sort</li>
               <li>Merge Sort</li>
               <li>Binary Search Tree</li>
+              <li>AVL Tree</li>
             </h2>
           </Col>
         </Row>
