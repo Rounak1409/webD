@@ -237,7 +237,6 @@ class AVLNode {
     if (this.left !== null) {
       return this.left.findMin();
     } else {
-      console.log(`min is ${this.key}`);
       return this;
     }
   }
@@ -246,7 +245,6 @@ class AVLNode {
     if (this.right !== null) {
       return this.right.findMax();
     } else {
-      console.log(`max is ${this.key}`);
       return this;
     }
   }
@@ -255,7 +253,6 @@ class AVLNode {
     let nearestNode = this.search(key);
 
     if (nearestNode.key > key) {
-      console.log(`search: successor of ${key} is ${nearestNode.key}`);
       return nearestNode;
     }
 
@@ -268,14 +265,12 @@ class AVLNode {
       let nearestNodeParent = nearestNode.parent;
       while (nearestNodeParent !== null) {
         if (nearestNodeParent.left === nearestNode) {
-          console.log(`successor of ${key} is ${nearestNodeParent.key}`);
           return nearestNodeParent;
         }
 
         nearestNode = nearestNodeParent;
         nearestNodeParent = nearestNode.parent;
       }
-      console.log(`no successor found for ${key}`);
       return null;
     }
   }
@@ -284,7 +279,6 @@ class AVLNode {
     let nearestNode = this.search(key);
 
     if (nearestNode.key < key) {
-      console.log(`search: predeccesor of ${key} is ${nearestNode.key}`);
       return nearestNode;
     }
 
@@ -297,21 +291,18 @@ class AVLNode {
       let nearestNodeParent = nearestNode.parent;
       while (nearestNodeParent !== null) {
         if (nearestNodeParent.right === nearestNode) {
-          console.log(`predeccesor of ${key} is ${nearestNodeParent.key}`);
           return nearestNodeParent;
         }
 
         nearestNode = nearestNodeParent;
         nearestNodeParent = nearestNode.parent;
       }
-      console.log(`no predeccesor found for ${key}`);
       return null;
     }
   }
 
-  // this == root, assume not deleting root node
+  // this == root
   delete(delNode) {
-    console.log(delNode);
     const rootNode = this;
     const parentNode = delNode.parent;
 
@@ -323,7 +314,16 @@ class AVLNode {
         // right child
         parentNode.setRight(null);
       }
-      return this;
+
+      // update heights
+      let parent = parentNode;
+      while (parent !== null) {
+        parent.maintainHeight();
+        parent = parent.parent;
+      }
+
+      // balance violations (if any) from parentNode up towards the root
+      return this.balanceAllViolation(parentNode);
     } else if (delNode.left === null && delNode.right) {
       // 1 child, just link the searchedNode child and searchedNode parent
       delNode.right.setParent(parentNode);
@@ -334,7 +334,13 @@ class AVLNode {
           // right child
           parentNode.setRight(delNode.right);
         }
-        return this;
+        // update heights
+        let parent = parentNode;
+        while (parent !== null) {
+          parent.maintainHeight();
+          parent = parent.parent;
+        }
+        return this.balanceAllViolation(parentNode);
       } else {
         // deleting root
         return delNode.right;
@@ -348,7 +354,13 @@ class AVLNode {
           // right child
           parentNode.setRight(delNode.left);
         }
-        return this;
+        // update heights
+        let parent = parentNode;
+        while (parent !== null) {
+          parent.maintainHeight();
+          parent = parent.parent;
+        }
+        return this.balanceAllViolation(parentNode);
       } else {
         // deleting root
         return delNode.left;
@@ -397,12 +409,7 @@ class AVLNode {
       }
       delNode.setRight(succRightChild);
 
-      this.delete(delNode);
-      if (delNode.key === rootNode.key) {
-        return successorNode;
-      } else {
-        return this;
-      }
+      return this.delete(delNode);
     }
   }
 

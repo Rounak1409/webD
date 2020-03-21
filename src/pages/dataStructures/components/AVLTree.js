@@ -124,12 +124,10 @@ function AVLTree(props) {
           icon="left">
           Predecessor
         </Button>
-        <Button onClick={e => setTreeData(treeData.rightRotate(key))}>
-          right rotate
+        <Button onClick={e => setTreeData(treeData.testRandom())}>
+          test random
         </Button>
-        <Button onClick={e => setTreeData(treeData.leftRotate(key))}>
-          left rotate
-        </Button>
+        <Button onClick={e => setTreeData(new AVLTreeData(null))}>reset</Button>
       </div>
     </div>
   );

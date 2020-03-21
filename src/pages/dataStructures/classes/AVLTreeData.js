@@ -10,26 +10,36 @@ class AVLTreeData {
     }
   }
 
+  // called from the root, tests on random input insertion / deletion, making sure checkRI and checkPtrs are true
+  testRandom() {
+    const presentNum = [10];
+    for (let i = 0; i < 1000; i++) {
+      let randInt = Math.floor(Math.random() * 2);
+      if (randInt === 0) {
+        // deletion
+        if (presentNum.length === 1) {
+          continue;
+        }
+        let randIndex = Math.floor(Math.random() * presentNum.length);
+        const deleteKey = presentNum[randIndex];
+        this.delete(deleteKey);
+        presentNum.splice(randIndex, 1);
+      } else {
+        // insertion
+        let insertKey = Math.floor(Math.random() * 100);
+        while (presentNum.includes(insertKey)) {
+          insertKey = Math.floor(Math.random() * 100);
+        }
+        this.add(insertKey);
+        presentNum.push(insertKey);
+      }
+    }
+    return new AVLTreeData(this.rootNode);
+  }
+
   search(key) {
     const searchedNode = this.rootNode.search(key);
-    console.log(searchedNode.key);
     return searchedNode;
-  }
-
-  rightRotate(key) {
-    const searchedNode = this.search(key);
-    searchedNode.rightRotate();
-    console.log(this.rootNode.checkPtrs());
-    this.rootNode.checkRI();
-    return new AVLTreeData(this.rootNode);
-  }
-
-  leftRotate(key) {
-    const searchedNode = this.search(key);
-    searchedNode.leftRotate();
-    console.log(this.rootNode.checkPtrs());
-    this.rootNode.checkRI();
-    return new AVLTreeData(this.rootNode);
   }
 
   add(key) {
@@ -39,7 +49,9 @@ class AVLTreeData {
     if (balancedNode !== this.rootNode) {
       this.rootNode = balancedNode;
     }
-    console.log(this.rootNode.checkPtrs());
+    if (!this.rootNode.checkPtrs) {
+      console.log(this.rootNode.checkPtrs());
+    }
     this.rootNode.checkRI();
     return new AVLTreeData(this.rootNode);
   }
@@ -67,7 +79,9 @@ class AVLTreeData {
       return this;
     }
     this.rootNode = this.rootNode.delete(delNode);
-    console.log(this.rootNode.checkPtrs());
+    if (!this.rootNode.checkPtrs) {
+      console.log(this.rootNode.checkPtrs());
+    }
     this.rootNode.checkRI();
     return new AVLTreeData(this.rootNode);
   }
