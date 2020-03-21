@@ -4,7 +4,7 @@ import {Modal, Button} from 'antd';
 const DijkstraDescription = props => {
   const [visible, setVisible] = useState(false);
   return (
-    <div style={{textAlign: 'center'}}>
+    <span style={{margin: '0 1em'}}>
       <Button type="primary" onClick={e => setVisible(true)}>
         Dijkstra Algorithm Description
       </Button>
@@ -43,7 +43,7 @@ const DijkstraDescription = props => {
           delta(u), then add u to PQ
         </i>
       </Modal>
-    </div>
+    </span>
   );
 };
 

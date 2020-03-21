@@ -323,9 +323,10 @@ function Dijkstra(props) {
         })}
       </div>
       <br />
-      <DijkstraDescription />
-      <br />
-      <Legend />
+      <div style={{textAlign: 'center'}}>
+        <DijkstraDescription />
+        <Legend />
+      </div>
     </div>
   );
 }

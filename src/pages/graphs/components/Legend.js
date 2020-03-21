@@ -4,7 +4,7 @@ import {Modal, Button} from 'antd';
 const Legend = props => {
   const [visible, setVisible] = useState(false);
   return (
-    <div style={{textAlign: 'center'}}>
+    <span style={{textAlign: 'center'}}>
       <Button type="primary" onClick={e => setVisible(true)}>
         Legend
       </Button>
@@ -26,7 +26,7 @@ const Legend = props => {
           Neighbor node: <font color="darkgoldenrod">YELLOW</font>
         </p>
       </Modal>
-    </div>
+    </span>
   );
 };
 
