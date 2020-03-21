@@ -35,6 +35,10 @@ class AVLTreeData {
   add(key) {
     const newNode = new AVLNode(key, null, null, null, 0);
     this.rootNode.add(newNode);
+    const balancedNode = this.rootNode.balanceAllViolation(newNode);
+    if (balancedNode !== this.rootNode) {
+      this.rootNode = balancedNode;
+    }
     console.log(this.rootNode.checkPtrs());
     this.rootNode.checkRI();
     return new AVLTreeData(this.rootNode);

@@ -67,6 +67,73 @@ class AVLNode {
     this.setHeight(Math.max(leftChildHeight, rightChildHeight) + 1);
   }
 
+  // called from root
+  balanceOneViolation(violatedNode) {
+    let res;
+    if (violatedNode.isLeftHeavy()) {
+      // left child exists
+      if (violatedNode.left.isLeftHeavy()) {
+        // both violated node and violated node's left child is left heavy, can do right rotate
+        res = violatedNode.left.rightRotate();
+      } else if (violatedNode.left.isRightHeavy()) {
+        // violated node left heavy and violated node's left child right heavy, do left rotate on violated node's left child's right child,
+        // then do right rotate on violated node's left child
+        const newViolatedNodeLeftChild = violatedNode.left.right.leftRotate();
+        res = newViolatedNodeLeftChild.rightRotate();
+      } else {
+        // violated node left heavy and violated node's left child balanced, can do right rotate
+        res = violatedNode.left.rightRotate();
+      }
+    } else {
+      // right child exists
+      // violated node right heavy
+      if (violatedNode.right.isRightHeavy()) {
+        // both violated node and violated node's right child is right heavy, can do left rotate
+        res = violatedNode.right.leftRotate();
+      } else if (violatedNode.right.isLeftHeavy()) {
+        // violated node right heavy and violated node's right child left heavy, do right rotate on violated node's right child's left child,
+        // then do left rotate on violated node's right child
+        const newViolatedNodeRightChild = violatedNode.right.left.rightRotate();
+        res = newViolatedNodeRightChild.leftRotate();
+      } else {
+        // violated node right heavy and violated node's right child balanced, can do left rotate
+        res = violatedNode.right.leftRotate();
+      }
+    }
+    return res;
+  }
+
+  balanceAllViolation(startNode) {
+    let balancedNode;
+
+    while (startNode !== null) {
+      const leftChildHeight =
+        startNode.left === null ? -1 : startNode.left.height;
+      const rightChildHeight =
+        startNode.right === null ? -1 : startNode.right.height;
+      if (Math.abs(leftChildHeight - rightChildHeight) >= 2) {
+        // violated node
+        balancedNode = this.balanceOneViolation(startNode);
+      } else {
+        balancedNode = startNode;
+      }
+      startNode = balancedNode.parent;
+    }
+    return balancedNode;
+  }
+
+  isLeftHeavy() {
+    const leftChildHeight = this.left === null ? -1 : this.left.height;
+    const rightChildHeight = this.right === null ? -1 : this.right.height;
+    return leftChildHeight > rightChildHeight;
+  }
+
+  isRightHeavy() {
+    const leftChildHeight = this.left === null ? -1 : this.left.height;
+    const rightChildHeight = this.right === null ? -1 : this.right.height;
+    return rightChildHeight > leftChildHeight;
+  }
+
   rightRotate() {
     let parent = this.parent;
     let grandparent = parent.parent;
@@ -80,11 +147,13 @@ class AVLNode {
     this.setRight(parent);
 
     this.setParent(grandparent);
-    if (grandparent.right === parent) {
-      grandparent.setRight(this);
-    } else {
-      //parent is left child
-      grandparent.setLeft(this);
+    if (grandparent) {
+      if (grandparent.right === parent) {
+        grandparent.setRight(this);
+      } else {
+        //parent is left child
+        grandparent.setLeft(this);
+      }
     }
     parent.maintainHeight();
     this.maintainHeight();
@@ -94,6 +163,7 @@ class AVLNode {
       parent.maintainHeight();
       parent = parent.parent;
     }
+    return this;
   }
 
   leftRotate() {
@@ -109,11 +179,13 @@ class AVLNode {
     this.setLeft(parent);
 
     this.setParent(grandparent);
-    if (grandparent.right === parent) {
-      grandparent.setRight(this);
-    } else {
-      //parent is left child
-      grandparent.setLeft(this);
+    if (grandparent) {
+      if (grandparent.right === parent) {
+        grandparent.setRight(this);
+      } else {
+        //parent is left child
+        grandparent.setLeft(this);
+      }
     }
     parent.maintainHeight();
     this.maintainHeight();
@@ -123,6 +195,7 @@ class AVLNode {
       parent.maintainHeight();
       parent = parent.parent;
     }
+    return this;
   }
 
   search(key) {
