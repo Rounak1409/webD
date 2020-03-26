@@ -1,8 +1,7 @@
 # Issues:
 
 ## Graphs Page:
-### 1. Functionality to change edge weights
-### 2. Implement BELLMAN-FORD**
+### 1. Implement BELLMAN-FORD**
 
 ## Sort Page:
 ### 1. Prevent user from sorting after the array is already sorted
