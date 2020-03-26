@@ -2,8 +2,7 @@
 
 ## Graphs Page:
 ### 1. Functionality to change edge weights
-### 2. User input validation (eg run dijkstra when nodes dont have edges)
-### 3. Implement BELLMAN-FORD**
+### 2. Implement BELLMAN-FORD**
 
 ## Sort Page:
 ### 1. Prevent user from sorting after the array is already sorted
