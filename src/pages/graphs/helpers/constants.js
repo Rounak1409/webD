@@ -7,4 +7,4 @@ export const ADDNODEINFO = 'Click anywhere on the area highlighted below to add 
 export const DELNODEINFO = 'Click anywhere on the area highlighted below to delete new Nodes.';
 export const ADDEDGEINFO = 'To add an Edge, click on the first Node of the new Edge, then click on the second Node. Do this for every edge.'; 
 export const DELEDGEINFO = 'To delete an Edge, click on the first Node of the Edge to be deleted, then click on the second Node.'; 
-export const RUNINFO = 'To run dijkstra, first select source and destination Node by clicking on the respective Nodes. Then, click on the [Run dijkstra!] Button.';
+export const RUNINFO = 'To run dijkstra, first select source and destination Node by clicking on the respective Nodes. Then, click on the [Run dijkstra!] Button. To re-run dijkstra, click on [Run dijkstra!] button again!';

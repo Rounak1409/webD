@@ -86,6 +86,9 @@ export const onClickRunButton = (
   setCurrState,
   setStartEndNodePair,
   setInfoText,
+  setShortestPath,
+  setCurrentNode,
+  setNeighborNode,
 ) => {
   setCurrState({
     element: null,
@@ -94,6 +97,9 @@ export const onClickRunButton = (
   });
   setStartEndNodePair([null, null]);
   setInfoText(RUNINFO);
+  setShortestPath([]);
+  setCurrentNode(null);
+  setNeighborNode(null);
 };
 
 export const handleAddNode = (

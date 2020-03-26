@@ -38,7 +38,8 @@ function GraphsPage(props) {
   const dispatch = useDispatch(); // connect to redux store, update it whenever add/delete node/edge
   const readOnlyState = useSelector(state => state.graph); // read the state of the graph from redux store
 
-  const verifyStartEndNodes = node => { // verify that both src and dest are selected before we run the shortest path algo
+  const verifyStartEndNodes = node => {
+    // verify that both src and dest are selected before we run the shortest path algo
     if (startEndNodePair[0] === null) {
       setStartEndNodePair([node, startEndNodePair[1]]);
     } else if (startEndNodePair[1] === null) {
@@ -48,7 +49,7 @@ function GraphsPage(props) {
     }
   };
 
-  const helperDelay = ms => new Promise(res => setTimeout(res, ms)); // hackish delay function to show the visualization 
+  const helperDelay = ms => new Promise(res => setTimeout(res, ms)); // hackish delay function to show the visualization
 
   const menuData = [
     {
@@ -99,7 +100,14 @@ function GraphsPage(props) {
     {
       value: 'run',
       onClick: e =>
-        onClickRunButton(setCurrState, setStartEndNodePair, setInfoText),
+        onClickRunButton(
+          setCurrState,
+          setStartEndNodePair,
+          setInfoText,
+          setShortestPath,
+          setCurrentNode,
+          setNeighborNode,
+        ),
       text: 'Run',
       type: 'play-circle',
     },
