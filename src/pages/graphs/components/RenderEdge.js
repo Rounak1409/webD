@@ -5,6 +5,7 @@ import {InputNumber} from 'antd';
 
 const RenderEdge = props => {
   const [edge, edges, setEdges, dispatch] = props.value;
+    console.log(edge);
 
   return (
     <div>
@@ -13,7 +14,7 @@ const RenderEdge = props => {
         <InputNumber
           min={1}
           max={Number.MAX_SAFE_INTEGER}
-          defaultValue={edge.weight}
+          value={edge.weight}
           onChange={e => {
             const newEdges = [];
             for (let i = 0; i < edges.length; i++) {
