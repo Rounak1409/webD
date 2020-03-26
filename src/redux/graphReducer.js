@@ -35,6 +35,21 @@ const graphReducer = (state = {graph: {}}, action) => {
         weight: newEdge.weight,
       });
       return newState;
+    case 'MOD_EDGE':
+      const edge = action.edge;
+      for (let i = 0; i < newState.graph[edge.nodeA.id].length; i++) {
+        if (newState.graph[edge.nodeA.id][i].other === edge.nodeB.id) {
+          newState.graph[edge.nodeA.id][i].weight = edge.weight;
+          break;
+        }
+      }
+      for (let i = 0; i < newState.graph[edge.nodeB.id].length; i++) {
+        if (newState.graph[edge.nodeB.id][i].other === edge.nodeA.id) {
+          newState.graph[edge.nodeB.id][i].weight = edge.weight;
+          break;
+        }
+      }
+      return newState;
     case 'DEL_EDGE':
       const nodePair = action.nodePair;
       let newArr = newState.graph[nodePair[0].id].filter(

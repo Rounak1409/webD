@@ -28,10 +28,17 @@ export const addEdge = newEdge => {
   };
 };
 
+export const modEdge = edge => {
+  return {
+    type: 'MOD_EDGE',
+    edge,
+  };
+};
+
 // nodePair = [nodeA, nodeB]
 export const delEdge = nodePair => {
   return {
     type: 'DEL_EDGE',
-    nodePair
+    nodePair,
   };
 };

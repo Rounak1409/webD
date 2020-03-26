@@ -6,7 +6,7 @@ class Edge {
   }
 
   containsNode(node) {
-    return this.nodeA === node || this.nodeB === node;
+    return this.nodeA=== node|| this.nodeB=== node;
   }
 }
 

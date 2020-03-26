@@ -2,7 +2,8 @@ import React, {useState} from 'react';
 import GraphNode from './components/GraphNode';
 import Line from './components/Line';
 import MenuBar from './components/MenuBar';
-import {Alert, message, Button} from 'antd';
+import RenderEdge from './components/RenderEdge';
+import {Alert, message, Button, Modal} from 'antd';
 import DijkstraDescription from './components/DijkstraDescription';
 import Legend from './components/Legend';
 import {useSelector, useDispatch} from 'react-redux';
@@ -35,6 +36,7 @@ function GraphsPage(props) {
   const [shortestPath, setShortestPath] = useState([]); // array of edges in the shortest path from src to dest
   const [latestNodeId, setLatestNodeId] = useState(0); // keep track of node IDs
   const [infoText, setInfoText] = useState(ADDNODEINFO); // the info text below menu bar
+  const [modifyEdge, setModifyEdge] = useState(false); // sets whether the modify edge modal visibility is on/off
   const dispatch = useDispatch(); // connect to redux store, update it whenever add/delete node/edge
   const readOnlyState = useSelector(state => state.graph); // read the state of the graph from redux store
 
@@ -144,6 +146,25 @@ function GraphsPage(props) {
             Run Dijkstra!
           </Button>
         )}
+        <Button
+          type="primary"
+          style={{
+            margin: '0 1em',
+            background: 'darkviolet',
+            borderColor: 'indigo',
+          }}
+          onClick={e => setModifyEdge(true)}>
+          Modify Edge Weights
+        </Button>
+        <Modal
+          title="Modify Edge Weights"
+          visible={modifyEdge}
+          onOk={e => setModifyEdge(false)}
+          onCancel={e => setModifyEdge(false)}>
+          {edges.map(edge => {
+            return <RenderEdge value={[edge, edges, setEdges, dispatch]} />;
+          })}
+        </Modal>
       </div>
       <div
         onClick={e => {

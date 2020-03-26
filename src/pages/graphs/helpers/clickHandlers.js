@@ -201,6 +201,7 @@ export const onClickSelectNode = (
     } else {
       const nodePair = [currState.nodeA, node];
       for (let i = 0; i < edges.length; i++) {
+          console.log(edges[i].className);
         if (
           edges[i].containsNode(nodePair[0]) &&
           edges[i].containsNode(nodePair[1])
