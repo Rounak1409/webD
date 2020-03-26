@@ -27,15 +27,14 @@ const dijkstra = async (
   for (let i = 0; i < nodes.length; i++) {
     const newNode = Object.assign({}, nodes[i]);
     if (startEndNodePair[0] === nodes[i]) {
-      newNode.costToReach = 0;
-      //newNode.parent = -1; // indicate source node -> no parent
+      newNode.costToReach = 0; // other nodes are set to costToReach = MAXSAFEINTEGER by default
     }
     nodesQueue.push(newNode);
     nodesMap.push(newNode);
   }
 
   const dest = startEndNodePair[1];
-  while (true) {
+  while (nodesQueue.length > 0) {
     helperSort();
     const nextNode = nodesQueue.shift();
     await helperDelay(500);

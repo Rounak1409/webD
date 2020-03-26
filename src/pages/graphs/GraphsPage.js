@@ -6,14 +6,7 @@ import {Alert, message, Button} from 'antd';
 import DijkstraDescription from './components/DijkstraDescription';
 import Legend from './components/Legend';
 import {useSelector, useDispatch} from 'react-redux';
-import {
-  NODE,
-  EDGE,
-  ADD,
-  DEL,
-  RUN,
-  ADDNODEINFO,
-} from './helpers/constants';
+import {NODE, EDGE, ADD, DEL, RUN, ADDNODEINFO} from './helpers/constants';
 import {
   onClickReset,
   onClickAddNodeButton,
@@ -29,23 +22,23 @@ import dijkstra from './helpers/dijkstra';
 import './GraphsPage.css';
 
 function GraphsPage(props) {
-  const [nodes, setNodes] = useState([]);
-  const [edges, setEdges] = useState([]);
+  const [nodes, setNodes] = useState([]); // array of nodes
+  const [edges, setEdges] = useState([]); // array of edges
   const [currState, setCurrState] = useState({
     element: NODE,
     operation: ADD,
-    nodeA: null,
+    nodeA: null, // to "highlight" first node when drawing edges
   });
-  const [startEndNodePair, setStartEndNodePair] = useState([null, null]);
+  const [startEndNodePair, setStartEndNodePair] = useState([null, null]); // source and destination vertex
   const [currentNode, setCurrentNode] = useState(null); //for dijkstra to indicate the node taken out from prio queue
-  const [neighborNode, setNeighborNode] = useState(null);
-  const [shortestPath, setShortestPath] = useState([]);
-  const [latestNodeId, setLatestNodeId] = useState(0);
-  const [infoText, setInfoText] = useState(ADDNODEINFO);
-  const dispatch = useDispatch();
-  const readOnlyState = useSelector(state => state.graph);
+  const [neighborNode, setNeighborNode] = useState(null); // for dijkstra to "highlight" neighbor nodes of the currentNode
+  const [shortestPath, setShortestPath] = useState([]); // array of edges in the shortest path from src to dest
+  const [latestNodeId, setLatestNodeId] = useState(0); // keep track of node IDs
+  const [infoText, setInfoText] = useState(ADDNODEINFO); // the info text below menu bar
+  const dispatch = useDispatch(); // connect to redux store, update it whenever add/delete node/edge
+  const readOnlyState = useSelector(state => state.graph); // read the state of the graph from redux store
 
-  const verifyStartEndNodes = node => {
+  const verifyStartEndNodes = node => { // verify that both src and dest are selected before we run the shortest path algo
     if (startEndNodePair[0] === null) {
       setStartEndNodePair([node, startEndNodePair[1]]);
     } else if (startEndNodePair[1] === null) {
@@ -54,7 +47,8 @@ function GraphsPage(props) {
       message.error('Already selected both start and end Nodes!');
     }
   };
-  const helperDelay = ms => new Promise(res => setTimeout(res, ms));
+
+  const helperDelay = ms => new Promise(res => setTimeout(res, ms)); // hackish delay function to show the visualization 
 
   const menuData = [
     {
@@ -124,7 +118,17 @@ function GraphsPage(props) {
             type="primary"
             icon="code"
             className="Custom-Button"
-              onClick={e => dijkstra(nodes, startEndNodePair, setShortestPath, setCurrentNode, setNeighborNode, readOnlyState, helperDelay)}>
+            onClick={e =>
+              dijkstra(
+                nodes,
+                startEndNodePair,
+                setShortestPath,
+                setCurrentNode,
+                setNeighborNode,
+                readOnlyState,
+                helperDelay,
+              )
+            }>
             Run Dijkstra!
           </Button>
         ) : (
