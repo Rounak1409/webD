@@ -1,6 +1,6 @@
 import React from 'react';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
-import Dijkstra from './pages/graphs/Dijkstra';
+import GraphsPage from './pages/graphs/GraphsPage';
 import HomePage from './pages/HomePage';
 import SearchPage from './pages/search/SearchPage';
 import SortPage from './pages/sort/SortPage';
@@ -11,7 +11,7 @@ function App() {
       <BrowserRouter>
           <Switch>
               <Route exact path='/' component={HomePage} />
-              <Route exact path='/graphs' component={Dijkstra} />
+              <Route exact path='/graphs' component={GraphsPage} />
               <Route exact path='/search' component={SearchPage} />
               <Route exact path='/sort' component={SortPage} />
               <Route exact path='/ds' component={DSPage} />

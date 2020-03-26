@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   NODE,
   EDGE,
@@ -11,7 +10,7 @@ import {
   DELEDGEINFO,
   RUNINFO,
 } from './constants';
-import {message, Button} from 'antd';
+import {message} from 'antd';
 import Node from '../classes/Node';
 import Edge from '../classes/Edge';
 import {
