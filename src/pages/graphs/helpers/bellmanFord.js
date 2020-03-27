@@ -1,5 +1,6 @@
 import Edge from '../classes/Edge';
 
+// bellman ford cannot work on undirected graphs w neg weights!!!
 const bellmanFord = async (
   nodes,
   startEndNodePair,
@@ -8,8 +9,8 @@ const bellmanFord = async (
   setNeighborNode,
   readOnlyState,
   helperDelay,
+  message,
 ) => {
-  console.log('bellmanford-ing...');
   // Make copy of all nodes, set source node cost as 0, rest of node
   // by default has cost of infinity
   const nodesMap = [];
@@ -37,9 +38,10 @@ const bellmanFord = async (
   const dest = startEndNodePair[1];
   // do |V| - 1 steps of |E| relaxations
   for (let i = 0; i < nodesMap.length - 1; i++) {
+    let didRelax = false;
     for (let j = 0; j < edgesMap.length; j++) {
       // relax edge[j]
-      await helperDelay(500);
+      await helperDelay(250);
       const edge = edgesMap[j];
       const u = edge.nodeA;
       const v = edge.nodeB;
@@ -51,12 +53,31 @@ const bellmanFord = async (
       if (d < v.costToReach) {
         v.costToReach = d;
         v.parent = u;
+        didRelax = true;
       }
+    }
+    if (!didRelax) {
+      break;
     }
   }
 
   setCurrentNode(null);
   setNeighborNode(null);
+
+  for (let i = 0; i < edgesMap.length; i++) {
+    // relax edge[j]
+    const edge = edgesMap[i];
+    const u = edge.nodeA;
+    const v = edge.nodeB;
+    const wt = edge.weight;
+    const d = u.costToReach + wt;
+    if (d < v.costToReach) {
+      // means can still relax --> neg wt cycles detected!!
+      message.error('Negative wt cycles detected!');
+      return;
+    }
+  }
+
   // construct shortest path
   let pair;
   const path = [];
@@ -74,12 +95,13 @@ const bellmanFord = async (
 
   setShortestPath(path);
 
+  /*
   console.log(
     `cost from src to dst: ${
       nodesMap.find(node => node.id === dest.id).costToReach
     }`,
   );
-  console.log('finish bellmanford');
+  */
 };
 
 export default bellmanFord;

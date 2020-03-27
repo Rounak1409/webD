@@ -4,16 +4,14 @@ import {modEdge} from '../../../redux/graphActions';
 import {InputNumber} from 'antd';
 
 const RenderEdge = props => {
-  const [edge, edges, setEdges, dispatch] = props.value;
-    console.log(edge);
-
+  const [edge, edges, setEdges, dispatch, negWts] = props.value;
   return (
     <div>
       <h3>
         Edge: ({edge.nodeA.id}, {edge.nodeB.id}), Weight:{' '}
         <InputNumber
-          min={1}
-          max={Number.MAX_SAFE_INTEGER}
+          min={negWts ? -100 : 0}
+          max={100}
           value={edge.weight}
           onChange={e => {
             const newEdges = [];

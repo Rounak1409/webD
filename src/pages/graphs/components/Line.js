@@ -9,7 +9,6 @@ function Line(props) {
   } else {
     className = '';
   }
-    console.log(props.wait)
   return (
     <svg
       style={{

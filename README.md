@@ -1,7 +1,7 @@
 # Issues:
 
 ## Graphs Page:
-### 1. Implement BELLMAN-FORD**
+### 1. Implement directed graphs / figure out how to draw arrows in CSS (so bellman-ford can work on -ve wt edges)
 
 ## Sort Page:
 ### 1. Prevent user from sorting after the array is already sorted

@@ -18,7 +18,6 @@ const dijkstra = async (
     });
   };
 
-  console.log('dijkstra-ing...');
   // Make copy of all nodes, set source node cost as 0, rest of node
   // by default has cost of infinity
   const nodesMap = [];
@@ -39,7 +38,6 @@ const dijkstra = async (
     const nextNode = nodesQueue.shift();
     await helperDelay(500);
     if (nextNode.id === dest.id) {
-      console.log(`cost to reach is ${nextNode.costToReach}`);
       // construct shortest path
       let pair;
       const path = [];
@@ -54,7 +52,6 @@ const dijkstra = async (
         path.push(pair);
         currentNode = parentNode;
       }
-      console.log(path);
       setShortestPath(path);
       setCurrentNode(null);
       setNeighborNode(null);
@@ -108,8 +105,6 @@ const dijkstra = async (
       }
     }
   }
-
-  console.log('finish dijkstra');
 };
 
 export default dijkstra;

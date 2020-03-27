@@ -5,7 +5,9 @@ import MenuBar from './components/MenuBar';
 import RenderEdge from './components/RenderEdge';
 import {Alert, message, Button, Modal, Select} from 'antd';
 import DijkstraDescription from './components/DijkstraDescription';
-import Legend from './components/Legend';
+import BellmanFordDescription from './components/BellmanFordDescription';
+import DijkstraLegend from './components/DijkstraLegend';
+import BellmanFordLegend from './components/BellmanFordLegend';
 import {useSelector, useDispatch} from 'react-redux';
 import {NODE, EDGE, ADD, DEL, RUN, ADDNODEINFO} from './helpers/constants';
 import {
@@ -40,7 +42,7 @@ function GraphsPage(props) {
   const [latestNodeId, setLatestNodeId] = useState(0); // keep track of node IDs
   const [infoText, setInfoText] = useState(ADDNODEINFO); // the info text below menu bar
   const [modifyEdge, setModifyEdge] = useState(false); // sets whether the modify edge modal visibility is on/off
-  const [graphAlgo, setGraphAlgo] = useState('Bellman-Ford'); // sets the graph algo to visualize
+  const [graphAlgo, setGraphAlgo] = useState('Dijkstra'); // sets the graph algo to visualize
   const dispatch = useDispatch(); // connect to redux store, update it whenever add/delete node/edge
   const readOnlyState = useSelector(state => state.graph); // read the state of the graph from redux store
 
@@ -126,7 +128,23 @@ function GraphsPage(props) {
       <div className="Custom-Block">
         <h2>
           Choose Graph Algorithm:{' '}
-          <Select value={graphAlgo} onChange={e => setGraphAlgo(e)}>
+          <Select
+            value={graphAlgo}
+            onChange={e => {
+              onClickReset(
+                setNodes,
+                setEdges,
+                setCurrState,
+                setLatestNodeId,
+                setStartEndNodePair,
+                setInfoText,
+                setCurrentNode,
+                setNeighborNode,
+                setShortestPath,
+                dispatch,
+              );
+              setGraphAlgo(e);
+            }}>
             <Option value="Dijkstra">Dijkstra</Option>
             <Option value="Bellman-Ford">Bellman-Ford</Option>
           </Select>
@@ -159,6 +177,7 @@ function GraphsPage(props) {
                     setNeighborNode,
                     readOnlyState,
                     helperDelay,
+                    message,
                   );
                 default:
                   return;
@@ -187,7 +206,9 @@ function GraphsPage(props) {
           onOk={e => setModifyEdge(false)}
           onCancel={e => setModifyEdge(false)}>
           {edges.map(edge => {
-            return <RenderEdge value={[edge, edges, setEdges, dispatch]} />;
+            return (
+              <RenderEdge value={[edge, edges, setEdges, dispatch, false]} />
+            );
           })}
         </Modal>
       </div>
@@ -271,8 +292,17 @@ function GraphsPage(props) {
       </div>
       <br />
       <div style={{textAlign: 'center'}}>
-        <DijkstraDescription />
-        <Legend />
+        {graphAlgo === 'Dijkstra' ? (
+          <div>
+            <DijkstraDescription />
+            <DijkstraLegend />
+          </div>
+        ) : (
+          <div>
+            <BellmanFordDescription />
+            <BellmanFordLegend />
+          </div>
+        )}
       </div>
     </div>
   );

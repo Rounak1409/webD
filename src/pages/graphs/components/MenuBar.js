@@ -1,13 +1,10 @@
 import React, {useState} from 'react';
-import {Menu, Icon, Button} from 'antd';
-
-const {SubMenu} = Menu;
+import {Menu, Icon} from 'antd';
 
 function MenuBar(props) {
   const [current, setCurrent] = useState('mail');
 
   const handleClick = e => {
-    console.log('click ', e);
     setCurrent(e.key);
   };
 
