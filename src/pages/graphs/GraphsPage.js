@@ -3,7 +3,7 @@ import GraphNode from './components/GraphNode';
 import Line from './components/Line';
 import MenuBar from './components/MenuBar';
 import RenderEdge from './components/RenderEdge';
-import {Alert, message, Button, Modal} from 'antd';
+import {Alert, message, Button, Modal, Select} from 'antd';
 import DijkstraDescription from './components/DijkstraDescription';
 import Legend from './components/Legend';
 import {useSelector, useDispatch} from 'react-redux';
@@ -20,7 +20,10 @@ import {
   handleAddNode,
 } from './helpers/clickHandlers';
 import dijkstra from './helpers/dijkstra';
+import bellmanFord from './helpers/bellmanFord';
 import './GraphsPage.css';
+
+const {Option} = Select;
 
 function GraphsPage(props) {
   const [nodes, setNodes] = useState([]); // array of nodes
@@ -37,6 +40,7 @@ function GraphsPage(props) {
   const [latestNodeId, setLatestNodeId] = useState(0); // keep track of node IDs
   const [infoText, setInfoText] = useState(ADDNODEINFO); // the info text below menu bar
   const [modifyEdge, setModifyEdge] = useState(false); // sets whether the modify edge modal visibility is on/off
+  const [graphAlgo, setGraphAlgo] = useState('Bellman-Ford'); // sets the graph algo to visualize
   const dispatch = useDispatch(); // connect to redux store, update it whenever add/delete node/edge
   const readOnlyState = useSelector(state => state.graph); // read the state of the graph from redux store
 
@@ -120,7 +124,13 @@ function GraphsPage(props) {
       <MenuBar className="Custom-MenuBar" data={menuData} />
       <Alert showIcon message={infoText} type="info" className="Custom-Alert" />
       <div className="Custom-Block">
-        <h1 className="Custom-Text">Draw Your Graph and Visualize Dijkstra!</h1>
+        <h2>
+          Choose Graph Algorithm:{' '}
+          <Select value={graphAlgo} onChange={e => setGraphAlgo(e)}>
+            <Option value="Dijkstra">Dijkstra</Option>
+            <Option value="Bellman-Ford">Bellman-Ford</Option>
+          </Select>
+        </h2>
         {currState.operation === RUN &&
         startEndNodePair[0] &&
         startEndNodePair[1] ? (
@@ -128,22 +138,37 @@ function GraphsPage(props) {
             type="primary"
             icon="code"
             className="Custom-Button"
-            onClick={e =>
-              dijkstra(
-                nodes,
-                startEndNodePair,
-                setShortestPath,
-                setCurrentNode,
-                setNeighborNode,
-                readOnlyState,
-                helperDelay,
-              )
-            }>
-            Run Dijkstra!
+            onClick={e => {
+              switch (graphAlgo) {
+                case 'Dijkstra':
+                  return dijkstra(
+                    nodes,
+                    startEndNodePair,
+                    setShortestPath,
+                    setCurrentNode,
+                    setNeighborNode,
+                    readOnlyState,
+                    helperDelay,
+                  );
+                case 'Bellman-Ford':
+                  return bellmanFord(
+                    nodes,
+                    startEndNodePair,
+                    setShortestPath,
+                    setCurrentNode,
+                    setNeighborNode,
+                    readOnlyState,
+                    helperDelay,
+                  );
+                default:
+                  return;
+              }
+            }}>
+            Run {graphAlgo}!
           </Button>
         ) : (
           <Button type="primary" icon="code" className="Custom-Button" disabled>
-            Run Dijkstra!
+            Run {graphAlgo}!
           </Button>
         )}
         <Button
