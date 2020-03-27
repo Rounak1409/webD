@@ -107,6 +107,7 @@ function HomePage(props) {
             <h2>
               Implemented Algorithms & Data-Structures:
               <li>Dijkstra</li>
+              <li>Bellman-Ford</li>
               <li>Binary Search</li>
               <li>Knuth Shuffle</li>
               <li>Insertion Sort</li>
