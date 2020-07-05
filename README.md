@@ -38,20 +38,20 @@ I created this web-app as a fun side-project to help me understand data structur
 
 ## Features
 
-- Create your own graph - indicate the position of your graph node by clicking on the canvas and click on 2 nodes to connect them with an edge.
+- Create your own graph - indicate the position of your graph node by clicking on the canvas and create an edge between 2 nodes by clicking on those 2 nodes.
 - Modify edge weights (default edge weight is 1).
-- Visualize *Dijkstra* with color-coding indicating the current Node that was extracted from the Priority Queue as well as the exact edge which is being relaxed.
-- Visualize *Bellman-Ford* with color-coding indicating current Node and the exact edge that is being relaxed.
+- Visualize *Dijkstra* with color-coding that indicates the current Node that was extracted from the Priority Queue as well as the exact edge which is being relaxed.
+- Visualize *Bellman-Ford* with color-coding that indicates current Node and the exact edge that is being relaxed.
 - Visualize shortest path after running *Dijkstra* / *Bellman-Ford*.
 - Visualize *Binary Search* on a monotonically increasing array at each step with color-coding.
-- Visuaize *Insertion*, *Bubble*, *Selection* and *Merge Sort* at each step on a randomized array.
+- Visualize *Insertion*, *Bubble*, *Selection* and *Merge Sort* at each step on a randomized array.
 - Randomize array using the *Knuth Shuffle* algorithm.
 - Visualize standard operations on *Binary Search Tree* and *AVL Tree*.
-- Brief description of each algorithm with some pseudocode to give an idea of the implementation.
+- Brief description of each algorithm, its ideal use case, and some pseudocode to give an idea of its implementation.
 
 Nice to have features:
 
-- Implement directed graphs (so bellman-ford can work on -ve wt edges).
+- Implement directed graphs (so bellman-ford can work on negative weight edges).
 - Prevent user from sorting after the array is already sorted
 - Add functionality to change visualization speed
 - Visualize *Quick-Select*
