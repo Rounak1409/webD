@@ -17,7 +17,11 @@ I created this web-app as a fun side-project to help me understand data structur
 
 ## Screenshots
 
-![Receptionist Welcome](./release/resize-screenshots/rsz_receptionistwelcome.png)
+![Home Page](./screenshots/rsz_homepage.jpg)
+![Graph Page](./screenshots/rsz_graphpage.jpg)
+![Search Page](./screenshots/rsz_searchpage.jpg)
+![Sort Page](./screenshots/rsz_sortpage.jpg)
+![DS Page](./screenshots/rsz_dspage.jpg)
 
 ## Technologies
 
@@ -51,7 +55,7 @@ I created this web-app as a fun side-project to help me understand data structur
 
 Nice to have features:
 
-- Implement directed graphs (so bellman-ford can work on negative weight edges).
+- Implement directed graphs (so *Bellman-Ford* can work on negative weight edges).
 - Prevent user from sorting after the array is already sorted
 - Add functionality to change visualization speed
 - Visualize *Quick-Select*
