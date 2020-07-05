@@ -1,3 +1,62 @@
+# CS2040S-ALGO-VISUALIZER
+
+> A web-app that visualizes the different algorithms and data structures that were taught in CS2040S, the Data Structures and Algorithms undergraduate Computer Science course in the National University of Singapore (NUS).
+
+## Table of contents
+
+- [General info](#general-info)
+- [Screenshots](#screenshots)
+- [Technologies](#technologies)
+- [Setup](#setup)
+- [Features](#features)
+- [Contact](#contact)
+
+## General info
+
+I created this web-app as a fun side-project to help me understand data structures and algorithms while I was taking CS2040S. This project has really paid off for me as I learnt the various naunces and tricky bugs of the data structures and algorithms that were taught by implementing them from scratch. I hope that future CS students can benefit from the usage of my web-app by first taking a seemingly complex data structure / algorithm, visualizing how it works in practice on different inputs, and then understanding the high-level idea behind it.
+
+## Screenshots
+
+![Receptionist Welcome](./release/resize-screenshots/rsz_receptionistwelcome.png)
+
+## Technologies
+
+- Javascript
+- ReactJS 
+- Redux
+- Ant-Design
+
+## Setup
+
+1. Clone this repo
+2. In project root, run: `npm ci`
+3. To setup ReactJS, refer to https://reactjs.org/docs/getting-started.html
+4. To setup Ant-Design, refer to https://ant.design/docs/react/introduce
+5. To setup Redux, refer to https://react-redux.js.org/introduction/quick-start
+6. After completing the pre-requisite setup, run `npm run start` to start the local dev server
+7. You should be able to view the web-app at http://localhost:3000
+
+## Features
+
+- Create, read, update and delete Meetings.
+- Uses native date-time picker.
+- Create, read, update user roles.
+- Send confirmation email with QR code to meeting participants when a new meeting is set up.
+- Scan meeting QR code to verify visitor.
+- Manual form submission (indicating their contact details and their purpose of visit) for visitors without QR code.
+- Push-Notification to employees with _FALLBACK_ / _ADMIN_ role notifying them of new visitor without QR code.
+- Employees may _ACCEPT_ / _REJECT_ visitors along with a custom message that will be rendered to the visitor.
+
+Nice to have features:
+
+- Push-Notification to the relevant employee when new visitor with meeting QR code is verified.
+- Admin to be able to set custom configs such as standard ACCEPT / REJECT messages as part of their company's Standard Operating Procedures.
+- More naunced status update for visitors without meeting QR code such as `WAIT_FOR_X_MINS`.
+
+## Contact
+
+Created by [@raysonkoh](https://www.raysonkoh.com/) - feel free to contact me!
+
 # Issues:
 
 ## Graphs Page:
@@ -11,72 +70,3 @@
 ## Data Structures Page:
 ### 1. Implement HashMaps**
 ### 2. Implement Skiplists
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-## Available Scripts
-
-In the project directory, you can run:
-
-### `yarn start`
-
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
-
-### `yarn test`
-
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `yarn build`
-
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
