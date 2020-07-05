@@ -13,7 +13,7 @@
 
 ## General info
 
-I created this web-app as a fun side-project to help me understand data structures and algorithms while I was taking CS2040S. This project has really paid off for me as I learnt the various naunces and tricky bugs of the data structures and algorithms that were taught by implementing them from scratch. I hope that future CS students can benefit from the usage of my web-app by first taking a seemingly complex data structure / algorithm, visualizing how it works in practice on different inputs, and then understanding the high-level idea behind it.
+I created this web-app as a fun side-project to help me understand data structures and algorithms while I was taking CS2040S. This project had really paid off for me as I learnt the various naunces and tricky bugs of the data structures and algorithms that were taught by implementing them from scratch. I hope that future CS students can benefit from the usage of my web-app by first taking a seemingly complex data structure / algorithm, visualizing how it works in practice on different inputs, and then understanding the high-level idea behind it.
 
 ## Screenshots
 
