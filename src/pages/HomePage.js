@@ -101,7 +101,8 @@ function HomePage(props) {
           <Col span={12} style={{alignSelf: 'flex-start'}}>
             <h1>Welcome to Ray's CS2040S Visualizer!</h1>
             <h2>
-              This is where I showcase the different algorithms taught in CS2040S - Data Structures and Algorithms.
+              This is where I showcase the different algorithms taught in
+              CS2040S.
             </h2>
             <h2>
               Implemented Algorithms & Data-Structures:
