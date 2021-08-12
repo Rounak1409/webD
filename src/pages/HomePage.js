@@ -99,17 +99,16 @@ function HomePage(props) {
             </Carousel>
           </Col>
           <Col span={12} style={{alignSelf: 'flex-start'}}>
-            <h1>Welcome to Ray's CS2040S Visualizer!</h1>
+            <h1>Welcome to Algorithms Visualizer!</h1>
             <h2>
               This is where I showcase the different algorithms taught in
-              CS2040S.
+              DSA.
             </h2>
             <h2>
               Implemented Algorithms & Data-Structures:
               <li>Dijkstra</li>
               <li>Bellman-Ford</li>
               <li>Binary Search</li>
-              <li>Knuth Shuffle</li>
               <li>Insertion Sort</li>
               <li>Bubble Sort</li>
               <li>Selection Sort</li>

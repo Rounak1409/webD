@@ -41,7 +41,7 @@ function BinarySearchTree(props) {
       <div style={{textAlign: 'left', marginTop: '1em'}}>
         <h2>
           Key:{' '}
-          <InputNumber min={0} defaultValue={key} onChange={e => setKey(e)} />{' '}
+          <InputNumber defaultValue={key} onChange={e => setKey(e)} />{' '}
         </h2>
         <h2>BST Operations:</h2>
         <Button
