@@ -1,6 +1,6 @@
-# CS2040S-ALGO-VISUALIZER
+# ALGO-VISUALIZER
 
-> A web-app that visualizes the different algorithms and data structures that were taught in CS2040S, the Data Structures and Algorithms undergraduate Computer Science course in the National University of Singapore (NUS).
+> A web-app that visualizes the different algorithms and data structures that were taught in DSA, the Data Structures and Algorithms undergraduate Computer Science course in the RV College Of Engineering.
 
 ## Table of contents
 
@@ -13,7 +13,7 @@
 
 ## General info
 
-I created this web-app as a fun side-project to help me understand data structures and algorithms while I was taking CS2040S. This project had really paid off for me as I learnt the various naunces and tricky bugs of the data structures and algorithms that were taught by implementing them from scratch. I hope that future CS students can benefit from the usage of my web-app by first taking a seemingly complex data structure / algorithm, visualizing how it works in practice on different inputs, and then understanding the high-level idea behind it.
+I created this web-app as a fun side-project to help me understand data structures and algorithms . This project had really paid off for me as I learnt the various naunces and tricky bugs of the data structures and algorithms that were taught by implementing them from scratch. I hope that future CS students can benefit from the usage of my web-app by first taking a seemingly complex data structure / algorithm, visualizing how it works in practice on different inputs, and then understanding the high-level idea behind it.
 
 ## Screenshots
 
@@ -64,4 +64,4 @@ Nice to have features:
 
 ## Contact
 
-Created by [@raysonkoh](https://www.raysonkoh.com/) - feel free to contact me!
+Created by [@Rounak1409] - feel free to contact me!
